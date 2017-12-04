@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
     {
         public void RunOne()
         {
-            int input = 23;
+            int input = 265149;
 
             int sum = 1;
             int steps = 0;
@@ -27,12 +27,13 @@ namespace AdventOfCode.Days
                     break;
                 }
 
-                sum += i;                
+                sum += i;
             }
         }
 
         public void RunTwo()
         {
+            int input = 265149;
             int gridSize = 16;
 
             int[,] grid = new int[gridSize, gridSize];
@@ -51,7 +52,7 @@ namespace AdventOfCode.Days
                 y = tuple.Item2;
 
                 int sum = GetSum(x, y, grid);
-                if(sum > 265149)
+                if(sum > input)
                 {
                     Console.WriteLine(sum);
                     break;

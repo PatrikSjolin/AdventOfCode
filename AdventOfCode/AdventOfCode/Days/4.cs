@@ -10,7 +10,7 @@ namespace AdventOfCode.Days
     {
         public void RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"C:\Users\patri\Documents\GitHub\AdventOfCode\AdventOfCode\AdventOfCode\input3.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input3.txt").ToList();
 
             int valid = 0;
 
@@ -41,7 +41,7 @@ namespace AdventOfCode.Days
         public void RunTwo()
         {
 
-            List<string> inputLines = System.IO.File.ReadAllLines(@"C:\Users\patri\Documents\GitHub\AdventOfCode\AdventOfCode\AdventOfCode\input3.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input3.txt").ToList();
 
             int valid = 0;
 
@@ -54,7 +54,7 @@ namespace AdventOfCode.Days
                     for (int j = 0; j < tests.Count; j++)
                     {
                         if (i == j) continue;
-                        if(IsAnagram(tests[i], tests[j]))
+                        if(Utilities.IsAnagram(tests[i], tests[j]))
                         {
                             end = true;
                             break;
@@ -70,32 +70,6 @@ namespace AdventOfCode.Days
                 }
             }
             Console.WriteLine(valid);
-        }
-
-        public bool IsAnagram(string first, string second)
-        {
-            if (first.Length != second.Length)
-                return false;
-
-            if (first == second)
-                return true;//or false: Don't know whether a string counts as an anagram of itself
-
-            Dictionary<char, int> pool = new Dictionary<char, int>();
-            foreach (char element in first.ToCharArray()) //fill the dictionary with that available chars and count them up
-            {
-                if (pool.ContainsKey(element))
-                    pool[element]++;
-                else
-                    pool.Add(element, 1);
-            }
-            foreach (char element in second.ToCharArray()) //take them out again
-            {
-                if (!pool.ContainsKey(element)) //if a char isn't there at all; we're out
-                    return false;
-                if (--pool[element] == 0) //if a count is less than zero after decrement; we're out
-                    pool.Remove(element);
-            }
-            return pool.Count == 0;
         }
     }
 }

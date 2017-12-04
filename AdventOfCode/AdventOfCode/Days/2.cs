@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public void RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"C:\Users\patri\Documents\GitHub\AdventOfCode\AdventOfCode\AdventOfCode\input2.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
 
             int sum = 0;
 
@@ -24,7 +24,7 @@ namespace AdventOfCode.Days
 
         public void RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"C:\Users\patri\Documents\GitHub\AdventOfCode\AdventOfCode\AdventOfCode\input2.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
 
             int sum = 0;
 
