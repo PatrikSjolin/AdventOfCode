@@ -45,6 +45,7 @@
     <Compile Include="Days\1.cs" />
     <Compile Include="Days\2.cs" />
     <Compile Include="Days\3.cs" />
+    <Compile Include="Days\4.cs" />
     <Compile Include="IPuzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

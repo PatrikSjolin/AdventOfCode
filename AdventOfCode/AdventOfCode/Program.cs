@@ -15,6 +15,7 @@ namespace AdventOfCode
                 new _1(),
                 new _2(),
                 new _3(),
+                new _4(),
             };
 
             int num = 1;
