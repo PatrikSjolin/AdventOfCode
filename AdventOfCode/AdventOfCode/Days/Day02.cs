@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdventOfCode.Days
 {
-    public class _2 : IPuzzle
+    public class Day02 : IPuzzle
     {
         public void RunOne()
         {
@@ -12,7 +12,7 @@ namespace AdventOfCode.Days
 
             int sum = 0;
 
-            foreach(string s in inputLines)
+            foreach (string s in inputLines)
             {
                 List<int> numbers = s.Split('\t').Select(ss => int.Parse(ss)).ToList();
                 sum += numbers.Max() - numbers.Min();
@@ -32,12 +32,12 @@ namespace AdventOfCode.Days
                 List<string> numbers = s.Split('\t').ToList();
                 List<int> myStringList = numbers.Select(ss => int.Parse(ss)).ToList();
 
-                for(int i = 0; i < myStringList.Count; i++)
+                for (int i = 0; i < myStringList.Count; i++)
                 {
-                    for(int j = 0; j < myStringList.Count; j++)
+                    for (int j = 0; j < myStringList.Count; j++)
                     {
                         if (j == i) continue;
-                        if(myStringList[i] % myStringList[j] == 0)
+                        if (myStringList[i] % myStringList[j] == 0)
                         {
                             sum += myStringList[i] / myStringList[j];
                         }

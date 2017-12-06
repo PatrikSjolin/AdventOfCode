@@ -2,7 +2,7 @@
 
 namespace AdventOfCode.Days
 {
-    public class _3 : IPuzzle
+    public class Day03 : IPuzzle
     {
         public void RunOne()
         {
@@ -52,7 +52,7 @@ namespace AdventOfCode.Days
                 y = tuple.Item2;
 
                 int sum = GetSum(x, y, grid);
-                if(sum > input)
+                if (sum > input)
                 {
                     Console.WriteLine(sum);
                     break;

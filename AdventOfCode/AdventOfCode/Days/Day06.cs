@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    public class _6 : IPuzzle
+    public class Day06 : IPuzzle
     {
         private int indexOfEqual;
         HashSet<string> states = new HashSet<string>();
@@ -38,10 +36,10 @@ namespace AdventOfCode.Days
 
                 split[indexOfMax] = 0;
 
-                for(int i = indexOfMax+1; i < (max+indexOfMax+1); i++)
+                for (int i = indexOfMax + 1; i < (max + indexOfMax + 1); i++)
                 {
                     split[i % size]++;
-                }                
+                }
             }
         }
 

@@ -12,12 +12,31 @@ namespace AdventOfCode
 
             List<IPuzzle> puzzles = new List<IPuzzle>
             {
-                new _1(),
-                new _2(),
-                new _3(),
-                new _4(),
-                new _5(),
-                new _6(),
+                new Day01(),
+                new Day02(),
+                new Day03(),
+                new Day04(),
+                new Day05(),
+                new Day06(),
+                //new Day07(),
+                //new Day08(),
+                //new Day09(),
+                //new Day10(),
+                //new Day011(),
+                //new Day012(),
+                //new Day013(),
+                //new Day014(),
+                //new Day015(),
+                //new Day016(),
+                //new Day017(),
+                //new Day018(),
+                //new Day019(),
+                //new Day020(),
+                //new Day021(),
+                //new Day022(),
+                //new Day023(),
+                //new Day024(),
+                //new Day025(),
             };
 
             int num = 1;
@@ -43,11 +62,6 @@ namespace AdventOfCode
             function.Invoke();
 
             double timeElapsed = DateTime.Now.Subtract(start).TotalMilliseconds;
-
-            //if (timeElapsed < 20)
-            //{
-            //    timeElapsed = 0;
-            //}
 
             Console.WriteLine("Finished in {0} ms", timeElapsed);
         }

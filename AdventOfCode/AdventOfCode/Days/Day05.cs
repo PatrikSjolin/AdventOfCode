@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdventOfCode.Days
 {
-    public class _5 : IPuzzle
+    public class Day05 : IPuzzle
     {
         public void RunOne()
         {
@@ -12,7 +12,7 @@ namespace AdventOfCode.Days
             int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
             int index = 0;
             int totalJumps = 0;
-            while(index < input.Length)
+            while (index < input.Length)
             {
                 totalJumps++;
                 int previousIndex = index;

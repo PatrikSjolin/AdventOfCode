@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    public class _4 : IPuzzle
+    public class Day04 : IPuzzle
     {
         public void RunOne()
         {
@@ -18,7 +16,7 @@ namespace AdventOfCode.Days
             {
                 Queue<string> queue = new Queue<string>(line.Split(' '));
 
-                while(true)
+                while (true)
                 {
                     string test = queue.Dequeue();
 
