@@ -14,22 +14,21 @@ namespace AdventOfCode.Days
 
             int valid = 0;
 
-            foreach(var line in inputLines)
+            foreach (var line in inputLines)
             {
-                List<string> tests = line.Split(' ').ToList();
-                Dictionary<string, string> ok = new Dictionary<string, string>();
+                Queue<string> queue = new Queue<string>(line.Split(' '));
 
-                for(int i = 0; i < tests.Count; i++)
+                while(true)
                 {
-                    try
+                    string test = queue.Dequeue();
+
+                    if (queue.Count == 0)
                     {
-                        ok.Add(tests[i], "hej");
-                        if(i == tests.Count - 1)
-                        {
-                            valid++;
-                        }
+                        valid++;
+                        break;
                     }
-                    catch(Exception e)
+
+                    if (queue.Contains(test))
                     {
                         break;
                     }
@@ -40,7 +39,6 @@ namespace AdventOfCode.Days
 
         public void RunTwo()
         {
-
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input3.txt").ToList();
 
             int valid = 0;
@@ -49,12 +47,12 @@ namespace AdventOfCode.Days
             {
                 bool end = false;
                 List<string> tests = line.Split(' ').ToList();
-                for(int i = 0; i < tests.Count; i++)
+                for (int i = 0; i < tests.Count; i++)
                 {
                     for (int j = 0; j < tests.Count; j++)
                     {
                         if (i == j) continue;
-                        if(Utilities.IsAnagram(tests[i], tests[j]))
+                        if (Utilities.IsAnagram(tests[i], tests[j]))
                         {
                             end = true;
                             break;

@@ -6,43 +6,36 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    public class State
-    {
-        public List<int> Memory { get; set; }
-
-        public bool Equals(State s)
-        {
-            for(int i = 0; i < 16; i++)
-            {
-                if (s.Memory[i] != Memory[i])
-                    return false;
-            }
-            return true;
-        }
-    }
-
     public class _6 : IPuzzle
     {
+        private int indexOfEqual;
+        HashSet<string> states = new HashSet<string>();
+        List<string> listOfStates = new List<string>();
+
         public void RunOne()
         {
-            List<State> states = new List<State>();
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input6.txt").ToList();
             List<int> split = inputLines[0].Split('\t').Select(x => int.Parse(x)).ToList();
-
-            int count = 0;
-
+            int size = split.Count;
+            int count = 0; 
             while (true)
             {
-                for (int i = 0; i < states.Count; i++)
+                count++;
+                if(count > 13000)
                 {
-                    if (states[i].Equals(new State() { Memory = split.ToList() }))
-                    {
-                        System.Diagnostics.Debugger.Break();
-                    }
+                    return;
+                }
+                string test = string.Join(".", split);
+
+                if (states.Contains(test))
+                {
+                    indexOfEqual = listOfStates.IndexOf(test);
+                    Console.WriteLine(states.Count);
+                    return;
                 }
 
-                states.Add(new State { Memory = split.ToList() });
-
+                states.Add(test);
+                listOfStates.Add(test);
 
                 int max = split.Max();
 
@@ -52,14 +45,14 @@ namespace AdventOfCode.Days
 
                 for(int i = indexOfMax+1; i < (max+indexOfMax+1); i++)
                 {
-                    split[i % 16]++;
-                }
-                
+                    split[i % size]++;
+                }                
             }
         }
 
         public void RunTwo()
         {
+            Console.WriteLine(states.Count - indexOfEqual);
         }
     }
 }
