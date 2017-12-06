@@ -9,10 +9,10 @@ namespace AdventOfCode.Days
         public void RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
-            List<int> input = inputLines.Select(x => int.Parse(x)).ToList();
+            int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
             int index = 0;
             int totalJumps = 0;
-            while(index < input.Count)
+            while(index < input.Length)
             {
                 totalJumps++;
                 int previousIndex = index;
@@ -26,10 +26,10 @@ namespace AdventOfCode.Days
         public void RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
-            List<int> input = inputLines.Select(x => int.Parse(x)).ToList();
+            int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
             int index = 0;
             int totalJumps = 0;
-            while (index < input.Count)
+            while (index < input.Length)
             {
                 totalJumps++;
                 int previousIndex = index;

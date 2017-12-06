@@ -44,10 +44,10 @@ namespace AdventOfCode
 
             double timeElapsed = DateTime.Now.Subtract(start).TotalMilliseconds;
 
-            if (timeElapsed < 20)
-            {
-                timeElapsed = 0;
-            }
+            //if (timeElapsed < 20)
+            //{
+            //    timeElapsed = 0;
+            //}
 
             Console.WriteLine("Finished in {0} ms", timeElapsed);
         }

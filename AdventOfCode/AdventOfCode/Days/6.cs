@@ -17,14 +17,9 @@ namespace AdventOfCode.Days
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input6.txt").ToList();
             List<int> split = inputLines[0].Split('\t').Select(x => int.Parse(x)).ToList();
             int size = split.Count;
-            int count = 0; 
+
             while (true)
             {
-                count++;
-                if(count > 13000)
-                {
-                    return;
-                }
                 string test = string.Join(".", split);
 
                 if (states.Contains(test))

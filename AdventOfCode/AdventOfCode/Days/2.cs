@@ -14,9 +14,8 @@ namespace AdventOfCode.Days
 
             foreach(string s in inputLines)
             {
-                List<string> numbers = s.Split('\t').ToList();
-                List<int> myStringList = numbers.Select(ss => int.Parse(ss)).ToList();
-                sum += myStringList.Max() - myStringList.Min();
+                List<int> numbers = s.Split('\t').Select(ss => int.Parse(ss)).ToList();
+                sum += numbers.Max() - numbers.Min();
             }
 
             Console.WriteLine(sum);
