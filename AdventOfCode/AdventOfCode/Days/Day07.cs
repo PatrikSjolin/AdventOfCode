@@ -60,14 +60,10 @@ namespace AdventOfCode.Days
                 if(p == null)
                 {
                     root = lastParent;
+                    Console.WriteLine(root);
                     return;
                 }
             }
-
-
-            string answer = "";
-
-            Console.WriteLine(answer);
         }
 
         string GetParent(string child, Dictionary<string, List<string>> tree)
@@ -83,31 +79,6 @@ namespace AdventOfCode.Days
             return null;
         }
 
-        long sum = 0;
-        long GetSum(Dictionary<string, List<string>> tree, string parent)
-        {
-            if (!tree.ContainsKey(parent))
-            {
-                return weight[parent];
-            }
-
-            List<string> children = tree[parent];
-
-            long sum2 = 0;
-            
-            foreach(string c in children)
-            {
-                sum2 += GetSum(tree, c);
-            }
-            sum += sum2;
-            return sum2;
-        }
-
-        //int GetSumOfChildren(List<string> children)
-        //{
-
-        //}
-
         int GetSum3(Dictionary<string, List<string>> tree, string parent)
         {
             int sum = 0;
@@ -119,10 +90,8 @@ namespace AdventOfCode.Days
                 foreach (var c in newlist)
                 {
                     sum += weight[c];
-                    //children.Add(tree[c]);
                     if (tree.ContainsKey(c))
                     {
-
                         foreach (var hej in tree[c])
                         {
                             children.Add(hej);
@@ -131,60 +100,62 @@ namespace AdventOfCode.Days
                 }
             }
 
-
-
             return sum;
         }
 
-
-        long GetSum2(Dictionary<string, List<string>> tree, string parent)
+        int FindIncorrectSum(Dictionary<string, int> sums)
         {
-            if (!tree.ContainsKey(parent))
+            Dictionary<int, bool> tests = new Dictionary<int, bool>();
+            foreach (var sum in sums)
             {
-                return 0;
+                if (tests.ContainsKey(sum.Value))
+                {
+                    tests[sum.Value] = true;
+                }
+                else
+                {
+                    tests.Add(sum.Value, false);
+                }
             }
 
-
-            List<string> children = tree[parent];
-
-            foreach(var v in children)
-            {
-                sum += weight[v] + GetSum2(tree, v);
-            }
-
-            return weight[parent];
+            return tests.FirstOrDefault(x => !x.Value).Key;
         }
 
         public void RunTwo()
         {
-            Dictionary<string, long> sums = new Dictionary<string, long>();
+            Dictionary<string, int> sums = new Dictionary<string, int>();
+            List<string> path = new List<string>();
 
-            long tot = GetSum3(tree, root);
+            string needsBalancing = root;
 
-            foreach(var c in tree[root])
+            while (true)
             {
-                sum = 0;
-                sums.Add(c, weight[c] + GetSum3(tree, c));
-            }
-            sums.Clear();
-            foreach(var c in tree["onnfacs"])
-            {
-                sum = 0;
-                sums.Add(c, weight[c] + GetSum3(tree, c));
-            }
-            sums.Clear();
-            foreach(var c in tree["ftaxy"])
-            {
+                foreach (var c in tree[needsBalancing])
+                {
+                    sums.Add(c, weight[c] + GetSum3(tree, c));
+                }
 
-                sum = 0;
-                sums.Add(c, weight[c] + GetSum3(tree, c));
-            }
-            sums.Clear();
-            foreach(var c in tree["gexwzw"])
-            {
+                int incorrectWeight = FindIncorrectSum(sums);
+                var hej = sums.FirstOrDefault(x => x.Value == incorrectWeight);
+                
+                    needsBalancing = sums.FirstOrDefault(x => x.Value == incorrectWeight).Key;
+                path.Add(needsBalancing);
 
-                sum = 0;
-                sums.Add(c, weight[c] + GetSum3(tree, c));
+                if(string.IsNullOrEmpty(needsBalancing))
+                {
+                    sums.Clear();
+                    foreach (var c in tree[path[path.Count - 3]])
+                    {
+                        sums.Add(c, weight[c] + GetSum3(tree, c));
+                    }
+                    int incorrectWeight2 = FindIncorrectSum(sums);
+                    var hej2 = sums.FirstOrDefault(x => x.Value != incorrectWeight2);
+                    var badNode = sums.FirstOrDefault(x => x.Value == incorrectWeight2);
+
+                    Console.WriteLine(weight[badNode.Key] - (incorrectWeight2 - sums.FirstOrDefault(x => x.Value != incorrectWeight2).Value));
+                    return;
+                }
+                sums.Clear();
             }
         }
     }
