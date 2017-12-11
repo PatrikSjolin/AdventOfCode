@@ -65,15 +65,18 @@ namespace AdventOfCode.Days
             int ySteps = Math.Abs(y);
             int xSteps = Math.Abs(x);
             
+            //Steps til one of the axes
             steps += Math.Min(xSteps, ySteps);
 
             ySteps -= steps;
             xSteps -= steps;
 
+            //If on y axes
             if(ySteps > 0)
             {
                 steps += ySteps / 2;
             }
+            //If on x axes
             if(xSteps > 0)
             {
                 steps += xSteps;
