@@ -22,7 +22,7 @@ namespace AdventOfCode
                 new Day08(),
                 new Day09(),
                 new Day10(),
-                //new Day011(),
+                new Day11(),
                 //new Day012(),
                 //new Day013(),
                 //new Day014(),
