@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    class Day21
+    public class Day21 : IPuzzle
     {
+        public void RunOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RunTwo()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
