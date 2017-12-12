@@ -5,14 +5,16 @@ namespace AdventOfCode.Days
 {
     public class Day17 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input17.txt").ToList();
+            return "";
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input17.txt").ToList();
+            return "";
         }
     }
 }

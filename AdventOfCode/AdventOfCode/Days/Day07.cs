@@ -10,7 +10,7 @@ namespace AdventOfCode.Days
         Dictionary<string, List<string>> tree;
         Dictionary<string, int> weight;
 
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input7.txt").ToList();
 
@@ -60,8 +60,7 @@ namespace AdventOfCode.Days
                 if(p == null)
                 {
                     root = lastParent;
-                    Console.WriteLine(root);
-                    return;
+                    return root;
                 }
             }
         }
@@ -121,7 +120,7 @@ namespace AdventOfCode.Days
             return tests.FirstOrDefault(x => !x.Value).Key;
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             Dictionary<string, int> sums = new Dictionary<string, int>();
             List<string> path = new List<string>();
@@ -152,8 +151,7 @@ namespace AdventOfCode.Days
                     var hej2 = sums.FirstOrDefault(x => x.Value != incorrectWeight2);
                     var badNode = sums.FirstOrDefault(x => x.Value == incorrectWeight2);
 
-                    Console.WriteLine(weight[badNode.Key] - (incorrectWeight2 - sums.FirstOrDefault(x => x.Value != incorrectWeight2).Value));
-                    return;
+                    return (weight[badNode.Key] - (incorrectWeight2 - sums.FirstOrDefault(x => x.Value != incorrectWeight2).Value)).ToString();
                 }
                 sums.Clear();
             }

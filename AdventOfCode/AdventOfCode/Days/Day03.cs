@@ -4,7 +4,7 @@ namespace AdventOfCode.Days
 {
     public class Day03 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             int input = 265149;
 
@@ -23,15 +23,14 @@ namespace AdventOfCode.Days
 
                     int answer = steps + stepsFromEdge;
 
-                    Console.WriteLine(answer);
-                    break;
+                    return answer.ToString();
                 }
 
                 sum += i;
             }
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             int input = 265149;
             int gridSize = 16;
@@ -54,8 +53,7 @@ namespace AdventOfCode.Days
                 int sum = GetSum(x, y, grid);
                 if (sum > input)
                 {
-                    Console.WriteLine(sum);
-                    break;
+                    return sum.ToString();
                 }
                 grid[x, y] = sum;
             }

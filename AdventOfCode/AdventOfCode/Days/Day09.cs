@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
 {
     public class Day09 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input9.txt").ToList();
 
@@ -14,7 +14,7 @@ namespace AdventOfCode.Days
 
             int test = CountGroups(0, input.Length, input);
 
-            Console.WriteLine(test);
+            return test.ToString();
         }
 
         private int CountGroups(int v1, int v2, string input)
@@ -115,7 +115,7 @@ namespace AdventOfCode.Days
             return garbageCount;
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input9.txt").ToList();
 
@@ -123,7 +123,7 @@ namespace AdventOfCode.Days
 
             int test = CountGarbage(0, input.Length, input);
 
-            Console.WriteLine(test);
+            return test.ToString();
         }
     }
 }

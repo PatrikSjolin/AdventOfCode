@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
 {
     public class Day05 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
             int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
@@ -20,10 +20,10 @@ namespace AdventOfCode.Days
                 input[previousIndex]++;
             }
 
-            Console.WriteLine(totalJumps);
+            return totalJumps.ToString();
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
             int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
@@ -45,7 +45,7 @@ namespace AdventOfCode.Days
                 }
             }
 
-            Console.WriteLine(totalJumps);
+            return totalJumps.ToString();
         }
     }
 }

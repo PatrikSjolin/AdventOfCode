@@ -47,7 +47,7 @@ namespace AdventOfCode
                 Console.WriteLine("Press 0 to quit");
                 Console.WriteLine("Press 1 to run all");
                 Console.WriteLine("Press 2 to run specific");
-                Console.WriteLine("Press 3 to run specific x times");
+                Console.WriteLine("Press 3 to benchmark specific puzzle");
                 Console.WriteLine("Press 4 to benchmark all puzzles");
 
                 Console.Write("\nYour input: ");
@@ -100,8 +100,8 @@ namespace AdventOfCode
                             int sum = 0;
                             for(int i = 0; i < runs; i++)
                             {
-                                sum += TimeTask(() => puzzles[puzzleNumber].RunOne());
-                                sum += TimeTask(() => puzzles[puzzleNumber].RunTwo());
+                                sum += TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
+                                sum += TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
                             }
                             Console.WriteLine("Total time spent: {0} ms", sum);
                             break;
@@ -118,8 +118,8 @@ namespace AdventOfCode
                                 int sum = 0;
                                 for (int i = 0; i < runs; i++)
                                 {
-                                    sum += TimeTask(() => p.Value.RunOne());
-                                    sum += TimeTask(() => p.Value.RunTwo());
+                                    sum += TimeTask(() => p.Value.RunOne(), true);
+                                    sum += TimeTask(() => p.Value.RunTwo(), true);
                                 }
                                 times.Add(p.Key, sum);
                             }
@@ -139,11 +139,13 @@ namespace AdventOfCode
             }
         }
 
-        static int TimeTask(Action function)
+        static int TimeTask(Func<string> function, bool silent = false)
         {
             DateTime start = DateTime.Now;
 
-            function.Invoke();
+            var result = function.Invoke();
+            if(!silent)
+                Console.WriteLine(result);
 
             int timeElapsed = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
 

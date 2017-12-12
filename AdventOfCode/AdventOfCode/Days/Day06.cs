@@ -10,7 +10,7 @@ namespace AdventOfCode.Days
         HashSet<string> states = new HashSet<string>();
         List<string> listOfStates = new List<string>();
 
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input6.txt").ToList();
             List<int> split = inputLines[0].Split('\t').Select(x => int.Parse(x)).ToList();
@@ -23,8 +23,7 @@ namespace AdventOfCode.Days
                 if (states.Contains(test))
                 {
                     indexOfEqual = listOfStates.IndexOf(test);
-                    Console.WriteLine(states.Count);
-                    return;
+                    return states.Count.ToString();
                 }
 
                 states.Add(test);
@@ -43,9 +42,9 @@ namespace AdventOfCode.Days
             }
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
-            Console.WriteLine(states.Count - indexOfEqual);
+            return (states.Count - indexOfEqual).ToString();
         }
     }
 }

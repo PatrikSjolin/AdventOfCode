@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
 {
     public class Day10 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
             List<int> input = inputLines[0].Split(',').Select(x => int.Parse(x)).ToList();
@@ -28,7 +28,8 @@ namespace AdventOfCode.Days
                 current = (current + input[i] + skipSize) % list.Count;
                 skipSize++;
             }
-            Console.WriteLine(list[0] * list[1]);
+
+            return (list[0] * list[1]).ToString();
         }
 
         private List<int> GetReversed(List<int> list, int current, int v)
@@ -44,7 +45,7 @@ namespace AdventOfCode.Days
             return reversed;
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
 
@@ -94,7 +95,7 @@ namespace AdventOfCode.Days
                 hash += hashInc;
             }
 
-            Console.WriteLine(hash);
+            return hash;
         }
 
         private List<int> GetAscii(string input)

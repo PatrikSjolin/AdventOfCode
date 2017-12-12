@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
 {
     public class Day02 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
 
@@ -18,10 +18,10 @@ namespace AdventOfCode.Days
                 sum += numbers.Max() - numbers.Min();
             }
 
-            Console.WriteLine(sum);
+            return sum.ToString();
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
 
@@ -45,7 +45,7 @@ namespace AdventOfCode.Days
                 }
             }
 
-            Console.WriteLine(sum);
+            return sum.ToString();
         }
     }
 }

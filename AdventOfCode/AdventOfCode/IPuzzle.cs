@@ -2,8 +2,8 @@
 {
     public interface IPuzzle
     {
-        void RunOne();
+        string RunOne();
 
-        void RunTwo();
+        string RunTwo();
     }
 }

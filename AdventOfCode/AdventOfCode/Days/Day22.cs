@@ -8,12 +8,12 @@ namespace AdventOfCode.Days
 {
     public class Day22 : IPuzzle
     {
-        public void RunOne()
+        public string RunOne()
         {
             throw new NotImplementedException();
         }
 
-        public void RunTwo()
+        public string RunTwo()
         {
             throw new NotImplementedException();
         }
