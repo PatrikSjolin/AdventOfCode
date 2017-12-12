@@ -38,8 +38,6 @@ namespace AdventOfCode
                             //{ 25, new Day25() }
                         };
 
-            int num = 1;
-
             while (true)
             {
                 Console.WriteLine("Advent of Code 2017!\n");
@@ -62,7 +60,7 @@ namespace AdventOfCode
                     case ConsoleKey.D1:
                         foreach (var p in puzzles)
                         {
-                            Console.WriteLine("Solution to puzzle {0}", num++);
+                            Console.WriteLine("Solution to puzzle {0}", p.Key);
                             Console.Write("a) ");
                             int timeElapsed = 0;
                             timeElapsed = TimeTask(() => p.Value.RunOne());
@@ -78,7 +76,7 @@ namespace AdventOfCode
                         {
                             Console.Write("\nEnter puzzle number: ");
                             int puzzleNumber = int.Parse(Console.ReadLine());
-                            Console.WriteLine("Solution to puzzle {0}", num++);
+                            Console.WriteLine("Solution to puzzle {0}", puzzleNumber);
                             Console.Write("a) ");
                             int timeElapsed = 0;
                             timeElapsed = TimeTask(() => puzzles[puzzleNumber].RunOne());

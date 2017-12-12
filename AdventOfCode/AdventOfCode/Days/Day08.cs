@@ -6,13 +6,14 @@ namespace AdventOfCode.Days
 {
     public class Day08 : IPuzzle
     {
-        Dictionary<string, int> registers = new Dictionary<string, int>();
-        int max = 0;
+        Dictionary<string, int> registers;
+        int max;
 
         public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input8.txt").ToList();
-            
+            max = 0;
+            registers = new Dictionary<string, int>();
             foreach(var s in inputLines)
             {
                 List<string> split = s.Split(' ').ToList();
@@ -119,10 +120,6 @@ namespace AdventOfCode.Days
                             registers[register] -= value;
                         }
                     }
-                }
-                else
-                {
-
                 }
 
                 if(registers.Values.Max() > max)

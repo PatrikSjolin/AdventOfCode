@@ -7,14 +7,16 @@ namespace AdventOfCode.Days
     public class Day06 : IPuzzle
     {
         private int indexOfEqual;
-        HashSet<string> states = new HashSet<string>();
-        List<string> listOfStates = new List<string>();
+        HashSet<string> states;
+        List<string> listOfStates;
 
         public string RunOne()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input6.txt").ToList();
             List<int> split = inputLines[0].Split('\t').Select(x => int.Parse(x)).ToList();
             int size = split.Count;
+            states = new HashSet<string>();
+            listOfStates = new List<string>();
 
             while (true)
             {

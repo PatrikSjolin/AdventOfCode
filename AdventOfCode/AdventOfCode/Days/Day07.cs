@@ -6,7 +6,7 @@ namespace AdventOfCode.Days
 {
     public class Day07 : IPuzzle
     {
-        string root = "";
+        string root;
         Dictionary<string, List<string>> tree;
         Dictionary<string, int> weight;
 
@@ -16,6 +16,7 @@ namespace AdventOfCode.Days
 
             tree = new Dictionary<string, List<string>>();
             weight = new Dictionary<string, int>();
+            root = "";
             string child = "";
             foreach(string s in inputLines)
             {
