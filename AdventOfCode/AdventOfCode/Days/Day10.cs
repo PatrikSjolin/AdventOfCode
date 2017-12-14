@@ -32,7 +32,7 @@ namespace AdventOfCode.Days
             return (list[0] * list[1]).ToString();
         }
 
-        private List<int> GetReversed(List<int> list, int current, int v)
+        private static List<int> GetReversed(List<int> list, int current, int v)
         {
             List<int> reversed = new List<int>();
 
@@ -50,7 +50,7 @@ namespace AdventOfCode.Days
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
 
             string input = inputLines[0];
-
+            input = "flqrgnkx-0";
             List<int> extraCharacters = new List<int> { 17, 31, 73, 47, 23};
 
             List<int> inputAscii = GetAscii(input.Replace(" ", ""));
@@ -98,7 +98,56 @@ namespace AdventOfCode.Days
             return hash;
         }
 
-        private List<int> GetAscii(string input)
+        public static string GetHashKnot(string hash)
+        {
+            List<int> extraCharacters = new List<int> { 17, 31, 73, 47, 23 };
+
+            List<int> inputAscii = GetAscii(hash.Replace(" ", ""));
+            inputAscii.AddRange(extraCharacters);
+
+            List<int> list = new List<int>();
+            for (int i = 0; i < 256; i++)
+            {
+                list.Add(i);
+            }
+
+            int current = 0;
+            int skipSize = 0;
+
+            for (int k = 0; k < 64; k++)
+            {
+                for (int i = 0; i < inputAscii.Count; i++)
+                {
+                    List<int> reversed = GetReversed(list, current, inputAscii[i]);
+
+                    for (int j = current; j < current + inputAscii[i]; j++)
+                    {
+                        list[j % list.Count] = reversed[j - current];
+                    }
+                    current = (current + inputAscii[i] + skipSize) % list.Count;
+                    skipSize++;
+                }
+            }
+
+            string hashKnot = "";
+
+            for (int i = 0; i < 16; i++)
+            {
+                int ascii = 0;
+                for (int j = 0; j < 16; j++)
+                {
+                    ascii ^= list[i * 16 + j];
+                }
+                string hashInc = ascii.ToString("X").ToLower();
+                if (hashInc.Length == 1)
+                    hashInc = "0" + hashInc;
+                hashKnot += hashInc;
+            }
+
+            return hashKnot;
+        }
+
+        private static List<int> GetAscii(string input)
         {
             List<int> ascii = new List<int>();
 
