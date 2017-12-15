@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days
@@ -32,26 +31,13 @@ namespace AdventOfCode.Days
             return (list[0] * list[1]).ToString();
         }
 
-        private static List<int> GetReversed(List<int> list, int current, int v)
-        {
-            List<int> reversed = new List<int>();
-
-            for(int i = current; i < current + v; i++)
-            {
-                reversed.Add(list[i % list.Count]);
-            }
-
-            reversed.Reverse();
-            return reversed;
-        }
-
         public string RunTwo()
         {
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
 
             string input = inputLines[0];
             input = "flqrgnkx-0";
-            List<int> extraCharacters = new List<int> { 17, 31, 73, 47, 23};
+            List<int> extraCharacters = new List<int> { 17, 31, 73, 47, 23 };
 
             List<int> inputAscii = GetAscii(input.Replace(" ", ""));
             inputAscii.AddRange(extraCharacters);
@@ -66,7 +52,7 @@ namespace AdventOfCode.Days
             int skipSize = 0;
 
             for (int k = 0; k < 64; k++)
-            { 
+            {
                 for (int i = 0; i < inputAscii.Count; i++)
                 {
                     List<int> reversed = GetReversed(list, current, inputAscii[i]);
@@ -82,10 +68,10 @@ namespace AdventOfCode.Days
 
             string hash = "";
 
-            for(int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i++)
             {
                 int ascii = 0;
-                for(int j = 0; j < 16; j++)
+                for (int j = 0; j < 16; j++)
                 {
                     ascii ^= list[i * 16 + j];
                 }
@@ -147,11 +133,24 @@ namespace AdventOfCode.Days
             return hashKnot;
         }
 
+        private static List<int> GetReversed(List<int> list, int current, int v)
+        {
+            List<int> reversed = new List<int>();
+
+            for (int i = current; i < current + v; i++)
+            {
+                reversed.Add(list[i % list.Count]);
+            }
+
+            reversed.Reverse();
+            return reversed;
+        }
+
         private static List<int> GetAscii(string input)
         {
             List<int> ascii = new List<int>();
 
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 ascii.Add(input[i]);
             }

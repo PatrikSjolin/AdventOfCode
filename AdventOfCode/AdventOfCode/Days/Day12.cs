@@ -12,14 +12,14 @@ namespace AdventOfCode.Days
 
             Dictionary<int, List<int>> keys = new Dictionary<int, List<int>>();
 
-            foreach(var input in inputLines)
+            foreach (var input in inputLines)
             {
                 string inp = input.Replace(" <-> ", ".");
                 List<string> codes = inp.Split('.').ToList();
                 List<int> values = codes[1].Split(',').Select(x => int.Parse(x)).ToList();
-                for(int i = 0; i < values.Count; i++)
+                for (int i = 0; i < values.Count; i++)
                 {
-                    if(!keys.ContainsKey(int.Parse(codes[0])))
+                    if (!keys.ContainsKey(int.Parse(codes[0])))
                     {
                         keys.Add(int.Parse(codes[0]), new List<int> { values[i] });
                     }
@@ -33,13 +33,13 @@ namespace AdventOfCode.Days
             int count = 0;
             List<int> programs = new List<int>();
             programs.Add(0);
-            while(count != programs.Count)
+            while (count != programs.Count)
             {
                 count = programs.Count;
 
-                foreach(var p in new List<int>(programs))
+                foreach (var p in new List<int>(programs))
                 {
-                    foreach(var value in keys[p])
+                    foreach (var value in keys[p])
                     {
                         if (!programs.Contains(value))
                             programs.Add(value);
@@ -75,7 +75,7 @@ namespace AdventOfCode.Days
 
             List<string> groups = new List<string>();
             List<int> covered = new List<int>();
-            foreach(var k in keys.Keys)
+            foreach (var k in keys.Keys)
             {
                 if (covered.Contains(k))
                     continue;
@@ -97,7 +97,7 @@ namespace AdventOfCode.Days
                 }
                 string test = "";
                 programs.Sort();
-                for(int j = 0; j < programs.Count; j++)
+                for (int j = 0; j < programs.Count; j++)
                 {
                     test += programs[j];
                     if (!covered.Contains(programs[j]))

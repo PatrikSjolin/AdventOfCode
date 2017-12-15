@@ -8,35 +8,34 @@ namespace AdventOfCode
     {
         static void Main(string[] args)
         {
-
             Dictionary<int, IPuzzle> puzzles = new Dictionary<int, IPuzzle>
-                        {
+            {
                 { 1, new Day01() },
-                            { 2, new Day02() },
-                            { 3, new Day03() },
-                            { 4, new Day04() },
-                            { 5, new Day05() },
-                            { 6, new Day06() },
-                            { 7, new Day07() },
-                            { 8, new Day08() },
-                            { 9, new Day09() },
-                            { 10, new Day10() },
-                            { 11, new Day11() },
-                            { 12, new Day12() },
-                            { 13, new Day13() },
-                            { 14, new Day14() },
-                            //{ 15, new Day15() },
-                            //{ 16, new Day16() },
-                            //{ 17, new Day17() },
-                            //{ 18, new Day18() },
-                            //{ 19, new Day19() },
-                            //{ 20, new Day20() },
-                            //{ 21, new Day21() },
-                            //{ 22, new Day22() },
-                            //{ 23, new Day23() },
-                            //{ 24, new Day24() },
-                            //{ 25, new Day25() }
-                        };
+                { 2, new Day02() },
+                { 3, new Day03() },
+                { 4, new Day04() },
+                { 5, new Day05() },
+                { 6, new Day06() },
+                { 7, new Day07() },
+                { 8, new Day08() },
+                { 9, new Day09() },
+                { 10, new Day10() },
+                { 11, new Day11() },
+                { 12, new Day12() },
+                { 13, new Day13() },
+                { 14, new Day14() },
+                { 15, new Day15() },
+                //{ 16, new Day16() },
+                //{ 17, new Day17() },
+                //{ 18, new Day18() },
+                //{ 19, new Day19() },
+                //{ 20, new Day20() },
+                //{ 21, new Day21() },
+                //{ 22, new Day22() },
+                //{ 23, new Day23() },
+                //{ 24, new Day24() },
+                //{ 25, new Day25() }
+            };
 
             while (true)
             {
@@ -96,7 +95,7 @@ namespace AdventOfCode
                             Console.Write("\nEnter number of runs: ");
                             int runs = int.Parse(Console.ReadLine());
                             int sum = 0;
-                            for(int i = 0; i < runs; i++)
+                            for (int i = 0; i < runs; i++)
                             {
                                 sum += TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
                                 sum += TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
@@ -122,7 +121,7 @@ namespace AdventOfCode
                                 times.Add(p.Key, sum);
                             }
 
-                            foreach(var time in times)
+                            foreach (var time in times)
                             {
                                 Console.WriteLine("Puzzle {0} averaged in {1} ms", time.Key, time.Value / runs);
                             }
@@ -142,7 +141,7 @@ namespace AdventOfCode
             DateTime start = DateTime.Now;
 
             var result = function.Invoke();
-            if(!silent)
+            if (!silent)
                 Console.WriteLine(result);
 
             int timeElapsed = (int)DateTime.Now.Subtract(start).TotalMilliseconds;

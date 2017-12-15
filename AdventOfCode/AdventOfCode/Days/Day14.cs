@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace AdventOfCode.Days
 {
     public class Day14 : IPuzzle
     {
-        static Dictionary<int, List<Point>> regions;
         static HashSet<Point> usedNodes;
         int region;
 
@@ -29,13 +26,15 @@ namespace AdventOfCode.Days
                 { 'f', "1111" }
             };
 
+        int[,] grid;
+
         public string RunOne()
         {
             string input = "hxtvlmkl";
 
             int sum = 0;
 
-            int[,] grid = new int[128, 128];
+            grid = new int[128, 128];
 
             for (int i = 0; i < 128; i++)
             {
@@ -62,32 +61,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            string input = "hxtvlmkl";
-
-            int sum = 0;
-
-            int[,] grid = new int[128, 128];
-
-            for (int i = 0; i < 128; i++)
-            {
-                string hash = input + "-" + i;
-
-                string knotHash = Day10.GetHashKnot(hash);
-
-                for (int j = 0; j < knotHash.Length; j++)
-                {
-                    string binary = hexCharacterToBinary[knotHash[j]];
-
-                    grid[i, j * 4] = int.Parse(binary[0].ToString());
-                    grid[i, j * 4 + 1] = int.Parse(binary[1].ToString());
-                    grid[i, j * 4 + 2] = int.Parse(binary[2].ToString());
-                    grid[i, j * 4 + 3] = int.Parse(binary[3].ToString());
-
-                    sum += (grid[i, j * 4] + grid[i, j * 4 + 1] + grid[i, j * 4 + 2] + grid[i, j * 4 + 3]);
-                }
-            }
-
-            regions = new Dictionary<int, List<Point>>();
+            int regions = 0;
             usedNodes = new HashSet<Point>();
             region = 0;
 
@@ -103,7 +77,7 @@ namespace AdventOfCode.Days
                         }
                         else
                         {
-                            regions.Add(region, new List<Point> { new Point(i, j) });
+                            regions++;
                             usedNodes.Add(new Point(i, j));
                             GetAdjacentNodes(i, j, grid);
                             region++;
@@ -116,7 +90,7 @@ namespace AdventOfCode.Days
                 }
             }
 
-            return regions.Count().ToString();
+            return regions.ToString();
         }
 
         private void GetAdjacentNodes(int i, int j, int[,] grid)
@@ -141,7 +115,6 @@ namespace AdventOfCode.Days
             foreach (var p in testNodes)
             {
                 usedNodes.Add(p);
-                regions[region].Add(p);
             }
 
             foreach (var p in testNodes)
