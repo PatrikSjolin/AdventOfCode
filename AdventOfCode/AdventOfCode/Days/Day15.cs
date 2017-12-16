@@ -44,38 +44,33 @@ namespace AdventOfCode.Days
             int pairs = 0;
 
             List<long> valuesA = new List<long>();
-            List<long> valuesB = new List<long>();
 
             int numberOfRuns = 5000000;
 
-            for (int i = 0; valuesA.Count < numberOfRuns || valuesB.Count < numberOfRuns; i++)
+            for (int i = 0; valuesA.Count < numberOfRuns; i++)
             {
-                if (valuesA.Count < numberOfRuns)
+                resultA = resultA * genAFactor % div;
+                if (resultA % 4 == 0)
                 {
-                    resultA = resultA * genAFactor % div;
-                    if (resultA % 4 == 0)
-                    {
-                        valuesA.Add(resultA);
-                    }
-                }
-
-                if (valuesB.Count < numberOfRuns)
-                {
-                    resultB = resultB * genBFactor % div;
-                    if (resultB % 8 == 0)
-                    {
-                        valuesB.Add(resultB);
-                    }
+                    valuesA.Add(resultA);
                 }
             }
 
-            for (int i = 0; i < numberOfRuns; i++)
-            {
-                long modA = valuesA[i] % 65536;
-                long modB = valuesB[i] % 65536;
+            int count = 0;
 
-                if (modA == modB)
-                    pairs++;
+            while(count < numberOfRuns)
+            {
+                resultB = resultB * genBFactor % div;
+                if (resultB % 8 == 0)
+                {
+                    long modA = valuesA[count] % 65536;
+                    long modB = resultB % 65536;
+
+                    if (modA == modB)
+                        pairs++;
+
+                    count++;
+                }
             }
 
             return pairs.ToString();
