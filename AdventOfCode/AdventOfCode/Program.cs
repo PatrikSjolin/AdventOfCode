@@ -55,9 +55,11 @@ namespace AdventOfCode
                 switch (key.Key)
                 {
                     case ConsoleKey.D0:
+                    case ConsoleKey.NumPad0:
                         return;
 
                     case ConsoleKey.D1:
+                    case ConsoleKey.NumPad1:
                         foreach (var p in puzzles)
                         {
                             Console.WriteLine("Solution to puzzle {0}", p.Key);
@@ -73,6 +75,7 @@ namespace AdventOfCode
                         break;
 
                     case ConsoleKey.D2:
+                    case ConsoleKey.NumPad2:
                         {
                             Console.Write("\nEnter puzzle number: ");
                             int puzzleNumber = int.Parse(Console.ReadLine());
@@ -90,6 +93,7 @@ namespace AdventOfCode
                             break;
                         }
                     case ConsoleKey.D3:
+                    case ConsoleKey.NumPad3:
                         {
                             Console.Write("\nEnter puzzle number: ");
                             int puzzleNumber = int.Parse(Console.ReadLine());
@@ -105,6 +109,7 @@ namespace AdventOfCode
                             break;
                         }
                     case ConsoleKey.D4:
+                    case ConsoleKey.NumPad4:
                         {
                             Console.Write("\nEnter number of runs: ");
 
