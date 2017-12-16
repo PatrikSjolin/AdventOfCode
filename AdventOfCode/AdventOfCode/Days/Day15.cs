@@ -21,19 +21,11 @@ namespace AdventOfCode.Days
                 resultA = resultA * genAFactor % div;
                 resultB = resultB * genBFactor % div;
 
-                string binaryA = GetIntBinaryStringRemoveZeros(resultA);
-                string binaryB = GetIntBinaryStringRemoveZeros(resultB);
+                long modA = resultA % 65536;
+                long modB = resultB % 65536;
 
-                if (binaryA.Length >= 16 && binaryB.Length >= 16)
-                {
-                    string binAcomp = binaryA.Substring(binaryA.Length - 16);
-                    string binBcomp = binaryB.Substring(binaryB.Length - 16);
-
-                    if (binAcomp == binBcomp)
-                    {
-                        pairs++;
-                    }
-                }
+                if (modA == modB)
+                    pairs++;
             }
 
             return pairs.ToString();
@@ -75,44 +67,14 @@ namespace AdventOfCode.Days
 
             foreach (var comp in valuesB)
             {
-                string binaryA = GetIntBinaryStringRemoveZeros(valuesA[comp.Key]);
-                string binaryB = GetIntBinaryStringRemoveZeros(comp.Value);
+                long modA = valuesA[comp.Key] % 65536;
+                long modB = comp.Value % 65536;
 
-                if (binaryA.Length >= 16 && binaryB.Length >= 16)
-                {
-                    string binAcomp = binaryA.Substring(binaryA.Length - 16);
-                    string binBcomp = binaryB.Substring(binaryB.Length - 16);
-
-                    if (binAcomp == binBcomp)
-                    {
-                        pairs++;
-                    }
-                }
+                if (modA == modB)
+                    pairs++;
             }
 
             return pairs.ToString();
-        }
-
-        private static string GetIntBinaryStringRemoveZeros(long n)
-        {
-            char[] b = new char[32];
-            int pos = 31;
-            int i = 0;
-
-            while (i < 32)
-            {
-                if ((n & (1 << i)) != 0)
-                {
-                    b[pos] = '1';
-                }
-                else
-                {
-                    b[pos] = '0';
-                }
-                pos--;
-                i++;
-            }
-            return new string(b).TrimStart('0');
         }
     }
 }
