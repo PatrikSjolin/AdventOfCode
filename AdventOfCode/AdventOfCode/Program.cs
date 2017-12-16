@@ -1,6 +1,7 @@
 ﻿using AdventOfCode.Days;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCode
 {
@@ -125,6 +126,8 @@ namespace AdventOfCode
                             {
                                 Console.WriteLine("Puzzle {0} averaged in {1} ms", time.Key, time.Value / runs);
                             }
+
+                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum());
 
                             break;
                         }
