@@ -43,32 +43,36 @@ namespace AdventOfCode.Days
 
             int pairs = 0;
 
-            Dictionary<int, long> valuesA = new Dictionary<int, long>();
-            Dictionary<int, long> valuesB = new Dictionary<int, long>();
-            int countA = 0;
-            int countB = 0;
+            List<long> valuesA = new List<long>();
+            List<long> valuesB = new List<long>();
 
-            for (int i = 0; valuesA.Count <= 5000000 || valuesB.Count <= 5000000; i++)
+            int numberOfRuns = 5000000;
+
+            for (int i = 0; valuesA.Count < numberOfRuns || valuesB.Count < numberOfRuns; i++)
             {
-                resultA = resultA * genAFactor % div;
-                resultB = resultB * genBFactor % div;
-
-                if (resultA % 4 == 0)
+                if (valuesA.Count < numberOfRuns)
                 {
-                    valuesA.Add(countA, resultA);
-                    countA++;
+                    resultA = resultA * genAFactor % div;
+                    if (resultA % 4 == 0)
+                    {
+                        valuesA.Add(resultA);
+                    }
                 }
-                if (resultB % 8 == 0)
+
+                if (valuesB.Count < numberOfRuns)
                 {
-                    valuesB.Add(countB, resultB);
-                    countB++;
+                    resultB = resultB * genBFactor % div;
+                    if (resultB % 8 == 0)
+                    {
+                        valuesB.Add(resultB);
+                    }
                 }
             }
 
-            foreach (var comp in valuesB)
+            for (int i = 0; i < numberOfRuns; i++)
             {
-                long modA = valuesA[comp.Key] % 65536;
-                long modB = comp.Value % 65536;
+                long modA = valuesA[i] % 65536;
+                long modB = valuesB[i] % 65536;
 
                 if (modA == modB)
                     pairs++;

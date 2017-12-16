@@ -45,8 +45,7 @@ namespace AdventOfCode
                 Console.WriteLine("Press 0 to quit");
                 Console.WriteLine("Press 1 to run all");
                 Console.WriteLine("Press 2 to run specific");
-                Console.WriteLine("Press 3 to benchmark specific puzzle");
-                Console.WriteLine("Press 4 to benchmark all puzzles");
+                Console.WriteLine("Press 3 to benchmark all puzzles");
 
                 Console.Write("\nYour input: ");
 
@@ -95,22 +94,6 @@ namespace AdventOfCode
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
                         {
-                            Console.Write("\nEnter puzzle number: ");
-                            int puzzleNumber = int.Parse(Console.ReadLine());
-                            Console.Write("\nEnter number of runs: ");
-                            int runs = int.Parse(Console.ReadLine());
-                            int sum = 0;
-                            for (int i = 0; i < runs; i++)
-                            {
-                                sum += TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
-                                sum += TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
-                            }
-                            Console.WriteLine("Total time spent: {0} ms", sum);
-                            break;
-                        }
-                    case ConsoleKey.D4:
-                    case ConsoleKey.NumPad4:
-                        {
                             Console.Write("\nEnter number of runs: ");
 
                             int runs = int.Parse(Console.ReadLine());
@@ -132,7 +115,7 @@ namespace AdventOfCode
                                 Console.WriteLine("Puzzle {0} averaged in {1} ms", time.Key, time.Value / runs);
                             }
 
-                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum());
+                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum() / runs);
 
                             break;
                         }
