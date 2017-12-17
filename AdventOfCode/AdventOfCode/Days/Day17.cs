@@ -12,7 +12,7 @@ namespace AdventOfCode.Days
 
             List<int> values = new List<int> { 0 };
 
-            for (int i = 1; i < 2018; i++)
+            for (int i = 1; i <= 2017; i++)
             {
                 position = (position + input) % i;
                 values.Insert(position + 1, i);
@@ -25,11 +25,28 @@ namespace AdventOfCode.Days
         public string RunTwo()
         {
             int position = 0;
-            int lastValue = -1;
+            int lastValue = 0;
 
-            for (int i = 1; i < 50000001; i++)
+            for (int i = 1; i <= 50000000; i++)
             {
-                position = (position + input) % i;
+                if(i > input)
+                {
+                    if (position + input >= i)
+                    {
+                        position = (position + input) - i;
+                    }
+                    else
+                    {
+                        int jumps = (i - position) / (input + 1);
+                        position += (input + 1) * jumps;
+                        i += jumps - 1;
+                        position--;
+                    }
+                }
+                else
+                {
+                    position = (position + input) % i;
+                }
 
                 if(position == 0)
                 {
