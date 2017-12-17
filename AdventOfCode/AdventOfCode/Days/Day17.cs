@@ -4,14 +4,15 @@ namespace AdventOfCode.Days
 {
     public class Day17 : IPuzzle
     {
+        private int input = 367;
+
         public string RunOne()
         {
-            int input = 367;
             int position = 0;
-            List<int> values = new List<int>();
-            values.Add(0);
 
-            for(int i = 1; i < 2018; i++)
+            List<int> values = new List<int> { 0 };
+
+            for (int i = 1; i < 2018; i++)
             {
                 position = (position + input) % i;
                 values.Insert(position + 1, i);
@@ -23,7 +24,6 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            int input = 367;
             int position = 0;
             int lastValue = -1;
 
