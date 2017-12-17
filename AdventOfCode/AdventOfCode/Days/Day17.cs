@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace AdventOfCode.Days
 {
@@ -7,14 +6,40 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input17.txt").ToList();
-            return "";
+            int input = 367;
+            int position = 0;
+            List<int> values = new List<int>();
+            values.Add(0);
+
+            for(int i = 1; i < 2018; i++)
+            {
+                position = (position + input) % i;
+                values.Insert(position + 1, i);
+                position++;
+            }
+
+            return values[values.IndexOf(2017) + 1].ToString();
         }
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input17.txt").ToList();
-            return "";
+            int input = 367;
+            int position = 0;
+            int lastValue = -1;
+
+            for (int i = 1; i < 50000001; i++)
+            {
+                position = (position + input) % i;
+
+                if(position == 0)
+                {
+                    lastValue = i;
+                }
+
+                position++;
+            }
+
+            return lastValue.ToString();
         }
     }
 }

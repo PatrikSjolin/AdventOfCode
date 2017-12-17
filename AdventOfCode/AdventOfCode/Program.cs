@@ -27,7 +27,7 @@ namespace AdventOfCode
                 { 14, new Day14() },
                 { 15, new Day15() },
                 { 16, new Day16() },
-                //{ 17, new Day17() },
+                { 17, new Day17() },
                 //{ 18, new Day18() },
                 //{ 19, new Day19() },
                 //{ 20, new Day20() },
