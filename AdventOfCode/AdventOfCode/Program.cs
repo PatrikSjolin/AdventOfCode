@@ -118,7 +118,7 @@ namespace AdventOfCode
                             Console.ForegroundColor = ConsoleColor.White;
                             foreach (var time in times)
                             {
-                                Console.WriteLine("Puzzle {0} averaged in {1} ms", time.Key, time.Value / runs);
+                                Console.WriteLine("Puzzle {0}: {1} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), time.Value / runs);
                             }
 
                             Console.ForegroundColor = ConsoleColor.Green;
