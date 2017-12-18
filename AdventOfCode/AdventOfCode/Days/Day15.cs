@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AdventOfCode.Days
+﻿namespace AdventOfCode.Days
 {
     public class Day15 : IPuzzle
     {
@@ -21,10 +19,7 @@ namespace AdventOfCode.Days
                 resultA = resultA * genAFactor % div;
                 resultB = resultB * genBFactor % div;
 
-                long modA = resultA % 65536;
-                long modB = resultB % 65536;
-
-                if (modA == modB)
+                if ((resultA & 65535) == (resultB & 65535))
                     pairs++;
             }
 
@@ -43,34 +38,23 @@ namespace AdventOfCode.Days
 
             int pairs = 0;
 
-            List<long> valuesA = new List<long>();
-
             int numberOfRuns = 5000000;
 
-            for (int i = 0; valuesA.Count < numberOfRuns; i++)
+            for (int i = 0; i < numberOfRuns; i++)
             {
-                resultA = resultA * genAFactor % div;
-                if (resultA % 4 == 0)
+                do
                 {
-                    valuesA.Add(resultA);
+                    resultA = resultA * genAFactor % div;
                 }
-            }
-
-            int count = 0;
-
-            while(count < numberOfRuns)
-            {
-                resultB = resultB * genBFactor % div;
-                if (resultB % 8 == 0)
+                while ((resultA & 3) != 0);
+                do
                 {
-                    long modA = valuesA[count] % 65536;
-                    long modB = resultB % 65536;
-
-                    if (modA == modB)
-                        pairs++;
-
-                    count++;
+                    resultB = resultB * genBFactor % div;
                 }
+                while ((resultB & 7) != 0);
+
+                if ((resultA & 65535) == (resultB & 65535))
+                    pairs++;
             }
 
             return pairs.ToString();

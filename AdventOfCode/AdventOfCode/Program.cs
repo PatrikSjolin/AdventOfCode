@@ -114,7 +114,7 @@ namespace AdventOfCode
                                 times.Add(p.Key, sum);
                             }
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\nAverage times of {0} runs:", runs);
+                            Console.WriteLine("\nAverage times after {0} runs:", runs);
                             Console.ForegroundColor = ConsoleColor.White;
                             foreach (var time in times)
                             {
