@@ -28,7 +28,7 @@ namespace AdventOfCode
                 { 15, new Day15() },
                 { 16, new Day16() },
                 { 17, new Day17() },
-                //{ 18, new Day18() },
+                { 18, new Day18() },
                 //{ 19, new Day19() },
                 //{ 20, new Day20() },
                 //{ 21, new Day21() },
@@ -40,14 +40,18 @@ namespace AdventOfCode
 
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Advent of Code 2017!\n");
 
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Press 0 to quit");
                 Console.WriteLine("Press 1 to run all");
                 Console.WriteLine("Press 2 to run specific");
                 Console.WriteLine("Press 3 to benchmark all puzzles");
 
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\nYour input: ");
+                Console.ForegroundColor = ConsoleColor.White;
 
                 var key = Console.ReadKey();
 
@@ -109,14 +113,17 @@ namespace AdventOfCode
                                 }
                                 times.Add(p.Key, sum);
                             }
-
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\nAverage times of {0} runs:", runs);
+                            Console.ForegroundColor = ConsoleColor.White;
                             foreach (var time in times)
                             {
                                 Console.WriteLine("Puzzle {0} averaged in {1} ms", time.Key, time.Value / runs);
                             }
 
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum() / runs);
-
+                            Console.ForegroundColor = ConsoleColor.White;
                             break;
                         }
                 }
