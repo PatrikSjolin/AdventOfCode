@@ -10,12 +10,16 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            throw new NotImplementedException();
+            List<string> rules = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
+
+            return "";
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            List<string> rules = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
+
+            return "";
         }
     }
 }
