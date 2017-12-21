@@ -18,9 +18,9 @@ namespace AdventOfCode.Days
             if (sizeX != Input.GetLength(0) || sizeY != Input.GetLength(1))
                 return false;
 
-            for(int i = 0; i < sizeX; i++)
+            for (int i = 0; i < sizeX; i++)
             {
-                for(int j = 0; j < sizeY; j++)
+                for (int j = 0; j < sizeY; j++)
                 {
                     if (test[i, j] != Input[i, j])
                         return false;
@@ -40,7 +40,7 @@ namespace AdventOfCode.Days
             List<string> rules = System.IO.File.ReadAllLines(@"..\..\input21.txt").ToList();
             ruleMap = new Dictionary<Rule, int[,]>();
 
-            foreach(var r in rules)
+            foreach (var r in rules)
             {
                 string hej = r.Replace("=>", "|").Replace(" ", "");
 
@@ -53,9 +53,9 @@ namespace AdventOfCode.Days
                 int[,] key = new int[input.Count, input.Count];
                 int[,] value = new int[output2.Count, output2.Count];
 
-                for(int i = 0; i < input.Count; i++)
+                for (int i = 0; i < input.Count; i++)
                 {
-                    for(int j = 0; j < input.Count; j++)
+                    for (int j = 0; j < input.Count; j++)
                     {
                         key[i, j] = input[i][j] == '#' ? 1 : 0;
                     }
@@ -65,7 +65,6 @@ namespace AdventOfCode.Days
 
                 AddOtherKeys(keys, key);
 
-
                 for (int i = 0; i < output2.Count; i++)
                 {
                     for (int j = 0; j < output2.Count; j++)
@@ -74,14 +73,14 @@ namespace AdventOfCode.Days
                     }
                 }
 
-                foreach(var k in keys)
+                foreach (var k in keys)
                 {
                     Rule rule = new Rule();
 
                     rule.Input = new int[k.GetLength(0), k.GetLength(1)];
-                    for(int q = 0; q < k.GetLength(0); q++)
+                    for (int q = 0; q < k.GetLength(0); q++)
                     {
-                        for(int t = 0; t < k.GetLength(0); t++)
+                        for (int t = 0; t < k.GetLength(0); t++)
                         {
                             rule.Input[q, t] = k[q, t];
                         }
@@ -102,13 +101,12 @@ namespace AdventOfCode.Days
             {
                 int size = output.GetLength(0);
 
-                if(size % 2 == 0)
+                if (size % 2 == 0)
                 {
                     int grids = (size / 2) * (size / 2);
 
                     int rows = size / 2;
                     List<Rule> outputs = GetOutputs(output, grids, 2);
-
 
                     output = new int[(size / 2) * 3, (size / 2) * 3];
 
@@ -128,7 +126,7 @@ namespace AdventOfCode.Days
 
                     }
                 }
-                else if(size % 3 == 0)
+                else if (size % 3 == 0)
                 {
                     int grids = (size / 3) * (size / 3);
 
@@ -138,7 +136,7 @@ namespace AdventOfCode.Days
 
                     output = new int[(size / 3) * 4, (size / 3) * 4];
 
-                    for(int j = 0; j < outputs.Count; j++)
+                    for (int j = 0; j < outputs.Count; j++)
                     {
                         int[,] input = GetOutputFromRule(outputs[j], ruleMap);
 
@@ -146,7 +144,7 @@ namespace AdventOfCode.Days
 
                         for (int r = 0; r < input.GetLength(0); r++)
                         {
-                            for(int c = 0; c < input.GetLength(0); c++)
+                            for (int c = 0; c < input.GetLength(0); c++)
                             {
                                 output[(j / rows) * numberOfItems + r, (j % rows) * numberOfItems + c] = input[r, c];
                             }
@@ -180,7 +178,6 @@ namespace AdventOfCode.Days
 
                     int rows = size / 2;
                     List<Rule> outputs = GetOutputs(output, grids, 2);
-
 
                     output = new int[(size / 2) * 3, (size / 2) * 3];
 
@@ -236,9 +233,9 @@ namespace AdventOfCode.Days
         {
             int on = 0;
 
-            for(int i = 0; i < output.GetLength(0); i++)
+            for (int i = 0; i < output.GetLength(0); i++)
             {
-                for(int j = 0; j < output.GetLength(1); j++)
+                for (int j = 0; j < output.GetLength(1); j++)
                 {
                     on += output[i, j];
                 }
@@ -252,9 +249,9 @@ namespace AdventOfCode.Days
             int size = key.GetLength(0);
             int[,] flip = new int[size, size];
 
-            for(int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
-                for(int j = 0; j < size; j++)
+                for (int j = 0; j < size; j++)
                 {
                     flip[i, j] = key[i, size - j - 1];
                 }
@@ -264,12 +261,12 @@ namespace AdventOfCode.Days
 
             int[,] previous = (int[,])key.Clone();
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 int[,] rot = new int[size, size];
-                for(int j = 0; j < size; j++)
+                for (int j = 0; j < size; j++)
                 {
-                    for(int k = 0; k < size; k++)
+                    for (int k = 0; k < size; k++)
                     {
                         rot[j, k] = previous[size - k - 1, j];
                     }
@@ -296,10 +293,7 @@ namespace AdventOfCode.Days
 
         private int[,] GetOutputFromRule(Rule o, Dictionary<Rule, int[,]> ruleMap)
         {
-            int sizeX = o.Input.GetLength(0);
-            int sizeY = o.Input.GetLength(1);
-
-            foreach(var rule in ruleMap)
+            foreach (var rule in ruleMap)
             {
                 if (rule.Key.Equals(o))
                 {
@@ -322,11 +316,11 @@ namespace AdventOfCode.Days
             for (int i = 0; i < grids; i++)
             {
                 Rule r = new Rule();
-                r.Input= new int[curSize, curSize];
+                r.Input = new int[curSize, curSize];
 
-                for(int j = 0; j < curSize; j++)
+                for (int j = 0; j < curSize; j++)
                 {
-                    for(int k = 0; k < curSize; k++)
+                    for (int k = 0; k < curSize; k++)
                     {
                         r.Input[j, k] = output[(i / rows) * div + j, (i % rows) * div + k];
                     }
