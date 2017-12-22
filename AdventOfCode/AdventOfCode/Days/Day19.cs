@@ -44,7 +44,7 @@ namespace AdventOfCode.Days
                 }
                 if (c == '|' || c == '-')
                 {
-
+                    continue;
                 }
                 else if (c == '+')
                 {
