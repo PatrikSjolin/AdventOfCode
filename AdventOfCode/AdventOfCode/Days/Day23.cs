@@ -10,14 +10,14 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> rules = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
 
             return "";
         }
 
         public string RunTwo()
         {
-            List<string> rules = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
 
             return "";
         }
