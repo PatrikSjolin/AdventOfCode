@@ -34,7 +34,7 @@ namespace AdventOfCode
                 { 21, new Day21() },
                 { 22, new Day22() },
                 { 23, new Day23() },
-                //{ 24, new Day24() },
+                { 24, new Day24() },
                 //{ 25, new Day25() }
             };
 
