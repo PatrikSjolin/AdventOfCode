@@ -13,6 +13,8 @@ namespace AdventOfCode.Days
 
     public class Day24 : IPuzzle
     {
+        private List<Tuple<int, int>> paths = new List<Tuple<int, int>>();
+
         public string RunOne()
         {
             List<string> input = System.IO.File.ReadAllLines(@"..\..\input24.txt").ToList();
@@ -28,18 +30,23 @@ namespace AdventOfCode.Days
                 tuples.Add(new Tuple<int, int>(int.Parse(split[0]), int.Parse(split[1])));
             }
 
-            Populate(root, tuples, 0);
+            BuildTree(root, tuples, 0);
 
-            CountSumPaths(root, 0, 0);
+            SumPaths(root, 0, 0);
 
             int maxValue = paths.Select(x => x.Item2).Max();
 
             return maxValue.ToString();
         }
 
-        List<Tuple<int, int>> paths = new List<Tuple<int, int>>();
+        public string RunTwo()
+        {
+            int maxPaths = paths.Select(x => x.Item1).Max();
+            int maxValueForMaxPaths = paths.Where(x => x.Item1 == maxPaths).Select(x => x.Item2).Max();
+            return maxValueForMaxPaths.ToString();
+        }
 
-        private void CountSumPaths(Component root, int sum, int pathCount)
+        private void SumPaths(Component root, int sum, int pathCount)
         {
             sum += root.PortOne + root.PortTwo;
             pathCount++;
@@ -52,12 +59,12 @@ namespace AdventOfCode.Days
             {
                 foreach (var child in root.Children)
                 {
-                    CountSumPaths(child, sum, pathCount);
+                    SumPaths(child, sum, pathCount);
                 }
             }
         }
 
-        private void Populate(Component root, List<Tuple<int, int>> tuples, int matching)
+        private void BuildTree(Component root, List<Tuple<int, int>> tuples, int matching)
         {
             List<Tuple<int, int>> matches = tuples.Where(x => x.Item1 == matching || x.Item2 == matching).ToList();
 
@@ -72,16 +79,9 @@ namespace AdventOfCode.Days
                     root.Children.Add(component);
                     List<Tuple<int, int>> newTuples = new List<Tuple<int, int>>(tuples);
                     newTuples.Remove(new Tuple<int, int>(match.Item1, match.Item2));
-                    Populate(component, newTuples, newMatch);
+                    BuildTree(component, newTuples, newMatch);
                 }
             }
-        }
-
-        public string RunTwo()
-        {
-            int maxPaths = paths.Select(x => x.Item1).Max();
-            int maxValueForMaxPaths = paths.Where(x => x.Item1 == maxPaths).Select(x => x.Item2).Max();
-            return maxValueForMaxPaths.ToString();
         }
     }
 }

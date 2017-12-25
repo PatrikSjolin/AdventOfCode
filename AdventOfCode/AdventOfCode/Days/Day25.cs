@@ -6,14 +6,14 @@
         {
             int steps = 12368930;
             string state = "A";
-            int length = 100000;
+            int length = 8000;
 
             int[] tape = new int[length];
             int currentPosition = length / 2;
 
-            for(int i = 0; i < steps; i++)
+            for (int i = 0; i < steps; i++)
             {
-                if(state == "A")
+                if (state == "A")
                 {
                     if (tape[currentPosition] == 0)
                     {
@@ -28,7 +28,7 @@
                         state = "C";
                     }
                 }
-                else if(state == "B")
+                else if (state == "B")
                 {
                     if (tape[currentPosition] == 0)
                     {
@@ -106,7 +106,7 @@
             }
 
             int sum = 0;
-            for(int i = 0; i < length; i++)
+            for (int i = 0; i < length; i++)
             {
                 sum += tape[i];
             }

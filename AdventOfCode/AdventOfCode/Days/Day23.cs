@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days
@@ -97,7 +98,7 @@ namespace AdventOfCode.Days
             for (int b = 106500; b <= 123500; b += 17)
             {
                 int f = 1;
-                for (int d = 2; d < b; d++)
+                for (int d = 2; d < Math.Sqrt(b); d++)
                 {
                     if(b % d == 0)
                     {
