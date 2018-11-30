@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days
@@ -8,7 +7,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input2.txt").ToList();
 
             int sum = 0;
 
@@ -23,7 +22,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input2.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input2.txt").ToList();
 
             int sum = 0;
 

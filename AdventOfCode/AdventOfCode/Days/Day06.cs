@@ -12,7 +12,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input6.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input6.txt").ToList();
             List<int> split = inputLines[0].Split('\t').Select(x => int.Parse(x)).ToList();
             int size = split.Count;
             states = new HashSet<string>();

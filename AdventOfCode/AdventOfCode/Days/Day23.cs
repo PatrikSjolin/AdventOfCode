@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\input23.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2017\input23.txt").ToList();
             Dictionary<string, int> registers = new Dictionary<string, int> { { "a", 0 }, { "b", 0 }, { "c", 0 }, { "d", 0 }, { "e", 0 }, { "f", 0 }, { "g", 0 }, { "h", 0 } };
 
             int muls = 0;

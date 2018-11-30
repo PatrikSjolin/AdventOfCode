@@ -12,7 +12,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input7.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input7.txt").ToList();
 
             tree = new Dictionary<string, List<string>>();
             weight = new Dictionary<string, int>();

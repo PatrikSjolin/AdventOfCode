@@ -17,7 +17,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\input24.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2017\input24.txt").ToList();
 
             List<Tuple<int, int>> tuples;
             Component root = new Component { PortOne = 0, PortTwo = 0 };

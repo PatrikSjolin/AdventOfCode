@@ -7,7 +7,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input10.txt").ToList();
             List<int> input = inputLines[0].Split(',').Select(x => int.Parse(x)).ToList();
             List<int> list = new List<int>();
             for (int i = 0; i < 256; i++)
@@ -33,7 +33,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input10.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input10.txt").ToList();
 
             string input = inputLines[0];
             input = "flqrgnkx-0";

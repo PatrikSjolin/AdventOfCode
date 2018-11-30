@@ -9,7 +9,7 @@ namespace AdventOfCode.Days
         int steps;
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input19.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input19.txt").ToList();
 
             Tuple<int, int> direction = new Tuple<int, int>(0, 1);
 
@@ -82,7 +82,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input19.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input19.txt").ToList();
 
             return steps.ToString();
         }

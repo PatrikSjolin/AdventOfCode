@@ -7,7 +7,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input13.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input13.txt").ToList();
 
             Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
             foreach (var input in inputLines)
@@ -47,7 +47,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input13.txt").ToList(); Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input13.txt").ToList(); Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
             foreach (var input in inputLines)
             {
                 List<string> split = input.Replace(" ", "").Split(':').ToList();

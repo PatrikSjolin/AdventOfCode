@@ -28,7 +28,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input20.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input20.txt").ToList();
             particles = new List<Particle>();
             int count = 0;
             foreach(var input in inputLines)

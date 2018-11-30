@@ -36,7 +36,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> rules = System.IO.File.ReadAllLines(@"..\..\input21.txt").ToList();
+            List<string> rules = System.IO.File.ReadAllLines(@"..\..\Data\2017\input21.txt").ToList();
             ruleMap = new Dictionary<Rule, int[,]>();
 
             foreach (var r in rules)

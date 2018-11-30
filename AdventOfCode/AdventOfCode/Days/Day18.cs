@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input18.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input18.txt").ToList();
             Dictionary<string, long> registers = new Dictionary<string, long>();
 
             long sound = 0;
@@ -125,7 +125,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            inputLines = System.IO.File.ReadAllLines(@"..\..\input18.txt").ToList();
+            inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input18.txt").ToList();
 
             Dictionary<string, long> registersZero = new Dictionary<string, long>();
             Dictionary<string, long> registersOne = new Dictionary<string, long>();

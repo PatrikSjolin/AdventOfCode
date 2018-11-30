@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input9.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input9.txt").ToList();
 
             string input = inputLines[0];
 
@@ -117,7 +117,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input9.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input9.txt").ToList();
 
             string input = inputLines[0];
 

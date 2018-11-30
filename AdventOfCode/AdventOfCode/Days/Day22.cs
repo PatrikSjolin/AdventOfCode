@@ -15,7 +15,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\input22.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2017\input22.txt").ToList();
             directions = new List<Tuple<int, int>> { north, east, south, west };
             int gridSize = 256;
             string[,] grid = new string[gridSize, gridSize];
@@ -65,7 +65,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\input22.txt").ToList();
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2017\input22.txt").ToList();
             int gridSize = 400;
             string[,] grid = new string[gridSize, gridSize];
 

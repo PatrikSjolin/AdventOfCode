@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input5.txt").ToList();
             int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
             int index = 0;
             int totalJumps = 0;
@@ -25,7 +25,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input5.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input5.txt").ToList();
             int[] input = inputLines.Select(x => int.Parse(x)).ToArray();
             int index = 0;
             int totalJumps = 0;

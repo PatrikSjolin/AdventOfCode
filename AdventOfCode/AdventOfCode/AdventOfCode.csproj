@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Days 2015\Day01.cs" />
+    <Compile Include="Days 2018\Day01.cs" />
+    <Compile Include="Days 2018\Day02.cs" />
     <Compile Include="Days\Day01.cs" />
     <Compile Include="Days\Day10.cs" />
     <Compile Include="Days\Day02.cs" />
@@ -75,5 +78,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

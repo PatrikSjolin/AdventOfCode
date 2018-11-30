@@ -8,7 +8,7 @@ namespace AdventOfCode.Days
     {
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input12.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input12.txt").ToList();
 
             Dictionary<int, List<int>> keys = new Dictionary<int, List<int>>();
 
@@ -51,7 +51,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\input12.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input12.txt").ToList();
 
             Dictionary<int, List<int>> keys = new Dictionary<int, List<int>>();
 
