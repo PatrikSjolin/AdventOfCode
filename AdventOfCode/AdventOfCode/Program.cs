@@ -13,7 +13,7 @@ namespace AdventOfCode
 
             while (true)
             {
-                int year = 2015;
+                int year = 2018;
 
                 puzzles = GetPuzzles(year);
 
