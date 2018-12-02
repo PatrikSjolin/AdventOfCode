@@ -11,7 +11,7 @@ namespace AdventOfCode.Days
 
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input8.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input08.txt").ToList();
             max = 0;
             registers = new Dictionary<string, int>();
             foreach(var s in inputLines)
@@ -132,7 +132,7 @@ namespace AdventOfCode.Days
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input8.txt").ToList();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input08.txt").ToList();
             return max.ToString();
         }
     }

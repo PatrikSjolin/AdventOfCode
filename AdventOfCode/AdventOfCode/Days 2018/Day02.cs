@@ -10,11 +10,62 @@ namespace AdventOfCode.Days_2018
     {
         public string RunOne()
         {
-            return "";
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
+
+            int totalTwos = 0;
+            int totalThrees = 0;
+            foreach(var i in input)
+            {
+                Dictionary<char, int> numbers = new Dictionary<char, int>();
+
+                foreach (char c in i)
+                {
+                    int count = 0;
+                    if(numbers.TryGetValue(c, out count))
+                    {
+                        numbers[c]++;
+                    }
+                    else
+                    {
+                        numbers.Add(c, 1);
+                    }
+                }
+
+                if (numbers.ContainsValue(2))
+                    totalTwos++;
+                if (numbers.ContainsValue(3))
+                    totalThrees++;
+            }
+            return (totalThrees * totalTwos).ToString();
         }
 
         public string RunTwo()
         {
+            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
+
+            foreach(var v1 in input)
+            {
+                foreach(var v2 in input)
+                {
+                    int matching = 0;
+                    int length = v1.Length;
+                    for(int i = 0; i < v1.Length;i++)
+                    {
+                        if (v1[i] == v2[i])
+                            matching++;
+                    }
+                    if (matching == length - 1)
+                    {
+                        for (int i = 0; i < v1.Length; i++)
+                        {
+                            if (v1[i] != v2[i])
+                            {
+                                return v1.Remove(i, 1);
+                            }
+                        }
+                    }
+                }
+            }
             return "";
         }
     }
