@@ -119,33 +119,4 @@ namespace AdventOfCode.Days
             }
         }
     }
-
-    public class Point
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        public Point(int x, int y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        public override bool Equals(object obj)
-        {
-            Point p = (Point)obj;
-
-            if (p.X == X && p.Y == Y)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return X * Y + 11 * 2;
-        }
-    }
 }
