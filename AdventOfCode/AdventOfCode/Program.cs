@@ -13,7 +13,7 @@ namespace AdventOfCode
 
             while (true)
             {
-                int year = 2015;
+                int year = 2018;
 
                 puzzles = GetPuzzles(year);
 
@@ -120,6 +120,10 @@ namespace AdventOfCode
                     { 1, new Days_2015.Day01() },
                     { 2, new Days_2015.Day02() },
                     { 3, new Days_2015.Day03() },
+                    { 4, new Days_2015.Day04() },
+                    { 5, new Days_2015.Day05() },
+                    { 6, new Days_2015.Day06() },
+                    { 7, new Days_2015.Day07() },
                 };
             }
             if (year == 2017)
@@ -159,6 +163,7 @@ namespace AdventOfCode
                 {
                     { 1, new Days_2018.Day01() },
                     { 2, new Days_2018.Day02() },
+                    { 3, new Days_2018.Day03() },
                 };
             }
             return null;
