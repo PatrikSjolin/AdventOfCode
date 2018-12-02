@@ -7,33 +7,23 @@ namespace AdventOfCode.Days_2018
     {
         public string RunOne()
         {
-            List<int> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input01.txt").Select(x => int.Parse(x)).ToList();
-            int sum = 0;
-            foreach (var number in input)
-            {
-                sum += number;
-            }
-
-            return sum.ToString();
+            return System.IO.File.ReadAllLines(@"..\..\Data\2018\input01.txt").Select(x => int.Parse(x)).Sum().ToString();
         }
 
         public string RunTwo()
         {
-            List<int> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input01.txt").Select(x => int.Parse(x)).ToList();
+            List<int> numbers = System.IO.File.ReadAllLines(@"..\..\Data\2018\input01.txt").Select(x => int.Parse(x)).ToList();
             int sum = 0;
-
-            //List<int> frequencies = new List<int>();
             HashSet<int> frequencies = new HashSet<int>();
 
             while (true)
             {
-                foreach (var number in input)
+                foreach (var number in numbers)
                 {
                     sum += number;
 
-                    if (frequencies.Contains(sum))
+                    if (!frequencies.Add(sum))
                         return sum.ToString();
-                    frequencies.Add(sum);
                 }
             }
         }

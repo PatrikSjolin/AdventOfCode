@@ -43,18 +43,20 @@ namespace AdventOfCode.Days_2018
         {
             List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
 
-            foreach(var v1 in input)
+            foreach (var v1 in input)
             {
-                foreach(var v2 in input)
+                foreach (var v2 in input)
                 {
-                    int matching = 0;
+                    int errors = 0;
                     int length = v1.Length;
-                    for(int i = 0; i < v1.Length;i++)
+                    for (int i = 0; i < v1.Length; i++)
                     {
-                        if (v1[i] == v2[i])
-                            matching++;
+                        if (v1[i] != v2[i])
+                            errors++;
+                        if (errors > 1)
+                            break;
                     }
-                    if (matching == length - 1)
+                    if (errors == 1)
                     {
                         for (int i = 0; i < v1.Length; i++)
                         {
@@ -63,6 +65,35 @@ namespace AdventOfCode.Days_2018
                                 return v1.Remove(i, 1);
                             }
                         }
+                    }
+                }
+            }
+            return "";
+        }
+        public string RunTwoO()
+        {
+            List<string> lines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
+            var result = "";
+            for (int i = 0; i < lines.Count; i++)
+            {
+                for (int j = i + 1; j < lines.Count; j++)
+                {
+                    int l = 0;
+                    for (int k = 0; k < lines[i].Length; k++)
+                    {
+                        if (lines[i][k] != lines[j][k])
+                            l++;
+                        if (l > 1)
+                            break;
+                    }
+                    if (l == 1)
+                    {
+                        for (int k = 0; k < lines[i].Length; k++)
+                        {
+                            if (lines[i][k] == lines[j][k])
+                                result += lines[i][k];
+                        }
+                        return result;
                     }
                 }
             }
