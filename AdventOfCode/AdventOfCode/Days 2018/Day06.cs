@@ -8,19 +8,27 @@ namespace AdventOfCode.Days_2018
 {
     public class Day06 : IPuzzle
     {
+        List<Point> coordinates;
+        int size = 0;
+
         public string RunOne()
         {
             List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input06.txt").ToList();
 
-            List<Point> coordinates = new List<Point>();
+            coordinates = new List<Point>();
 
             foreach (var s in input)
             {
                 string ss = s.Trim();
-                coordinates.Add(new Point(int.Parse(ss.Split(',')[0]), int.Parse(ss.Split(',')[1])));
-            }
+                int x = int.Parse(ss.Split(',')[0]);
+                int y = int.Parse(ss.Split(',')[1]);
+                coordinates.Add(new Point(x, y));
 
-            int size = 400;
+                if (x > size)
+                    size = x;
+                if (y > size)
+                    size = y;
+            }
 
             int[,] grid = new int[size, size];
 
@@ -54,22 +62,11 @@ namespace AdventOfCode.Days_2018
                 }
             }
 
-
             foreach(var o in occ)
             {
                 if (o.Value > maxArea)
                     maxArea = o.Value;
             }
-
-            //for(int i = 0; i < size; i++)
-            //{
-            //    for(int j = 0; j < size; j++)
-            //    {
-            //        Console.Write(grid[i, j]);
-            //    }
-            //    Console.WriteLine();
-            //}
-
 
             return maxArea.ToString();
         }
@@ -124,20 +121,8 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input06.txt").ToList();
-
-            List<Point> coordinates = new List<Point>();
-
-            foreach (var s in input)
-            {
-                string ss = s.Trim();
-                coordinates.Add(new Point(int.Parse(ss.Split(',')[0]), int.Parse(ss.Split(',')[1])));
-            }
-
-            int size = 400;
-
-            int[,] grid = new int[size, size];
             int regionSize = 0;
+
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -145,26 +130,12 @@ namespace AdventOfCode.Days_2018
                     int index = GetSummedUpDistance(i, j, coordinates);
                     if(index < 10000)
                     {
-                        grid[i, j] = index;
-
                         regionSize++;
-
                     }
                 }
             }
 
-
-
-            //for (int i = 0; i < size; i++)
-            //{
-            //    for (int j = 0; j < size; j++)
-            //    {
-            //        Console.Write(grid[i, j]);
-            //    }
-            //    Console.WriteLine();
-            //}
-
-            return "";
+            return regionSize.ToString();
         }
     }
 }
