@@ -7,8 +7,50 @@ namespace AdventOfCode
 {
     class Program
     {
+        static void Cleanse()
+        {
+            List<string> input2017 = System.IO.File.ReadAllLines(@"..\..\Data\2018\2017.txt").ToList();
+            List<string> input2018 = System.IO.File.ReadAllLines(@"..\..\Data\2018\2018.txt").ToList();
+
+            List<string> zeroStars2017 = new List<string>();
+            List<string> zeroStars2018 = new List<string>();
+
+            foreach(var v in input2017)
+            {
+                List<string> splitList = v.Split(' ').ToList();
+                if (splitList[4] == "0")
+                {
+                    if (splitList.Contains("(anonymous"))
+                        zeroStars2017.Add(splitList[7] + " " + splitList[8] + " " + splitList[9]);
+                    else
+                        zeroStars2017.Add(splitList[7] + " " + splitList[8]);
+                }
+            }
+
+            foreach (var v in input2018)
+            {
+                List<string> splitList = v.Split(' ').ToList();
+                if (splitList[4] == "0")
+                {
+                    if (splitList.Contains("(anonymous"))
+                        zeroStars2018.Add(splitList[7] + " " + splitList[8] + " " + splitList[9]);
+                    else
+                        zeroStars2018.Add(splitList[7] + " " + splitList[8]);
+                }
+            }
+
+            foreach(var v in zeroStars2017)
+            {
+                if (zeroStars2018.Contains(v))
+                {
+                    Console.WriteLine(v);
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
+            //Cleanse();
             Dictionary<int, IPuzzle> puzzles;
 
             while (true)
