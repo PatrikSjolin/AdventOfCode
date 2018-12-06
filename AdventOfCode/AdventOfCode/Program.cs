@@ -166,6 +166,7 @@ namespace AdventOfCode
                     { 3, new Days_2018.Day03() },
                     { 4, new Days_2018.Day04() },
                     { 5, new Days_2018.Day05() },
+                    { 6, new Days_2018.Day06() },
                 };
             }
             return null;
