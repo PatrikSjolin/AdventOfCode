@@ -10,11 +10,10 @@ namespace AdventOfCode.Days_2018
     {
         public string RunOne()
         {
-            //List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input09.txt").ToList();
             int numPlayers = 426;
-            int lastMarbleScore = 72058 * 100;
+            int lastMarbleScore = 72058;
 
-            Dictionary<int, int> playerScores = new Dictionary<int, int>();
+            Dictionary<long, long> playerScores = new Dictionary<long, long>();
 
             for (int i = 0; i < numPlayers; i++)
             {
@@ -25,65 +24,221 @@ namespace AdventOfCode.Days_2018
             int marble = 0;
             int playerTurn = 0;
 
-            List<int> marbles = new List<int>();
-            marbles.Add(marble);
+            LinkedList<int> marbles = new LinkedList<int>();
+            LinkedListNode<int> current = marbles.AddFirst(marble);
             marble++;
-
-            int index = 1;
 
             while (marble != lastMarbleScore)
             {
-                marbles.Insert(index, marble);
-                if((marble + 1) % 23 != 0)
-                    index = ((index + 1) % marbles.Count) + 1;
-
+                var nextNode = current.Next;
+                if (nextNode == null)
+                {
+                    nextNode = marbles.First;
+                }
+                current = marbles.AddAfter(nextNode, marble);
+                marble++;
                 playerTurn++;
                 playerTurn = playerTurn % numPlayers;
-                marble++;
 
                 if (marble % 23 == 0)
                 {
                     score = marble;
-                    int newIndex = 0;
-                    if(index - 7 < 0)
+                    for (int i = 0; i < 7; i++)
                     {
-                        newIndex = marbles.Count + (index - 7);
+                        current = current.Previous;
+                        if (current == null)
+                        {
+                            current = marbles.Last;
+                        }
                     }
-                    else
-                    {
-                        newIndex = index - 7;
-                    }
-                    int m = marbles[newIndex];
-                    marbles.RemoveAt(newIndex);
-                    index = newIndex;
+
+                    int m = current.Value;
+                    nextNode = current.Next;
+                    marbles.Remove(current);
+                    current = nextNode;
                     score += m;
                     playerScores[playerTurn] += score;
                     marble++;
                     playerTurn++;
                     playerTurn = playerTurn % numPlayers;
-                    index = ((index + 1) % marbles.Count) + 1;
                 }
             }
 
-            int highest = 0;
-            
-            foreach(var v in playerScores)
+            long highest = 0;
+
+            foreach (var v in playerScores)
             {
-                if(v.Value > highest)
+                if (v.Value > highest)
                 {
                     highest = v.Value;
                 }
             }
 
             return highest.ToString();
+        }
 
+        public class LinkedNode
+        {
+            public LinkedNode Previous { get; set; }
+            public LinkedNode Next { get; set; }
+        }
+
+        public class LinkedNodeList
+        {
+            public LinkedNode AddFirst(int value)
+            {
+
+            }
+
+            public void AddAfter(LinkedNode n, int value)
+            {
+                LinkedNode next = n.Next;
+                LinkedNode newNode = new LinkedNode();
+
+                LinkedNode previous = n.Previous;
+
+                previous.Next = newNode;
+                newNode.Next = next;
+                next.Previous = newNode;
+            }
+
+            public LinkedNode Remove(LinkedNode node)
+            {
+                return null;
+            }
         }
 
         public string RunTwo()
         {
-            //List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input09.txt").ToList();
+            int numPlayers = 426;
+            int lastMarbleScore = 72058 * 100;
 
-            return "";
+            Dictionary<long, long> playerScores = GetPlayerScores(numPlayers, lastMarbleScore);
+
+            long highest = 0;
+
+            foreach (var v in playerScores)
+            {
+                if (v.Value > highest)
+                {
+                    highest = v.Value;
+                }
+            }
+
+            return highest.ToString();
+        }
+
+        private Dictionary<long, long> GetPlayerScores(int numPlayers, int lastMarbleScore)
+        {
+            Dictionary<long, long> playerScores = new Dictionary<long, long>();
+
+            for (int i = 0; i < numPlayers; i++)
+            {
+                playerScores.Add(i, 0);
+            }
+
+            int score = 0;
+            int marble = 0;
+            int playerTurn = 0;
+
+            LinkedList<int> marbles = new LinkedList<int>();
+            LinkedListNode<int> current = marbles.AddFirst(marble);
+            marble++;
+
+            while (marble != lastMarbleScore)
+            {
+                var nextNode = current.Next;
+                if (nextNode == null)
+                {
+                    nextNode = marbles.First;
+                }
+                current = marbles.AddAfter(nextNode, marble);
+                marble++;
+                playerTurn++;
+                playerTurn = playerTurn % numPlayers;
+
+                if (marble % 23 == 0)
+                {
+                    score = marble;
+                    for (int i = 0; i < 7; i++)
+                    {
+                        current = current.Previous;
+                        if (current == null)
+                        {
+                            current = marbles.Last;
+                        }
+                    }
+
+                    int m = current.Value;
+                    nextNode = current.Next;
+                    marbles.Remove(current);
+                    current = nextNode;
+                    score += m;
+                    playerScores[playerTurn] += score;
+                    marble++;
+                    playerTurn++;
+                    playerTurn = playerTurn % numPlayers;
+                }
+            }
+
+            return playerScores;
+        }
+
+        private Dictionary<long, long> GetPlayerScores2(int numPlayers, int lastMarbleScore)
+        {
+            Dictionary<long, long> playerScores = new Dictionary<long, long>();
+
+            for (int i = 0; i < numPlayers; i++)
+            {
+                playerScores.Add(i, 0);
+            }
+
+            int score = 0;
+            int marble = 0;
+            int playerTurn = 0;
+
+            LinkedNodeList marbles = new LinkedNodeList();
+
+            LinkedNode current = marbles.AddFirst(marble);
+            marble++;
+
+            while (marble != lastMarbleScore)
+            {
+                var nextNode = current.Next;
+                if (nextNode == null)
+                {
+                    nextNode = marbles.First;
+                }
+                current = marbles.AddAfter(nextNode, marble);
+                marble++;
+                playerTurn++;
+                playerTurn = playerTurn % numPlayers;
+
+                if (marble % 23 == 0)
+                {
+                    score = marble;
+                    for (int i = 0; i < 7; i++)
+                    {
+                        current = current.Previous;
+                        if (current == null)
+                        {
+                            current = marbles.Last;
+                        }
+                    }
+
+                    int m = current.Value;
+                    nextNode = current.Next;
+                    marbles.Remove(current);
+                    current = nextNode;
+                    score += m;
+                    playerScores[playerTurn] += score;
+                    marble++;
+                    playerTurn++;
+                    playerTurn = playerTurn % numPlayers;
+                }
+            }
+
+            return playerScores;
         }
     }
 }
