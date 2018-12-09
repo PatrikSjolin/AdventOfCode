@@ -122,7 +122,6 @@ namespace AdventOfCode.Days_2018
             times.Add("P", p + secondsExtra);
             times.Add("X", x + secondsExtra);
 
-            //times.Add("C", Convert.ToChar("C") - 64);
             int workers = 5;
 
             while (result.Length != nodes.Count)
