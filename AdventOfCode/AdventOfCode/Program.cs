@@ -15,7 +15,7 @@ namespace AdventOfCode
             List<string> zeroStars2017 = new List<string>();
             List<string> zeroStars2018 = new List<string>();
 
-            foreach(var v in input2017)
+            foreach (var v in input2017)
             {
                 List<string> splitList = v.Split(' ').ToList();
                 if (splitList[4] == "0")
@@ -39,7 +39,7 @@ namespace AdventOfCode
                 }
             }
 
-            foreach(var v in zeroStars2017)
+            foreach (var v in zeroStars2017)
             {
                 if (zeroStars2018.Contains(v))
                 {
@@ -67,6 +67,8 @@ namespace AdventOfCode
                 Console.WriteLine("Press 1 to run all");
                 Console.WriteLine("Press 2 to run specific");
                 Console.WriteLine("Press 3 to benchmark all puzzles");
+                Console.WriteLine("Press 4 to benchmark all puzzles (detailed)");
+                Console.WriteLine("Press 5 to benchmark specific puzzles");
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\nYour input: ");
@@ -145,6 +147,67 @@ namespace AdventOfCode
                             Console.ForegroundColor = ConsoleColor.White;
                             break;
                         }
+                    case ConsoleKey.D4:
+                    case ConsoleKey.NumPad4:
+                        {
+                            Console.Write("\nEnter number of runs: ");
+
+                            int runs = int.Parse(Console.ReadLine());
+                            Dictionary<int, Point> times = new Dictionary<int, Point>();
+
+                            foreach (var p in puzzles)
+                            {
+                                Point point = new Point(0, 0);
+                                for (int i = 0; i < runs; i++)
+                                {
+                                    point.X = TimeTask(() => p.Value.RunOne(), true);
+                                    point.Y = TimeTask(() => p.Value.RunTwo(), true);
+                                }
+                                times.Add(p.Key, point);
+                            }
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\nAverage times after {0} runs:", runs);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            foreach (var time in times)
+                            {
+                                Console.Write("Puzzle {0}: {1} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), (time.Value.X + time.Value.Y) / runs);
+                                Console.Write(" (A) {0} ms, ", time.Value.X);
+                                Console.WriteLine("B) {0} ms)", time.Value.Y);
+                            }
+
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum(x => x.X + x.Y) / runs);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                        }
+                    case ConsoleKey.D5:
+                    case ConsoleKey.NumPad5:
+                        {
+                            Console.Write("\nEnter puzzle number: ");
+                            int puzzleNumber = int.Parse(Console.ReadLine());
+
+
+                            Console.Write("\nEnter number of runs: ");
+                            int runs = int.Parse(Console.ReadLine());
+                            List<Point> times = new List<Point>();
+
+                            for(int i = 0; i < runs; i++)
+                            {
+                                Point p = new Point(0, 0);
+                                p.X = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
+                                p.Y = TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
+                                times.Add(p);
+                            }
+
+                            int sumX = times.Sum(x => x.X);
+                            int sumY = times.Sum(x => x.Y);
+
+                            Console.WriteLine("\nAverage times after {0} runs:", runs);
+                            Console.WriteLine("A: {0} ms", sumX / runs);
+                            Console.WriteLine("B: {0} ms", sumY / runs);
+                            Console.WriteLine();
+                            break;
+                        }
                 }
 
                 Console.WriteLine("\nPress any key to continue...");
@@ -155,7 +218,7 @@ namespace AdventOfCode
 
         private static Dictionary<int, IPuzzle> GetPuzzles(int year)
         {
-            if(year == 2015)
+            if (year == 2015)
             {
                 return new Dictionary<int, IPuzzle>
                 {
@@ -199,7 +262,7 @@ namespace AdventOfCode
                     { 25, new Day25() }
                 };
             }
-            if(year == 2018)
+            if (year == 2018)
             {
                 return new Dictionary<int, IPuzzle>
                 {
@@ -212,6 +275,7 @@ namespace AdventOfCode
                     { 7, new Days_2018.Day07() },
                     { 8, new Days_2018.Day08() },
                     { 9, new Days_2018.Day09() },
+                    //{ 10, new Days_2018.Day10() },
                 };
             }
             return null;
