@@ -84,6 +84,7 @@
     <Compile Include="Days 2018\Day08.cs" />
     <Compile Include="Days 2018\Day09.cs" />
     <Compile Include="Days 2018\Day10.cs" />
+    <Compile Include="Days 2018\Day11.cs" />
     <Compile Include="IPuzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
