@@ -128,15 +128,15 @@ namespace AdventOfCode.Days_2018
             {
                 grid[v.Key.X - smallestX, v.Key.Y - smallestY] = "#";
             }
-            Console.WriteLine();
+            //Console.WriteLine();
 
             for(int i = 0; i < size; i++)
             {
                 for(int j = 0; j < size; j++)
                 {
-                    Console.Write(grid[j, i]);
+                    //Console.Write(grid[j, i]);
                 }
-                Console.WriteLine();
+                //Console.WriteLine();
             }
 
             return "";
