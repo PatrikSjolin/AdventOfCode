@@ -15,7 +15,7 @@ namespace AdventOfCode.Days_2018
 
             string state = "";
 
-            int extraInBeginning = 500;
+            int extraInBeginning = 50;
 
             for(int i = 0; i < extraInBeginning; i++)
             {
@@ -26,7 +26,7 @@ namespace AdventOfCode.Days_2018
             {
                 state += s.ToString();
             }
-            int extraInTheEnd = 500;
+            int extraInTheEnd = 50;
             for (int i = 0; i < extraInTheEnd; i++)
             {
                 state += ".";
@@ -39,11 +39,11 @@ namespace AdventOfCode.Days_2018
                 rules.Add(inputLines[i].Substring(0, 5), inputLines[i].Substring(9, 1));
             }
 
-            Console.WriteLine();
-            Console.WriteLine("0: " + state);
-
+            //Console.WriteLine();
+            //Console.WriteLine("0: " + state);
+            List<int> sums = new List<int>();
             int prev = 0;
-            for (long i = 0; i < 50000000000; i++)
+            for (long i = 0; i < 20; i++)
             {
                 string newState = "..";
 
@@ -57,25 +57,8 @@ namespace AdventOfCode.Days_2018
                     }
                     newState += output;
                 }
-                if(newState != string.Empty)
                     state = newState;
-                else
-                {
-
-                }
                 state += "..";
-                int sums = 0;
-
-                for (int ir = 0; ir < state.Length; ir++)
-                {
-                    if (state[ir] == '#')
-                    {
-                        sums += ir - extraInBeginning;
-                    }
-                }
-                Console.WriteLine(sums + " +" + (sums-prev));
-                prev = sums;
-                //Console.WriteLine((i+1) + ": " + state);
             }
 
             int sum = 0;
@@ -88,12 +71,75 @@ namespace AdventOfCode.Days_2018
                 }
             }
 
-
             return sum.ToString();
         }
 
         public string RunTwo()
         {
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input12.txt").ToList();
+            string inputState = inputLines[0].Split(' ')[2];
+
+            string state = "";
+
+            int extraInBeginning = 5;
+
+            for (int i = 0; i < extraInBeginning; i++)
+            {
+                state += ".";
+            }
+
+            foreach (var s in inputState)
+            {
+                state += s.ToString();
+            }
+            int extraInTheEnd = 2000;
+            for (int i = 0; i < extraInTheEnd; i++)
+            {
+                state += ".";
+            }
+
+            Dictionary<string, string> rules = new Dictionary<string, string>();
+
+            for (int i = 2; i < inputLines.Count; i++)
+            {
+                rules.Add(inputLines[i].Substring(0, 5), inputLines[i].Substring(9, 1));
+            }
+
+            List<int> sums = new List<int>();
+            int prev = 0;
+            for (long i = 0; i < 1001; i++)
+            {
+                int suminloop = 0;
+
+                for (int ir = 0; ir < state.Length; ir++)
+                {
+                    if (state[ir] == '#')
+                    {
+                        suminloop += ir - extraInBeginning;
+                    }
+                }
+
+                if (i > 0 && i % 1000 == 0)
+                {
+                    return (((suminloop - 466) * (long)50000000) + 466).ToString();
+                }
+
+                string newState = "..";
+
+                for (int j = 2; j < state.Length - 2; j++)
+                {
+                    string input = state.Substring(j - 2, 5);
+                    string output = ".";
+                    if (rules.ContainsKey(input))
+                    {
+                        output = rules[input];
+                    }
+                    newState += output;
+                }
+                state = newState;
+                state += "..";
+            }
+
             return "";
         }
     }
