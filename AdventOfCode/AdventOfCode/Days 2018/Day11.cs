@@ -22,11 +22,12 @@ namespace AdventOfCode.Days_2018
                 return hundredDigit - 5;
             }
         }
-        int puzzleInput = 5468;
+
+        int puzzleInput = 18;
+        int size = 300;
 
         public string RunOne()
         {
-            //int test = GetGridPowerLevel(217, 196);
             int size = 300;
             int[,] grid = new int[size, size];
 
@@ -70,8 +71,6 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-            //int test = GetGridPowerLevel(217, 196);
-            int size = 300;
             int[,] grid = new int[size, size];
 
             for (int i = 0; i < size; i++)
@@ -85,7 +84,7 @@ namespace AdventOfCode.Days_2018
             int maxRegion = int.MinValue;
             int optSize = 0;
             Point p = new Point(0, 0);
-            for (int a = 1; a <= size; a++)
+            Parallel.For(1, size, a =>
             {
                 for (int i = 0; i < size - (a + 1); i++)
                 {
@@ -111,7 +110,7 @@ namespace AdventOfCode.Days_2018
                     }
                 }
                 //break;
-            }
+            });
 
             return p.X + "," + p.Y + "," + optSize;
         }
