@@ -39,10 +39,6 @@ namespace AdventOfCode.Days_2018
                 rules.Add(inputLines[i].Substring(0, 5), inputLines[i].Substring(9, 1));
             }
 
-            //Console.WriteLine();
-            //Console.WriteLine("0: " + state);
-            List<int> sums = new List<int>();
-            int prev = 0;
             for (long i = 0; i < 20; i++)
             {
                 string newState = "..";
@@ -57,7 +53,7 @@ namespace AdventOfCode.Days_2018
                     }
                     newState += output;
                 }
-                    state = newState;
+                state = newState;
                 state += "..";
             }
 
