@@ -23,7 +23,7 @@ namespace AdventOfCode.Days_2018
             }
         }
 
-        int puzzleInput = 18;
+        int puzzleInput = 5468;
         int size = 300;
 
         public string RunOne()

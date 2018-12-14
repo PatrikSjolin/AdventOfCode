@@ -77,7 +77,7 @@ namespace AdventOfCode.Days_2018
 
                 if (found)
                 {
-                    return line.Split('#')[1];
+                    return line.Split(' ')[0].Replace("#", "");
                 }
             }
 

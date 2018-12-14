@@ -52,19 +52,21 @@ namespace AdventOfCode
         {
             //Cleanse();
             Dictionary<int, IPuzzle> puzzles;
+            Dictionary<int, string> solutions;
 
             while (true)
             {
                 int year = 2018;
 
                 puzzles = GetPuzzles(year);
+                solutions = GetSolutions(year);
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Advent of Code {0}!\n", year);
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Press 0 to quit");
-                Console.WriteLine("Press 1 to run all");
+                Console.WriteLine("Press 1 to run & verify all");
                 Console.WriteLine("Press 2 to run specific");
                 Console.WriteLine("Press 3 to benchmark all puzzles");
                 Console.WriteLine("Press 4 to benchmark all puzzles (detailed)");
@@ -86,13 +88,47 @@ namespace AdventOfCode
                     case ConsoleKey.NumPad1:
                         foreach (var p in puzzles)
                         {
-                            Console.WriteLine("Solution to puzzle {0}", p.Key);
+                            Console.WriteLine("Testing puzzle {0}", p.Key);
                             Console.Write("a) ");
                             int timeElapsed = 0;
-                            timeElapsed = TimeTask(() => p.Value.RunOne());
+                            string result = "";
+                            timeElapsed = TimeTask(() => result = p.Value.RunOne(), true);
+                            if (result != solutions[p.Key].Split(';')[0])
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Test failed");
+                                Console.WriteLine("Result was {0} and should be {1}", result, solutions[p.Key].Split(';')[0]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Test passed");
+                                Console.WriteLine("Result was {0} and should be {1}", result, solutions[p.Key].Split(';')[0]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+
                             Console.WriteLine("Finished in {0} ms", timeElapsed);
+                            Console.WriteLine();
+
                             Console.Write("b) ");
-                            timeElapsed = TimeTask(() => p.Value.RunTwo());
+                            timeElapsed = TimeTask(() => result = p.Value.RunTwo(), true);
+
+                            if (result != solutions[p.Key].Split(';')[1])
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Test failed");
+                                Console.WriteLine("Result was {0} and should be {1}", result, solutions[p.Key].Split(';')[1]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("Test passed");
+                                Console.WriteLine("Result was {0} and should be {1}", result, solutions[p.Key].Split(';')[1]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+
                             Console.WriteLine("Finished in {0} ms", timeElapsed);
                             Console.WriteLine();
                         }
@@ -214,6 +250,31 @@ namespace AdventOfCode
                 Console.ReadKey();
                 Console.Clear();
             }
+        }
+
+        private static Dictionary<int, string> GetSolutions(int year)
+        {
+            if(year == 2018)
+            {
+                return new Dictionary<int, string>
+                {
+                    { 1, "433;256" },
+                    {2, "7105;omlvgdokxfncvqyersasjziup" },
+                    {3, "112378;603" },
+                    {4, "21956;134511" },
+                    {5, "11108;5094" },
+                    {6, "3449;44868" },
+                    {7, "EPWCFXKISTZVJHDGNABLQYMORU;952" },
+                    {8, "36891;20083" },
+                    {9, "424112;3487352628" },
+                    {10, "ERCXLAJL;10813" },
+                    {11, "243,64;90,101,15" },
+                    {12, "4110;2650000000466" },
+                    {13, "76,108;2,84" },
+                    {14, "9211134315;20357548" }
+                };
+            }
+            return null;
         }
 
         private static Dictionary<int, IPuzzle> GetPuzzles(int year)

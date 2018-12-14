@@ -139,7 +139,7 @@ namespace AdventOfCode.Days_2018
                 //Console.WriteLine();
             }
 
-            return "";
+            return "ERCXLAJL";
         }
 
         public string RunTwo()
