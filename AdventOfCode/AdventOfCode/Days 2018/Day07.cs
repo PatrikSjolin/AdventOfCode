@@ -8,10 +8,10 @@ namespace AdventOfCode.Days_2018
 {
     public class Day07 : IPuzzle
     {
+        List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input07.txt").ToList();
+
         public string RunOne()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input07.txt").ToList();
-
             List<string> nodes = new List<string>();
             Dictionary<string, List<string>> edges = new Dictionary<string, List<string>>();
             List<KeyValuePair<string, string>> lines = new List<KeyValuePair<string, string>>();
@@ -78,8 +78,6 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input07.txt").ToList();
-
             List<string> nodes = new List<string>();
             Dictionary<string, List<string>> edges = new Dictionary<string, List<string>>();
             List<KeyValuePair<string, string>> lines = new List<KeyValuePair<string, string>>();

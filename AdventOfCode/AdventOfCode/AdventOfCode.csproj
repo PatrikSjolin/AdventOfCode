@@ -88,6 +88,17 @@
     <Compile Include="Days 2018\Day12.cs" />
     <Compile Include="Days 2018\Day13.cs" />
     <Compile Include="Days 2018\Day14.cs" />
+    <Compile Include="Days 2018\Day15.cs" />
+    <Compile Include="Days 2018\Day16.cs" />
+    <Compile Include="Days 2018\Day17.cs" />
+    <Compile Include="Days 2018\Day18.cs" />
+    <Compile Include="Days 2018\Day19.cs" />
+    <Compile Include="Days 2018\Day20.cs" />
+    <Compile Include="Days 2018\Day21.cs" />
+    <Compile Include="Days 2018\Day22.cs" />
+    <Compile Include="Days 2018\Day23.cs" />
+    <Compile Include="Days 2018\Day24.cs" />
+    <Compile Include="Days 2018\Day25.cs" />
     <Compile Include="IPuzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

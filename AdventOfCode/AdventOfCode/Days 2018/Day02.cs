@@ -8,10 +8,10 @@ namespace AdventOfCode.Days_2018
 {
     public class Day02 : IPuzzle
     {
+        List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
+
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
-
             int totalTwos = 0;
             int totalThrees = 0;
             foreach(var i in input)
@@ -41,8 +41,6 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input02.txt").ToList();
-
             foreach (var v1 in input)
             {
                 foreach (var v2 in input)

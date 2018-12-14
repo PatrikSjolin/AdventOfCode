@@ -12,7 +12,6 @@ namespace AdventOfCode.Days_2018
         {
             string realInput = s;
             StringBuilder sb = new StringBuilder();
-            //string newString = "";
 
             bool removed = true;
             while (removed)
@@ -44,7 +43,6 @@ namespace AdventOfCode.Days_2018
 
         private string Reduce2(string s)
         {
-            //s = "dabAcCaCBAcCcaDA";
             List<string> ss = s.Select(x => x.ToString()).ToList();
 
             for(int i = 0; i < ss.Count-1; i++)

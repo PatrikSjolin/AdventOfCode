@@ -14,10 +14,10 @@ namespace AdventOfCode.Days_2018
     public class Day04 : IPuzzle
     {
         SortedDictionary<int, List<SleepTime>> guards = new SortedDictionary<int, List<SleepTime>>();
+        List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input04.txt").ToList();
 
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input04.txt").ToList();
             SortedDictionary<DateTime, string> inputs = new SortedDictionary<DateTime, string>();
 
             foreach (var line in input)

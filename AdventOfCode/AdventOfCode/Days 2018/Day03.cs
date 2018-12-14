@@ -10,10 +10,10 @@ namespace AdventOfCode.Days_2018
     {
         int[,] grid = new int[1000, 1000];
 
+        List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input03.txt").ToList();
+
         public string RunOne()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input03.txt").ToList();
-
             foreach (var line in input)
             {
                 List<string> split = line.Split(' ').ToList();
@@ -51,8 +51,6 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-            List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input03.txt").ToList();
-
             foreach (var line in input)
             {
                 List<string> split = line.Split(' ').ToList();
