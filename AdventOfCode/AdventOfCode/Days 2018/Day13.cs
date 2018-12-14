@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2018
 {
@@ -19,11 +17,8 @@ namespace AdventOfCode.Days_2018
             public bool Crashed { get; set; }
         }
 
-
-
         public string RunOne()
         {
-
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input13.txt").ToList();
 
             int width = inputLines[0].Length;
