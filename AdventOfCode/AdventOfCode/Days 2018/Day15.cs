@@ -24,7 +24,7 @@ namespace AdventOfCode.Days_2018
     {
         public bool Active { get => true; }
 
-        List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input15test.txt").ToList();
+        List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input15test4.txt").ToList();
 
         public void PaintMap(string[,] map, int width, int height, List<Unit> units)
         {
@@ -32,11 +32,13 @@ namespace AdventOfCode.Days_2018
 
             for (int i = 0; i < height; i++)
             {
+                List<Unit> rowUnites = new List<Unit>();
                 for(int j = 0; j < width; j++)
                 {
                     Unit u = units.FirstOrDefault(x => x.Position.X == j && x.Position.Y == i);
                     if(u != null)
                     {
+                        rowUnites.Add(u);
                         if (u.Type == UnitType.Elf)
                             Console.Write("E");
                         else
@@ -45,13 +47,21 @@ namespace AdventOfCode.Days_2018
                     else
                         Console.Write(map[j, i]);
                 }
+                Console.Write("  ");
+                foreach(var u in rowUnites)
+                {
+                    if (u.Type == UnitType.Elf)
+                        Console.Write("E({0}), ", u.HitPoints);
+                    else
+                        Console.Write("G({0}), ", u.HitPoints);
+                }
                 Console.WriteLine();
             }
         }
 
         public void UpdateUnit(List<Unit> units, Unit unit, UnitType attackType, string[,] map, int width, int height)
         {
-            var targets = units.Where(x => x.Type == attackType).ToList();
+            var targets = units.Where(x => x.Type == attackType && x.HitPoints > 0).ToList();
             if (targets.Count() == 0)
                 return;
 
@@ -63,40 +73,12 @@ namespace AdventOfCode.Days_2018
 
             if (attackable.Count > 0)
             {
-                if (attackable.Count > 1)
-                {
-                    attackable = attackable.OrderBy(x => x.HitPoints).ToList();
-
-                    if (attackable[0].HitPoints != attackable[1].HitPoints)
-                    {
-                        Unit u = attackable[0];
-                        u.HitPoints -= unit.AttackPower;
-                        if (u.HitPoints <= 0)
-                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
-                    }
-                    else
-                    {
-                        //More than one with same hitpoints
-                        attackable = attackable.OrderBy(x => x.Position.X).OrderBy(x => x.Position.Y).ToList();
-                        Unit u = attackable[0];
-                        u.HitPoints -= unit.AttackPower;
-                        if (u.HitPoints <= 0)
-                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
-                    }
-                }
-                else
-                {
-                    //One unit to attack
-                    Unit u = attackable[0];
-                    u.HitPoints -= unit.AttackPower;
-                    if (u.HitPoints <= 0)
-                        units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
-                }
+                Attack(unit, units, attackable);
             }
             else
             {
                 List<Point> possibleDestinations = GetPossibleDestinations(targets, units, map);
-                possibleDestinations = possibleDestinations.OrderBy(x => x.Y).OrderBy(x => x.X).ToList();
+                possibleDestinations = possibleDestinations.OrderBy(x => x.Y).ThenBy(x => x.X).ToList();
                 //PaintPossible(map, units, possibleDestinations, width, height);
 
                 bool[,] realMap = ConstructMap(map, units, width, height);
@@ -107,6 +89,9 @@ namespace AdventOfCode.Days_2018
                 int[,] shortestPath = null;
 
                 Dictionary<int, int[,]> pathValues = new Dictionary<int, int[,]>();
+
+                int shortestX = 0;
+                int shortestY = 0;
 
                 foreach (var p in possibleDestinations)
                 {
@@ -132,27 +117,31 @@ namespace AdventOfCode.Days_2018
 
                     if (distance > 0 && distance != int.MaxValue)
                     {
-                        if(distance < shortest)
+                        if(distance <= shortest)
                         {
                             shortest = distance;
                             shortestPath = paths;
+                            shortestX = p.X;
+                            shortestY = p.Y;
                         }
                     }
-
                 }
+                Console.WriteLine();
+
                 if (shortestPath != null)
                 {
+                    //PaintShortestPath(shortestPath, width, height);
                     int up = shortestPath[unit.Position.X, unit.Position.Y - 1];
-                    if (up == 0)
+                    if (up == 0 && !(unit.Position.X == shortestX && (unit.Position.Y - 1) == shortestY))
                         up = int.MaxValue;
                     int down = shortestPath[unit.Position.X, unit.Position.Y + 1];
-                    if (down == 0)
+                    if (down == 0 && !(unit.Position.X == shortestX && (unit.Position.Y + 1) == shortestY))
                         down = int.MaxValue;
                     int left = shortestPath[unit.Position.X - 1, unit.Position.Y];
-                    if (left == 0)
+                    if (left == 0 && !((unit.Position.X - 1) == shortestX && unit.Position.Y == shortestY))
                         left = int.MaxValue;
                     int right = shortestPath[unit.Position.X + 1, unit.Position.Y];
-                    if (right == 0)
+                    if (right == 0 && !((unit.Position.X + 1) == shortestX && unit.Position.Y == shortestY))
                         right = int.MaxValue;
 
                     List<int> points = new List<int> { up, down, left, right };
@@ -175,7 +164,82 @@ namespace AdventOfCode.Days_2018
                     {
                         unit.Position.Y++;
                     }
+
+                    var targets2 = units.Where(x => x.Type == attackType && x.HitPoints > 0).ToList();
+                    if (targets2.Count() == 0)
+                        return;
+
+                    List<Unit> attackable2 = targets.Where(x =>
+                    (x.Position.X == unit.Position.X + 1 && x.Position.Y == unit.Position.Y) ||
+                    (x.Position.X == unit.Position.X - 1 && x.Position.Y == unit.Position.Y) ||
+                    (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y + 1) ||
+                    (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y - 1)).ToList();
+
+                    if (attackable2.Count > 0)
+                    {
+                        Attack(unit, units, attackable2);
+                    }
                 }
+            }
+        }
+
+        private void Attack(Unit unit, List<Unit> units, List<Unit> targets)
+        {
+            List<Unit> attackable2 = targets.Where(x =>
+                (x.Position.X == unit.Position.X + 1 && x.Position.Y == unit.Position.Y) ||
+                (x.Position.X == unit.Position.X - 1 && x.Position.Y == unit.Position.Y) ||
+                (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y + 1) ||
+                (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y - 1)).ToList();
+
+            if (attackable2.Count > 0)
+            {
+                if (attackable2.Count > 1)
+                {
+                    attackable2 = attackable2.OrderBy(x => x.HitPoints).ToList();
+
+                    if (attackable2[0].HitPoints != attackable2[1].HitPoints)
+                    {
+                        Unit u = attackable2[0];
+                        if (unit.HitPoints > 0)
+                            u.HitPoints -= unit.AttackPower;
+                        if (u.HitPoints <= 0)
+                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                    }
+                    else
+                    {
+                        //More than one with same hitpoints
+                        attackable2 = attackable2.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
+                        Unit u = attackable2[0];
+                        if (unit.HitPoints > 0)
+                            u.HitPoints -= unit.AttackPower;
+                        if (u.HitPoints <= 0)
+                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                    }
+                }
+                else
+                {
+                    //One unit to attack
+                    Unit u = attackable2[0];
+                    if (unit.HitPoints > 0)
+                        u.HitPoints -= unit.AttackPower;
+                    if (u.HitPoints <= 0)
+                        units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                }
+            }
+        }
+
+        private void PaintShortestPath(int[,] shortestPath, int width, int height)
+        {
+            for(int i = 0; i < height; i++)
+            {
+                for(int j = 0; j < width; j++)
+                {
+                    if (shortestPath[j, i] == int.MaxValue)
+                        Console.Write("#");
+                    else
+                        Console.Write(shortestPath[j, i]);
+                }
+                Console.WriteLine();
             }
         }
 
@@ -311,28 +375,40 @@ namespace AdventOfCode.Days_2018
                     }
                 }
             }
+            Console.WriteLine("Initial map");
             PaintMap(map, width, height, units);
-
+            Console.WriteLine();
             int rounds = 0;
 
             while (units.Count(x => x.Type == UnitType.Elf) > 0 && units.Count(x => x.Type == UnitType.Goblin) > 0)
             {
-                units = units.OrderBy(x => x.Position.X).OrderBy(x => x.Position.Y).ToList();
+                units = units.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
 
                 foreach (var unit in units.ToList())
                 {
                     if(unit.Type == UnitType.Elf)
                     {
-                        UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
+                        if(unit.HitPoints > 0)
+                            UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
+                        else
+                        {
+
+                        }
                     }
                     else
                     {
-                        UpdateUnit(units, unit, UnitType.Elf, map, width, height);
+                        if(unit.HitPoints > 0)
+                            UpdateUnit(units, unit, UnitType.Elf, map, width, height);
+                        else
+                        {
+
+                        }
                     }
                 }
                 rounds++;
-                //PaintMap(map, width, height, units);
-                //Console.ReadKey();
+                Console.WriteLine("After round {0}", rounds);
+                PaintMap(map, width, height, units);
+                Console.ReadKey();
             }
 
             int sum = units.Where(x => x.HitPoints >= 0).Sum(x => x.HitPoints);
