@@ -6,6 +6,8 @@ namespace AdventOfCode.Days
 {
     public class Day08 : IPuzzle
     {
+        public bool Active { get => true; }
+
         Dictionary<string, int> registers;
         int max;
 

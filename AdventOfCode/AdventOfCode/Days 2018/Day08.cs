@@ -16,6 +16,8 @@ namespace AdventOfCode.Days_2018
 
     public class Day08 : IPuzzle
     {
+        public bool Active { get => true; }
+
         Node root;
         int sum = 0;
 

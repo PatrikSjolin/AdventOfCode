@@ -6,6 +6,8 @@ namespace AdventOfCode.Days
 {
     public class Day07 : IPuzzle
     {
+        public bool Active { get => true; }
+
         string root;
         Dictionary<string, List<string>> tree;
         Dictionary<string, int> weight;

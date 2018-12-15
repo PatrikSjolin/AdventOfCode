@@ -2,6 +2,8 @@
 {
     public class Day25 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             int steps = 12368930;

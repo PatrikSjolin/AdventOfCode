@@ -24,6 +24,8 @@ namespace AdventOfCode.Days
 
     public class Day20 : IPuzzle
     {
+        public bool Active { get => true; }
+
         List<Particle> particles;
 
         public string RunOne()

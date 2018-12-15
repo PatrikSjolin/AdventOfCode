@@ -6,6 +6,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day13 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public class Cart
         {
             public Point Direction { get; set; }

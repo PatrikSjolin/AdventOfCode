@@ -13,6 +13,8 @@ namespace AdventOfCode.Days_2018
     }
     public class Day04 : IPuzzle
     {
+        public bool Active { get => true; }
+
         SortedDictionary<int, List<SleepTime>> guards = new SortedDictionary<int, List<SleepTime>>();
         List<string> input = System.IO.File.ReadAllLines(@"..\..\Data\2018\input04.txt").ToList();
 

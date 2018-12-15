@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day11 : IPuzzle
     {
+        public bool Active { get => true; }
+
         int GetGridPowerLevel(int x, int y)
         {
             int rackId = x + 10;

@@ -6,6 +6,8 @@ namespace AdventOfCode.Days
 {
     public class Day06 : IPuzzle
     {
+        public bool Active { get => true; }
+
         private int indexOfEqual;
         HashSet<string> states;
         List<string> listOfStates;

@@ -13,6 +13,8 @@ namespace AdventOfCode.Days
 
     public class Day24 : IPuzzle
     {
+        public bool Active { get => true; }
+
         private List<Tuple<int, int>> paths = new List<Tuple<int, int>>();
 
         public string RunOne()

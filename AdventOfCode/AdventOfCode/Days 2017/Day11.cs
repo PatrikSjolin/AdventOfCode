@@ -6,6 +6,8 @@ namespace AdventOfCode.Days
 {
     public class Day11 : IPuzzle
     {
+        public bool Active { get => true; }
+
         int maxSteps;
 
         public string RunOne()

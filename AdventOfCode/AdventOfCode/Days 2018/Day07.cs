@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day07 : IPuzzle
     {
+        public bool Active { get => true; }
+
         List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input07.txt").ToList();
 
         public string RunOne()

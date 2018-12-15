@@ -20,6 +20,8 @@ namespace AdventOfCode.Days
 
     public class Day16 : IPuzzle
     {
+        public bool Active { get => true; }
+
         List<Operation> ops;
 
         public string RunOne()

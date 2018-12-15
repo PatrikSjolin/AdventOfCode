@@ -4,6 +4,8 @@ namespace AdventOfCode.Days
 {
     public class Day03 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             int input = 265149;

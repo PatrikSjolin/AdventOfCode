@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day10 : IPuzzle
     {
+        public bool Active { get => true; }
+
         int seconds = 1;
         public string RunOne()
         {

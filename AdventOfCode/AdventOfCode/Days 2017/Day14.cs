@@ -4,6 +4,8 @@ namespace AdventOfCode.Days
 {
     public class Day14 : IPuzzle
     {
+        public bool Active { get => true; }
+
         static HashSet<Point> usedNodes;
         Dictionary<char, string> hexCharacterToBinary = new Dictionary<char, string> {
                 { '0', "0000" },

@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2015
 {
     public class Day04 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             string input = "ckczppom";

@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day06 : IPuzzle
     {
+        public bool Active { get => true; }
+
         List<Point> coordinates;
         int size = 0;
 

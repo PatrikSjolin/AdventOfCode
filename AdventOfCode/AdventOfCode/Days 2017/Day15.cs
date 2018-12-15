@@ -2,6 +2,8 @@
 {
     public class Day15 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             int genAFactor = 16807;

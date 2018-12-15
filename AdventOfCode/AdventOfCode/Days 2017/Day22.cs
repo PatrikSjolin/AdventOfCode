@@ -6,6 +6,8 @@ namespace AdventOfCode.Days
 {
     public class Day22 : IPuzzle
     {
+        public bool Active { get => true; }
+
         private Tuple<int, int> north = new Tuple<int, int>(0, -1);
         private Tuple<int, int> east = new Tuple<int, int>(1, 0);
         private Tuple<int, int> south = new Tuple<int, int>(0, 1);

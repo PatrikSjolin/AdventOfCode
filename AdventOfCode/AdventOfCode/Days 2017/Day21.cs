@@ -32,6 +32,8 @@ namespace AdventOfCode.Days
 
     public class Day21 : IPuzzle
     {
+        public bool Active { get => true; }
+
         Dictionary<Rule, int[,]> ruleMap;
 
         public string RunOne()

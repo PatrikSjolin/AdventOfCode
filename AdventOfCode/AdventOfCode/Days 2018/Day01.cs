@@ -5,6 +5,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day01 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             return System.IO.File.ReadAllLines(@"..\..\Data\2018\input01.txt").Select(x => int.Parse(x)).Sum().ToString();

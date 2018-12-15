@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day14 : IPuzzle
     {
+        public bool Active { get => true; }
+
         public string RunOne()
         {
             LinkedList<int> nodes = new LinkedList<int>();

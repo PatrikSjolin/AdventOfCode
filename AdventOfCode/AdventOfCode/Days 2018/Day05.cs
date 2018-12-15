@@ -8,6 +8,8 @@ namespace AdventOfCode.Days_2018
 {
     public class Day05 : IPuzzle
     {
+        public bool Active { get => true; }
+
         private string Reduce(string s)
         {
             string realInput = s;
