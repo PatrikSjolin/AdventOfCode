@@ -24,7 +24,8 @@ namespace AdventOfCode.Days_2018
     {
         public bool Active { get => true; }
 
-        List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input15test4.txt").ToList();
+        bool paint = false;
+        List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input15.txt").ToList();
 
         public void PaintMap(string[,] map, int width, int height, List<Unit> units)
         {
@@ -33,10 +34,10 @@ namespace AdventOfCode.Days_2018
             for (int i = 0; i < height; i++)
             {
                 List<Unit> rowUnites = new List<Unit>();
-                for(int j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                 {
                     Unit u = units.FirstOrDefault(x => x.Position.X == j && x.Position.Y == i);
-                    if(u != null)
+                    if (u != null)
                     {
                         rowUnites.Add(u);
                         if (u.Type == UnitType.Elf)
@@ -48,7 +49,7 @@ namespace AdventOfCode.Days_2018
                         Console.Write(map[j, i]);
                 }
                 Console.Write("  ");
-                foreach(var u in rowUnites)
+                foreach (var u in rowUnites)
                 {
                     if (u.Type == UnitType.Elf)
                         Console.Write("E({0}), ", u.HitPoints);
@@ -79,7 +80,8 @@ namespace AdventOfCode.Days_2018
             {
                 List<Point> possibleDestinations = GetPossibleDestinations(targets, units, map);
                 possibleDestinations = possibleDestinations.OrderBy(x => x.Y).ThenBy(x => x.X).ToList();
-                //PaintPossible(map, units, possibleDestinations, width, height);
+                if (paint)
+                    PaintPossible(map, units, possibleDestinations, width, height);
 
                 bool[,] realMap = ConstructMap(map, units, width, height);
                 realMap[unit.Position.X, unit.Position.Y] = true;
@@ -104,9 +106,9 @@ namespace AdventOfCode.Days_2018
                         {
                             if (realMap[i, j] == true)
                             {
-                                paths[i, j] = int.MaxValue;
                                 unvisitedNodes.Add(new Point(i, j));
                             }
+                            paths[i, j] = int.MaxValue;
                         }
                     }
 
@@ -117,7 +119,7 @@ namespace AdventOfCode.Days_2018
 
                     if (distance > 0 && distance != int.MaxValue)
                     {
-                        if(distance <= shortest)
+                        if (distance < shortest)
                         {
                             shortest = distance;
                             shortestPath = paths;
@@ -126,11 +128,14 @@ namespace AdventOfCode.Days_2018
                         }
                     }
                 }
-                Console.WriteLine();
+                if (paint)
+                    Console.WriteLine();
 
                 if (shortestPath != null)
                 {
-                    //PaintShortestPath(shortestPath, width, height);
+                    if (paint)
+                        PaintShortestPath(shortestPath, width, height);
+
                     int up = shortestPath[unit.Position.X, unit.Position.Y - 1];
                     if (up == 0 && !(unit.Position.X == shortestX && (unit.Position.Y - 1) == shortestY))
                         up = int.MaxValue;
@@ -183,61 +188,64 @@ namespace AdventOfCode.Days_2018
             }
         }
 
-        private void Attack(Unit unit, List<Unit> units, List<Unit> targets)
+        private void Attack(Unit unit, List<Unit> units, List<Unit> attackable)
         {
-            List<Unit> attackable2 = targets.Where(x =>
-                (x.Position.X == unit.Position.X + 1 && x.Position.Y == unit.Position.Y) ||
-                (x.Position.X == unit.Position.X - 1 && x.Position.Y == unit.Position.Y) ||
-                (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y + 1) ||
-                (x.Position.X == unit.Position.X && x.Position.Y == unit.Position.Y - 1)).ToList();
-
-            if (attackable2.Count > 0)
+            if (attackable.Count > 1)
             {
-                if (attackable2.Count > 1)
-                {
-                    attackable2 = attackable2.OrderBy(x => x.HitPoints).ToList();
+                attackable = attackable.OrderBy(x => x.HitPoints).ToList();
 
-                    if (attackable2[0].HitPoints != attackable2[1].HitPoints)
-                    {
-                        Unit u = attackable2[0];
-                        if (unit.HitPoints > 0)
-                            u.HitPoints -= unit.AttackPower;
-                        if (u.HitPoints <= 0)
-                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
-                    }
-                    else
-                    {
-                        //More than one with same hitpoints
-                        attackable2 = attackable2.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
-                        Unit u = attackable2[0];
-                        if (unit.HitPoints > 0)
-                            u.HitPoints -= unit.AttackPower;
-                        if (u.HitPoints <= 0)
-                            units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
-                    }
+                if (attackable[0].HitPoints != attackable[1].HitPoints)
+                {
+                    Unit u = attackable[0];
+                    if (unit.HitPoints > 0)
+                        u.HitPoints -= unit.AttackPower;
+                    if (u.HitPoints <= 0)
+                        units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
                 }
                 else
                 {
-                    //One unit to attack
-                    Unit u = attackable2[0];
+                    //More than one with same hitpoints
+                    attackable = attackable.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
+                    Unit u = attackable[0];
                     if (unit.HitPoints > 0)
                         u.HitPoints -= unit.AttackPower;
                     if (u.HitPoints <= 0)
                         units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
                 }
             }
+            else
+            {
+                //One unit to attack
+                Unit u = attackable[0];
+                if (unit.HitPoints > 0)
+                    u.HitPoints -= unit.AttackPower;
+                if (u.HitPoints <= 0)
+                    units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+            }
         }
 
         private void PaintShortestPath(int[,] shortestPath, int width, int height)
         {
-            for(int i = 0; i < height; i++)
+            for (int i = 0; i < height; i++)
             {
-                for(int j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                 {
                     if (shortestPath[j, i] == int.MaxValue)
-                        Console.Write("#");
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("##");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                     else
+                    {
+                        if (shortestPath[j, i] < 10)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("0");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                         Console.Write(shortestPath[j, i]);
+                    }
                 }
                 Console.WriteLine();
             }
@@ -281,19 +289,30 @@ namespace AdventOfCode.Days_2018
                 if (paths[x, y] + 1 < paths[nx, ny])
                 {
                     paths[nx, ny] = paths[x, y] + 1;
+
                 }
             }
 
-            foreach (var n in neighbours)
+            List<Point> notVisitedNeighbours = unvisitedNodes.Where(xx => paths[xx.X, xx.Y] < int.MaxValue).ToList();
+            //neighbours.Where(xx => unvisitedNodes.Contains(xx)).ToList();
+
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in notVisitedNeighbours)
             {
-                int nx = n.X;
-                int ny = n.Y;
-
-                if (unvisitedNodes.Contains(new Point(nx, ny)))
+                if (paths[nv.X, nv.Y] < smallestCost)
                 {
-                    FindShortestPath(map, unvisitedNodes, paths, nx, ny);
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
                 }
             }
+
+            if (notVisitedNeighbours.Count() > 0)
+                FindShortestPath(map, unvisitedNodes, paths, smallestX, smallestY);
         }
 
         private bool[,] ConstructMap(string[,] map, List<Unit> units, int width, int height)
@@ -301,7 +320,7 @@ namespace AdventOfCode.Days_2018
             bool[,] realMap = new bool[width, height];
             for (int i = 0; i < width; i++)
             {
-                for(int j = 0; j < height; j++)
+                for (int j = 0; j < height; j++)
                 {
                     Unit u = units.FirstOrDefault(x => x.Position.X == i && x.Position.Y == j);
                     if (u != null)
@@ -333,7 +352,7 @@ namespace AdventOfCode.Days_2018
                         else
                             Console.Write("G");
                     }
-                    else if(p != null)
+                    else if (p != null)
                     {
                         Console.Write("?");
                     }
@@ -353,18 +372,18 @@ namespace AdventOfCode.Days_2018
 
             List<Unit> units = new List<Unit>();
 
-            for(int i = 0; i < height; i++)
+            for (int i = 0; i < height; i++)
             {
-                for(int j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                 {
                     string content = inputLines[i][j].ToString();
 
-                    if(content == "G")
+                    if (content == "G")
                     {
                         units.Add(new Unit { HitPoints = 200, AttackPower = 3, Position = new Point(j, i), Type = UnitType.Goblin });
                         map[j, i] = ".";
                     }
-                    else if(content == "E")
+                    else if (content == "E")
                     {
                         units.Add(new Unit { HitPoints = 200, AttackPower = 3, Position = new Point(j, i), Type = UnitType.Elf });
                         map[j, i] = ".";
@@ -375,9 +394,12 @@ namespace AdventOfCode.Days_2018
                     }
                 }
             }
-            Console.WriteLine("Initial map");
-            PaintMap(map, width, height, units);
-            Console.WriteLine();
+            if (paint)
+            {
+                Console.WriteLine("Initial map");
+                PaintMap(map, width, height, units);
+                Console.WriteLine();
+            }
             int rounds = 0;
 
             while (units.Count(x => x.Type == UnitType.Elf) > 0 && units.Count(x => x.Type == UnitType.Goblin) > 0)
@@ -386,9 +408,9 @@ namespace AdventOfCode.Days_2018
 
                 foreach (var unit in units.ToList())
                 {
-                    if(unit.Type == UnitType.Elf)
+                    if (unit.Type == UnitType.Elf)
                     {
-                        if(unit.HitPoints > 0)
+                        if (unit.HitPoints > 0)
                             UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
                         else
                         {
@@ -397,7 +419,7 @@ namespace AdventOfCode.Days_2018
                     }
                     else
                     {
-                        if(unit.HitPoints > 0)
+                        if (unit.HitPoints > 0)
                             UpdateUnit(units, unit, UnitType.Elf, map, width, height);
                         else
                         {
@@ -406,25 +428,28 @@ namespace AdventOfCode.Days_2018
                     }
                 }
                 rounds++;
-                Console.WriteLine("After round {0}", rounds);
-                PaintMap(map, width, height, units);
-                Console.ReadKey();
+                if (paint)
+                {
+                    Console.WriteLine("After round {0}", rounds);
+                    PaintMap(map, width, height, units);
+                    Console.ReadKey();
+                }
             }
 
             int sum = units.Where(x => x.HitPoints >= 0).Sum(x => x.HitPoints);
 
-            return (rounds * sum) + "";
+            return (rounds - 1) * sum + "";
         }
 
         private List<Point> GetPossibleDestinations(List<Unit> targets, List<Unit> allUnits, string[,] map)
         {
             List<Point> points = new List<Point>();
 
-            foreach(var t in targets)
+            foreach (var t in targets)
             {
-                if(map[t.Position.X + 1, t.Position.Y] == ".")
+                if (map[t.Position.X + 1, t.Position.Y] == ".")
                 {
-                    if(allUnits.Count(x => x.Position.X == t.Position.X + 1 && x.Position.Y == t.Position.Y) > 0)
+                    if (allUnits.Count(x => x.Position.X == t.Position.X + 1 && x.Position.Y == t.Position.Y) > 0)
                     {
                         //Blocked by other unit
                     }
@@ -473,8 +498,91 @@ namespace AdventOfCode.Days_2018
 
         public string RunTwo()
         {
-         
-            return "";
+            int attackPower = 4;
+            while (true)
+            {
+                int width = inputLines[0].Length;
+                int height = inputLines.Count;
+
+                string[,] map = new string[inputLines[0].Length, inputLines.Count];
+
+                int elves = 0;
+
+                List<Unit> units = new List<Unit>();
+
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < width; j++)
+                    {
+                        string content = inputLines[i][j].ToString();
+
+                        if (content == "G")
+                        {
+                            units.Add(new Unit { HitPoints = 200, AttackPower = 3, Position = new Point(j, i), Type = UnitType.Goblin });
+                            map[j, i] = ".";
+                        }
+                        else if (content == "E")
+                        {
+                            elves++;
+                            units.Add(new Unit { HitPoints = 200, AttackPower = attackPower, Position = new Point(j, i), Type = UnitType.Elf });
+                            map[j, i] = ".";
+                        }
+                        else
+                        {
+                            map[j, i] = inputLines[i][j].ToString();
+                        }
+                    }
+                }
+                if (paint)
+                {
+                    Console.WriteLine("Initial map");
+                    PaintMap(map, width, height, units);
+                    Console.WriteLine();
+                }
+                int rounds = 0;
+
+                while (units.Count(x => x.Type == UnitType.Elf) > 0 && units.Count(x => x.Type == UnitType.Goblin) > 0)
+                {
+                    units = units.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
+
+                    foreach (var unit in units.ToList())
+                    {
+                        if (unit.Type == UnitType.Elf)
+                        {
+                            if (unit.HitPoints > 0)
+                                UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
+                            else
+                            {
+
+                            }
+                        }
+                        else
+                        {
+                            if (unit.HitPoints > 0)
+                                UpdateUnit(units, unit, UnitType.Elf, map, width, height);
+                            else
+                            {
+
+                            }
+                        }
+                    }
+                    if (units.Count(x => x.Type == UnitType.Elf) != elves)
+                        break;
+                    rounds++;
+                    if (paint)
+                    {
+                        Console.WriteLine("After round {0}", rounds);
+                        PaintMap(map, width, height, units);
+                        Console.ReadKey();
+                    }
+                }
+                if (units.Count(x => x.Type == UnitType.Elf) == elves)
+                {
+                    int sum = units.Where(x => x.HitPoints >= 0).Sum(x => x.HitPoints);
+                    return (rounds - 1) * sum + "";
+                }
+                attackPower++;
+            }
         }
     }
 }

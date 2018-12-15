@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2018
 {
-    class Day19
+    public class Day19 : IPuzzle
     {
+        public bool Active => false;
+
+        public string RunOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string RunTwo()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -86,7 +86,7 @@ namespace AdventOfCode
 
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
-                        foreach (var p in puzzles)
+                        foreach (var p in puzzles.Where(x => x.Value.Active))
                         {
                             Console.WriteLine("Testing puzzle {0}", p.Key);
                             Console.Write("a) ");
@@ -160,7 +160,7 @@ namespace AdventOfCode
                             int runs = int.Parse(Console.ReadLine());
                             Dictionary<int, int> times = new Dictionary<int, int>();
 
-                            foreach (var p in puzzles)
+                            foreach (var p in puzzles.Where(x => x.Value.Active))
                             {
                                 int sum = 0;
                                 for (int i = 0; i < runs; i++)
@@ -191,7 +191,7 @@ namespace AdventOfCode
                             int runs = int.Parse(Console.ReadLine());
                             Dictionary<int, Point> times = new Dictionary<int, Point>();
 
-                            foreach (var p in puzzles)
+                            foreach (var p in puzzles.Where(x => x.Value.Active))
                             {
                                 Point point = new Point(0, 0);
                                 for (int i = 0; i < runs; i++)
@@ -271,7 +271,8 @@ namespace AdventOfCode
                     {11, "243,64;90,101,15" },
                     {12, "4110;2650000000466" },
                     {13, "76,108;2,84" },
-                    {14, "9211134315;20357548" }
+                    {14, "9211134315;20357548" },
+                    {15, "195811;69867" }
                 };
             }
             return null;
@@ -342,6 +343,16 @@ namespace AdventOfCode
                     { 13, new Days_2018.Day13() },
                     { 14, new Days_2018.Day14() },
                     { 15, new Days_2018.Day15() },
+                    { 16, new Days_2018.Day16() },
+                    { 17, new Days_2018.Day17() },
+                    { 18, new Days_2018.Day18() },
+                    { 19, new Days_2018.Day19() },
+                    { 20, new Days_2018.Day20() },
+                    { 21, new Days_2018.Day21() },
+                    { 22, new Days_2018.Day22() },
+                    { 23, new Days_2018.Day23() },
+                    { 24, new Days_2018.Day24() },
+                    { 25, new Days_2018.Day25() },
                 };
             }
             return null;
