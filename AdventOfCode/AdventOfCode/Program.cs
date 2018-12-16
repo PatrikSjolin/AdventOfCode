@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 
 namespace AdventOfCode
 {
@@ -56,7 +57,7 @@ namespace AdventOfCode
 
             while (true)
             {
-                int year = 2016;
+                int year = int.Parse(ConfigurationManager.AppSettings["Year"]);
 
                 puzzles = GetPuzzles(year);
                 solutions = GetSolutions(year);
@@ -71,6 +72,7 @@ namespace AdventOfCode
                 Console.WriteLine("Press 3 to benchmark all puzzles");
                 Console.WriteLine("Press 4 to benchmark all puzzles (detailed)");
                 Console.WriteLine("Press 5 to benchmark specific puzzles");
+                Console.WriteLine("Press 6 to change year");
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("\nYour input: ");
@@ -242,6 +244,21 @@ namespace AdventOfCode
                             Console.WriteLine("A: {0} ms", sumX / runs);
                             Console.WriteLine("B: {0} ms", sumY / runs);
                             Console.WriteLine();
+                            break;
+                        }
+
+                    case ConsoleKey.D6:
+                    case ConsoleKey.NumPad6:
+                        {
+                            Console.Write("\nEnter year: ");
+                            int newYear = int.Parse(Console.ReadLine());
+
+                            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+                            config.AppSettings.Settings["Year"].Value = newYear.ToString();
+                            config.Save(ConfigurationSaveMode.Modified);
+                            ConfigurationManager.RefreshSection("appSettings");
+                            Console.WriteLine("Year changes to {0}", newYear);
                             break;
                         }
                 }
