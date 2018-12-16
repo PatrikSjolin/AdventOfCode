@@ -348,19 +348,11 @@ namespace AdventOfCode.Days_2018
                     {
                         if (unit.HitPoints > 0)
                             UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
-                        else
-                        {
-
-                        }
                     }
                     else
                     {
                         if (unit.HitPoints > 0)
                             UpdateUnit(units, unit, UnitType.Elf, map, width, height);
-                        else
-                        {
-
-                        }
                     }
                 }
                 rounds++;

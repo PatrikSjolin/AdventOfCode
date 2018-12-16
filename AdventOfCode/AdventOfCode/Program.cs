@@ -56,7 +56,7 @@ namespace AdventOfCode
 
             while (true)
             {
-                int year = 2018;
+                int year = 2016;
 
                 puzzles = GetPuzzles(year);
                 solutions = GetSolutions(year);
@@ -254,6 +254,28 @@ namespace AdventOfCode
 
         private static Dictionary<int, string> GetSolutions(int year)
         {
+            if(year == 2016)
+            {
+                return new Dictionary<int, string>
+                {
+                    { 1, "273;115" },
+                    //{2, "7105;omlvgdokxfncvqyersasjziup" },
+                    //{3, "112378;603" },
+                    //{4, "21956;134511" },
+                    //{5, "11108;5094" },
+                    //{6, "3449;44868" },
+                    //{7, "EPWCFXKISTZVJHDGNABLQYMORU;952" },
+                    //{8, "36891;20083" },
+                    //{9, "424112;3487352628" },
+                    //{10, "ERCXLAJL;10813" },
+                    //{11, "243,64;90,101,15" },
+                    //{12, "4110;2650000000466" },
+                    //{13, "76,108;2,84" },
+                    //{14, "9211134315;20357548" },
+                    //{15, "195811;69867" },
+                    //{16, "560;622" }
+                };
+            }
             if(year == 2018)
             {
                 return new Dictionary<int, string>
@@ -293,6 +315,38 @@ namespace AdventOfCode
                     { 6, new Days_2015.Day06() },
                     { 7, new Days_2015.Day07() },
                 };
+            }
+            if(year == 2016)
+            {
+                return new Dictionary<int, IPuzzle>
+                {
+                    { 1, new Days_2016.Day01() },
+                    { 2, new Days_2016.Day02() },
+                    { 3, new Days_2016.Day03() },
+                    { 4, new Days_2016.Day04() },
+                    { 5, new Days_2016.Day05() },
+                    { 6, new Days_2016.Day06() },
+                    { 7, new Days_2016.Day07() },
+                    { 8, new Days_2016.Day08() },
+                    { 9, new Days_2016.Day09() },
+                    { 10, new Days_2016.Day10() },
+                    { 11, new Days_2016.Day11() },
+                    { 12, new Days_2016.Day12() },
+                    { 13, new Days_2016.Day13() },
+                    { 14, new Days_2016.Day14() },
+                    { 15, new Days_2016.Day15() },
+                    { 16, new Days_2016.Day16() },
+                    { 17, new Days_2016.Day17() },
+                    { 18, new Days_2016.Day18() },
+                    { 19, new Days_2016.Day19() },
+                    { 20, new Days_2016.Day20() },
+                    { 21, new Days_2016.Day21() },
+                    { 22, new Days_2016.Day22() },
+                    { 23, new Days_2016.Day23() },
+                    { 24, new Days_2016.Day24() },
+                    { 25, new Days_2016.Day25() }
+                };
+
             }
             if (year == 2017)
             {
@@ -353,7 +407,7 @@ namespace AdventOfCode
                     { 22, new Days_2018.Day22() },
                     { 23, new Days_2018.Day23() },
                     { 24, new Days_2018.Day24() },
-                    { 25, new Days_2018.Day25() },
+                    { 25, new Days_2018.Day25() }
                 };
             }
             return null;
