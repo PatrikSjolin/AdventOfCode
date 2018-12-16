@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -35,6 +36,67 @@ namespace AdventOfCode
 
     public static class Utilities
     {
+        public static void FindShortestPath(bool[,] map, List<Point> unvisitedNodes, int[,] paths, int x, int y)
+        {
+            List<Point> neighbours = GetNeighbours(map, x, y);
+
+            unvisitedNodes.Remove(new Point(x, y));
+
+            foreach (var n in neighbours)
+            {
+                int nx = n.X;
+                int ny = n.Y;
+
+                if (paths[x, y] + 1 < paths[nx, ny])
+                {
+                    paths[nx, ny] = paths[x, y] + 1;
+
+                }
+            }
+
+            List<Point> notVisitedNeighbours = unvisitedNodes.Where(xx => paths[xx.X, xx.Y] < int.MaxValue).ToList();
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in notVisitedNeighbours)
+            {
+                if (paths[nv.X, nv.Y] < smallestCost)
+                {
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
+                }
+            }
+
+            if (notVisitedNeighbours.Count() > 0)
+                FindShortestPath(map, unvisitedNodes, paths, smallestX, smallestY);
+        }
+
+        private static List<Point> GetNeighbours(bool[,] map, int x, int y)
+        {
+            List<Point> neighbours = new List<Point>();
+
+            if (y + 1 < map.GetLength(1) && map[x, y + 1] == true)
+            {
+                neighbours.Add(new Point(x, y + 1));
+            }
+            if (x + 1 < map.GetLength(0) && map[x + 1, y] == true)
+            {
+                neighbours.Add(new Point(x + 1, y));
+            }
+            if (y - 1 >= 0 && map[x, y - 1] == true)
+            {
+                neighbours.Add(new Point(x, y - 1));
+            }
+            if (x - 1 >= 0 && map[x - 1, y] == true)
+            {
+                neighbours.Add(new Point(x - 1, y));
+            }
+
+            return neighbours;
+        }
 
         public static string CalculateMD5Hash(string input)
         {

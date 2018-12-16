@@ -113,7 +113,7 @@ namespace AdventOfCode.Days_2018
                     }
 
                     paths[p.X, p.Y] = 0;
-                    FindShortestPath(realMap, unvisitedNodes, paths, p.X, p.Y);
+                    Utilities.FindShortestPath(realMap, unvisitedNodes, paths, p.X, p.Y);
 
                     int distance = paths[unit.Position.X, unit.Position.Y];
 
@@ -249,70 +249,6 @@ namespace AdventOfCode.Days_2018
                 }
                 Console.WriteLine();
             }
-        }
-
-        private List<Point> GetNeighbours(bool[,] map, int x, int y)
-        {
-            List<Point> neighbours = new List<Point>();
-
-            if (y + 1 < map.GetLength(1) && map[x, y + 1] == true)
-            {
-                neighbours.Add(new Point(x, y + 1));
-            }
-            if (x + 1 < map.GetLength(0) && map[x + 1, y] == true)
-            {
-                neighbours.Add(new Point(x + 1, y));
-            }
-            if (y - 1 >= 0 && map[x, y - 1] == true)
-            {
-                neighbours.Add(new Point(x, y - 1));
-            }
-            if (x - 1 >= 0 && map[x - 1, y] == true)
-            {
-                neighbours.Add(new Point(x - 1, y));
-            }
-
-            return neighbours;
-        }
-
-        private void FindShortestPath(bool[,] map, List<Point> unvisitedNodes, int[,] paths, int x, int y)
-        {
-            List<Point> neighbours = GetNeighbours(map, x, y);
-
-            unvisitedNodes.Remove(new Point(x, y));
-
-            foreach (var n in neighbours)
-            {
-                int nx = n.X;
-                int ny = n.Y;
-
-                if (paths[x, y] + 1 < paths[nx, ny])
-                {
-                    paths[nx, ny] = paths[x, y] + 1;
-
-                }
-            }
-
-            List<Point> notVisitedNeighbours = unvisitedNodes.Where(xx => paths[xx.X, xx.Y] < int.MaxValue).ToList();
-            //neighbours.Where(xx => unvisitedNodes.Contains(xx)).ToList();
-
-
-            int smallestCost = int.MaxValue;
-            int smallestX = 0;
-            int smallestY = 0;
-
-            foreach (var nv in notVisitedNeighbours)
-            {
-                if (paths[nv.X, nv.Y] < smallestCost)
-                {
-                    smallestCost = paths[nv.X, nv.Y];
-                    smallestX = nv.X;
-                    smallestY = nv.Y;
-                }
-            }
-
-            if (notVisitedNeighbours.Count() > 0)
-                FindShortestPath(map, unvisitedNodes, paths, smallestX, smallestY);
         }
 
         private bool[,] ConstructMap(string[,] map, List<Unit> units, int width, int height)
