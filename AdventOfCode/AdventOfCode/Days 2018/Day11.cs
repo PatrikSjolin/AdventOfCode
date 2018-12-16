@@ -111,7 +111,6 @@ namespace AdventOfCode.Days_2018
                         }
                     }
                 }
-                //break;
             });
 
             return p.X + "," + p.Y + "," + optSize;

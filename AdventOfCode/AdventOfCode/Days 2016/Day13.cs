@@ -10,16 +10,10 @@ namespace AdventOfCode.Days_2016
     {
         private int taskNumber = 13;
 
-        public bool Active => false;
+        int[,] paths;
+        bool[,] map;
 
-        public void GoOne()
-        {
-            Console.BufferWidth = 1000;
-            Console.BufferHeight = 1000;
-            Console.SetWindowSize(426 / 2, 114 / 2);
-            int numberOfSteps = CalcSteps();
-            //Console.WriteLine(numberOfSteps);
-        }
+        public bool Active => true;
 
         private bool IsWall(int x, int y, int favNumber)
         {
@@ -50,12 +44,12 @@ namespace AdventOfCode.Days_2016
             //int columns = 10;
             //int rows = 7;
 
-            bool[,] map = new bool[rows, columns];
+            map = new bool[rows, columns];
 
             map = ConstructMap(map, favNumber);
 
             List<Tuple<int, int>> unvisitedNodes = new List<Tuple<int, int>>();
-            int[,] paths = new int[rows, columns];
+            paths = new int[rows, columns];
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -74,23 +68,6 @@ namespace AdventOfCode.Days_2016
             FindShortestPath(map, unvisitedNodes, paths, 1, 1);
 
             DrawMap(map, paths);
-
-            Console.WriteLine(paths[39, 31]);
-
-            int sum = 0;
-            
-            for (int i = 0; i < map.GetLength(0); i++)
-            {
-                for (int j = 0; j < map.GetLength(1); j++)
-                {
-                    if (paths[i, j] <= 50 && paths[i, j] > 0)
-                    {
-                        sum++;
-                    }
-                }
-            }
-
-            Console.WriteLine(sum + 1);
 
             return paths[39, 31];
         }
@@ -207,18 +184,31 @@ namespace AdventOfCode.Days_2016
             return map;
         }
 
-        public void GoTwo()
-        {
-        }
-
         public string RunOne()
         {
-            throw new NotImplementedException();
+            Console.BufferWidth = 1000;
+            Console.BufferHeight = 1000;
+            Console.SetWindowSize(426 / 2, 114 / 2);
+            int numberOfSteps = CalcSteps();
+            return numberOfSteps.ToString();
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            int sum = 0;
+
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if (paths[i, j] <= 50 && paths[i, j] > 0)
+                    {
+                        sum++;
+                    }
+                }
+            }
+
+            return (sum + 1).ToString();
         }
     }
 }

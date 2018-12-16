@@ -6,7 +6,7 @@ namespace AdventOfCode.Days_2016
 {
     public class Day02 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public List<string> ReadInput(string path)
         {
@@ -148,38 +148,28 @@ namespace AdventOfCode.Days_2016
             return result;
         }
 
-        public void GoOne()
-        {
-            List<string> inputList = ReadInput("../../Tasks/2/input.txt");
-            List<Tuple<int, int>> code = GetCodeFromRows(inputList);
-
-            string codeString = GetCodeFromCoordinates(code);
-
-            string code2 = CodeFromRowsTwo(inputList);
-
-            Console.WriteLine(codeString);
-        }
-
-        public void GoTwo()
-        {
-            List<string> inputList = ReadInput("../../Tasks/2/input.txt");
-            List<Tuple<int, int>> code = GetCodeFromRows(inputList);
-
-            string codeString = GetCodeFromCoordinates(code);
-
-            string code2 = CodeFromRowsTwo(inputList);
-
-            Console.WriteLine(code2);
-        }
-
         public string RunOne()
         {
-            throw new NotImplementedException();
+            List<string> inputList = ReadInput(@"..\..\Data\2016\input02.txt");
+            List<Tuple<int, int>> code = GetCodeFromRows(inputList);
+
+            string codeString = GetCodeFromCoordinates(code);
+
+            string code2 = CodeFromRowsTwo(inputList);
+
+            return codeString;
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            List<string> inputList = ReadInput(@"..\..\Data\2016\input02.txt");
+            List<Tuple<int, int>> code = GetCodeFromRows(inputList);
+
+            string codeString = GetCodeFromCoordinates(code);
+
+            string code2 = CodeFromRowsTwo(inputList);
+
+            return code2;
         }
     }
 }

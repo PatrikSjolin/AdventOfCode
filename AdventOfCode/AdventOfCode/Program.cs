@@ -276,6 +276,9 @@ namespace AdventOfCode
                 return new Dictionary<int, string>
                 {
                     { 1, "273;115" },
+                    {2, "56983;8B8B1" },
+                    {3, "993;1849" },
+                    {13, "86;127" },
                     //{2, "7105;omlvgdokxfncvqyersasjziup" },
                     //{3, "112378;603" },
                     //{4, "21956;134511" },

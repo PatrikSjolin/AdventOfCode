@@ -5,41 +5,7 @@ namespace AdventOfCode.Days_2016
 {
     public class Day03 : IPuzzle
     {
-        public bool Active => false;
-
-        public void GoOne()
-        {
-            List<Triangle> inputList = ReadInput("../../Tasks/3/input.txt");
-
-            int countValidTriangles = 0;
-
-            foreach (Triangle t in inputList)
-            {
-                if (IsValidTriangle(t))
-                {
-                    countValidTriangles++;
-                }
-            }
-
-            Console.WriteLine(countValidTriangles);
-        }
-
-        public void GoTwo()
-        {
-            List<Triangle> inputList = ReadInputThreeByColumns("../../Tasks/3/input.txt");
-
-            int countValidTriangles = 0;
-
-            foreach (Triangle t in inputList)
-            {
-                if (IsValidTriangle(t))
-                {
-                    countValidTriangles++;
-                }
-            }
-
-            Console.WriteLine(countValidTriangles);
-        }
+        public bool Active => true;
 
         static List<Triangle> ReadInput(string path)
         {
@@ -116,12 +82,36 @@ namespace AdventOfCode.Days_2016
 
         public string RunOne()
         {
-            throw new NotImplementedException();
+            List<Triangle> inputList = ReadInput(@"..\..\Data\2016\input03.txt");
+
+            int countValidTriangles = 0;
+
+            foreach (Triangle t in inputList)
+            {
+                if (IsValidTriangle(t))
+                {
+                    countValidTriangles++;
+                }
+            }
+
+            return countValidTriangles.ToString();
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            List<Triangle> inputList = ReadInputThreeByColumns(@"..\..\Data\2016\input03.txt");
+
+            int countValidTriangles = 0;
+
+            foreach (Triangle t in inputList)
+            {
+                if (IsValidTriangle(t))
+                {
+                    countValidTriangles++;
+                }
+            }
+
+            return countValidTriangles.ToString();
         }
 
         public class Triangle
