@@ -38,7 +38,7 @@ namespace AdventOfCode.Days
             List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2017\input10.txt").ToList();
 
             string input = inputLines[0];
-            input = "flqrgnkx-0";
+            //input = "flqrgnkx-0";
             List<int> extraCharacters = new List<int> { 17, 31, 73, 47, 23 };
 
             List<int> inputAscii = GetAscii(input.Replace(" ", ""));
