@@ -230,28 +230,8 @@ namespace AdventOfCode.Days_2018
                 }
                 if(i == 999)
                 {
-
+                    return (numWoods * numLumbers).ToString();
                 }
-                Point point = new Point(numLumbers, numWoods);
-                if (point.X == 306 && point.Y == 569)
-                {
-
-                }
-                //if(i == 999)
-                //{
-
-                //}
-                //if (i == 1999)
-                //{
-
-                //}
-                p.Add(point);
-                //}
-                //else
-                //{
-                //    Update(map, map2, sizeX, sizeY);
-                //    PaintMap(map, sizeX, sizeY);
-                //}
             }
 
 
