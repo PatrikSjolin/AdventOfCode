@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days_2016
 {
     public class Day04 : IPuzzle
     {
-        private int taskNumber = 4;
-
-        public bool Active => false;
+        public bool Active => true;
 
         public List<string> ReadInput(string path)
         {
@@ -21,15 +18,6 @@ namespace AdventOfCode.Days_2016
             }
 
             return inputList;
-        }
-
-        public void GoOne()
-        {
-            List<string> inputList = ReadInput(string.Format("../../Tasks/{0}/input.txt", taskNumber));
-            List<string> realRooms = GetRealRooms(inputList);
-
-            int sum = realRooms.Sum(x => int.Parse(x));
-            Console.WriteLine(sum);
         }
 
         private List<string> GetRealRooms(List<string> inputList)
@@ -113,13 +101,6 @@ namespace AdventOfCode.Days_2016
             return true;
         }
 
-        public void GoTwo()
-        {
-            List<string> inputList = ReadInput(string.Format("../../Tasks/{0}/input.txt", taskNumber));
-            int sectorId = GetSectorIdOfRoom(inputList, "pole");
-            Console.WriteLine(sectorId);
-        }
-
         private int GetSectorIdOfRoom(List<string> inputList, string v)
         {
             int sectorId = 0;
@@ -145,9 +126,9 @@ namespace AdventOfCode.Days_2016
         private string GetRoomName(int sectorId, List<string> enumerable)
         {
             string roomName = "";
-            foreach(var word in enumerable)
+            foreach (var word in enumerable)
             {
-                foreach(char c in word)
+                foreach (char c in word)
                 {
                     roomName += ((char)((((c - 97 + sectorId) % 26)) + 97)).ToString();
                 }
@@ -158,12 +139,18 @@ namespace AdventOfCode.Days_2016
 
         public string RunOne()
         {
-            throw new NotImplementedException();
+            List<string> inputList = ReadInput(@"..\..\Data\2016\input04.txt");
+            List<string> realRooms = GetRealRooms(inputList);
+
+            int sum = realRooms.Sum(x => int.Parse(x));
+            return sum.ToString();
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            List<string> inputList = ReadInput(@"..\..\Data\2016\input04.txt");
+            int sectorId = GetSectorIdOfRoom(inputList, "pole");
+            return sectorId.ToString();
         }
     }
 }

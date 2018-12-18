@@ -67,7 +67,7 @@ namespace AdventOfCode.Days_2016
 
             FindShortestPath(map, unvisitedNodes, paths, 1, 1);
 
-            DrawMap(map, paths);
+            //DrawMap(map, paths);
 
             return paths[39, 31];
         }
