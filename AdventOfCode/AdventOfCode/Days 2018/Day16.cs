@@ -130,7 +130,6 @@ namespace AdventOfCode.Days_2018
         public string RunOne()
         {
             functions.Add(Addr);
-
             functions.Add(Addi);
             functions.Add(Mulr);
             functions.Add(Muli);
