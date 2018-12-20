@@ -113,7 +113,7 @@ namespace AdventOfCode.Days_2018
                     }
 
                     paths[p.X, p.Y] = 0;
-                    Utilities.FindShortestPath(realMap, unvisitedNodes, paths, p.X, p.Y);
+                    Utilities.FindShortestPath(realMap, unvisitedNodes, paths, p, unit.Position);
 
                     int distance = paths[unit.Position.X, unit.Position.Y];
 

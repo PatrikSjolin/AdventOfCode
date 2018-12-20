@@ -74,6 +74,46 @@ namespace AdventOfCode
                 FindShortestPath(map, unvisitedNodes, paths, smallestX, smallestY);
         }
 
+        public static void FindShortestPath(bool[,] map, List<Point> unvisitedNodes, int[,] paths, Point current, Point destination)
+        {
+            List<Point> neighbours = GetNeighbours(map, current.X, current.Y);
+
+            unvisitedNodes.Remove(current);
+
+            foreach (var n in neighbours)
+            {
+                int nx = n.X;
+                int ny = n.Y;
+
+                if (paths[current.X, current.Y] + 1 < paths[nx, ny])
+                {
+                    paths[nx, ny] = paths[current.X, current.Y] + 1;
+                }
+            }
+
+            //List<Point> notVisitedNeighbours = unvisitedNodes.Where(x => paths[x.X, x.Y] < int.MaxValue).ToList();
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in unvisitedNodes)
+            {
+                if (paths[nv.X, nv.Y] < smallestCost)
+                {
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
+                }
+            }
+
+            if (smallestX == destination.X && smallestY == destination.Y)
+                return;
+
+            if (smallestCost != int.MaxValue)
+                FindShortestPath(map, unvisitedNodes, paths, new Point(smallestX, smallestY), destination);
+        }
+
         private static List<Point> GetNeighbours(bool[,] map, int x, int y)
         {
             List<Point> neighbours = new List<Point>();
