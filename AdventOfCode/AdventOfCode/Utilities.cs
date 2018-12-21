@@ -74,6 +74,44 @@ namespace AdventOfCode
                 FindShortestPath(map, unvisitedNodes, paths, smallestX, smallestY);
         }
 
+        public static void FindShortestPath2(bool[,] map, List<Point> unvisitedNodes, int[,] paths, int x, int y)
+        {
+            List<Point> neighbours = GetNeighbours2(map, x, y);
+
+            unvisitedNodes.Remove(new Point(x, y));
+
+            foreach (var n in neighbours)
+            {
+                int nx = n.X;
+                int ny = n.Y;
+
+                if (paths[x, y] + 1 < paths[nx, ny])
+                {
+                    paths[nx, ny] = paths[x, y] + 1;
+
+                }
+            }
+
+            List<Point> notVisitedNeighbours = unvisitedNodes.Where(xx => paths[xx.X, xx.Y] < int.MaxValue).ToList();
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in notVisitedNeighbours)
+            {
+                if (paths[nv.X, nv.Y] < smallestCost)
+                {
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
+                }
+            }
+
+            if (notVisitedNeighbours.Count() > 0)
+                FindShortestPath2(map, unvisitedNodes, paths, smallestX, smallestY);
+        }
+
         public static void FindShortestPath(bool[,] map, List<Point> unvisitedNodes, int[,] paths, Point current, Point destination)
         {
             List<Point> neighbours = GetNeighbours(map, current.X, current.Y);
@@ -133,6 +171,30 @@ namespace AdventOfCode
             if (x - 1 >= 0 && map[x - 1, y] == true)
             {
                 neighbours.Add(new Point(x - 1, y));
+            }
+
+            return neighbours;
+        }
+
+        private static List<Point> GetNeighbours2(bool[,] map, int x, int y)
+        {
+            List<Point> neighbours = new List<Point>();
+
+            if (y + 2 < map.GetLength(1) && map[x, y + 1] && map[x, y + 2])
+            {
+                neighbours.Add(new Point(x, y + 2));
+            }
+            if (x + 2 < map.GetLength(0) && map[x + 1, y] && map[x + 2, y])
+            {
+                neighbours.Add(new Point(x + 2, y));
+            }
+            if (y - 2 >= 0 && map[x, y - 1] && map[x, y - 2])
+            {
+                neighbours.Add(new Point(x, y - 2));
+            }
+            if (x - 2 >= 0 && map[x - 1, y] && map[x - 2, y])
+            {
+                neighbours.Add(new Point(x - 2, y));
             }
 
             return neighbours;
