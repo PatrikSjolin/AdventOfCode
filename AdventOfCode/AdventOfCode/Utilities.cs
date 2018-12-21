@@ -50,7 +50,6 @@ namespace AdventOfCode
                 if (paths[x, y] + 1 < paths[nx, ny])
                 {
                     paths[nx, ny] = paths[x, y] + 1;
-
                 }
             }
 
@@ -109,6 +108,47 @@ namespace AdventOfCode
             }
 
             if (notVisitedNeighbours.Count() > 0)
+                FindShortestPath2(map, unvisitedNodes, paths, smallestX, smallestY);
+        }
+
+        public static void FindShortestPath2(bool[,] map, List<Point> unvisitedNodes, int[,] paths, int x, int y, Point destination)
+        {
+            List<Point> neighbours = GetNeighbours2(map, x, y);
+
+            unvisitedNodes.Remove(new Point(x, y));
+
+            foreach (var n in neighbours)
+            {
+                int nx = n.X;
+                int ny = n.Y;
+
+                if (paths[x, y] + 1 < paths[nx, ny])
+                {
+                    paths[nx, ny] = paths[x, y] + 1;
+
+                }
+            }
+
+            //List<Point> notVisitedNeighbours = unvisitedNodes.Where(xx => paths[xx.X, xx.Y] < int.MaxValue).ToList();
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in unvisitedNodes)
+            {
+                if (paths[nv.X, nv.Y] < smallestCost)
+                {
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
+                }
+            }
+
+            if (smallestX == destination.X && smallestY == destination.Y)
+                return;
+
+            if (smallestCost != int.MaxValue)
                 FindShortestPath2(map, unvisitedNodes, paths, smallestX, smallestY);
         }
 

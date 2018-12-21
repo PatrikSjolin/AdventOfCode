@@ -202,13 +202,96 @@ namespace AdventOfCode.Days_2018
                 {
                     Bori(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
                 }
-                else
-                {
-                    break;
-                }
+
                 if(instructionPointer == 28)
                 {
+                    return registers[4].ToString();
+                }
 
+                instructionPointer = registers[instructionPointerRegister];
+                instructionPointer++;
+                registers[instructionPointerRegister] = instructionPointer;
+                
+            }
+
+            return "";
+        }
+
+        public string RunTwo()
+        {
+            List<long> numbers = new List<long>();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input21.txt").ToList();
+
+            long instructionPointerRegister = long.Parse(inputLines[0].Split(' ')[1]);
+            long instructionPointer = 0;
+
+            inputLines.RemoveAt(0);
+
+            Dictionary<long, long> registers = new Dictionary<long, long>();
+
+            registers.Clear();
+            registers.Add(0, 0);
+            registers.Add(1, 0);
+            registers.Add(2, 0);
+            registers.Add(3, 0);
+            registers.Add(4, 0);
+            registers.Add(5, 0);
+
+            while (instructionPointer >= 0 && instructionPointer < inputLines.Count)
+            {
+                List<string> instruction = inputLines[(int)instructionPointer].Split(' ').ToList();
+
+                if (instruction[0] == "addi")
+                {
+                    Addi(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "addr")
+                {
+                    Addr(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "seti")
+                {
+                    Seti(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "setr")
+                {
+                    Setr(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "muli")
+                {
+                    Muli(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "mulr")
+                {
+                    Mulr(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "gtir")
+                {
+                    Gtir(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "gtrr")
+                {
+                    Gtrr(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "eqri")
+                {
+                    Eqri(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "eqrr")
+                {
+                    Eqrr(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "bani")
+                {
+                    Bani(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+                else if (instruction[0] == "bori")
+                {
+                    Bori(registers, long.Parse(instruction[1]), long.Parse(instruction[2]), long.Parse(instruction[3]));
+                }
+
+                if (instructionPointer == 28)
+                {
                     if (numbers.Contains(registers[4]))
                     {
                         return numbers.Last().ToString();
@@ -221,15 +304,9 @@ namespace AdventOfCode.Days_2018
                 instructionPointer = registers[instructionPointerRegister];
                 instructionPointer++;
                 registers[instructionPointerRegister] = instructionPointer;
-                count++;
             }
 
             return "";
-        }
-
-        public string RunTwo()
-        {
-            throw new NotImplementedException();
         }
     }
 }

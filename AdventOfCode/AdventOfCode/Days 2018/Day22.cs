@@ -8,16 +8,18 @@ namespace AdventOfCode.Days_2018
 {
     public class Day22 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public string RunOne()
         {
-            throw new NotImplementedException();
+            List<string> inputLines = System.IO.File.ReadAllLines(@"..\..\Data\2018\input22.txt").ToList();
+
+            return "";
         }
 
         public string RunTwo()
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }
