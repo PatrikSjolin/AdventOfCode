@@ -229,7 +229,7 @@ namespace AdventOfCode
                             int runs = int.Parse(Console.ReadLine());
                             List<Point> times = new List<Point>();
 
-                            for(int i = 0; i < runs; i++)
+                            for (int i = 0; i < runs; i++)
                             {
                                 Point p = new Point(0, 0);
                                 p.X = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
@@ -271,7 +271,7 @@ namespace AdventOfCode
 
         private static Dictionary<int, string> GetSolutions(int year)
         {
-            if(year == 2015)
+            if (year == 2015)
             {
                 return new Dictionary<int, string>
                 {
@@ -284,7 +284,7 @@ namespace AdventOfCode
                     { 7, "46065;14134" },
                 };
             }
-            if(year == 2016)
+            if (year == 2016)
             {
                 return new Dictionary<int, string>
                 {
@@ -310,7 +310,7 @@ namespace AdventOfCode
                     //{16, "560;622" }
                 };
             }
-            if(year == 2017)
+            if (year == 2017)
             {
                 return new Dictionary<int, string>
                 {
@@ -341,29 +341,31 @@ namespace AdventOfCode
                     { 25, "2725;All puzzles completed!" },
                 };
             }
-            if(year == 2018)
+            if (year == 2018)
             {
                 return new Dictionary<int, string>
                 {
                     { 1, "433;256" },
-                    {2, "7105;omlvgdokxfncvqyersasjziup" },
-                    {3, "112378;603" },
-                    {4, "21956;134511" },
-                    {5, "11108;5094" },
-                    {6, "3449;44868" },
-                    {7, "EPWCFXKISTZVJHDGNABLQYMORU;952" },
-                    {8, "36891;20083" },
-                    {9, "424112;3487352628" },
-                    {10, "ERCXLAJL;10813" },
-                    {11, "243,64;90,101,15" },
-                    {12, "4110;2650000000466" },
-                    {13, "76,108;2,84" },
-                    {14, "9211134315;20357548" },
-                    {15, "195811;69867" },
-                    {16, "560;622" },
-                    {17, "31934;24790" },
+                    { 2, "7105;omlvgdokxfncvqyersasjziup" },
+                    { 3, "112378;603" },
+                    { 4, "21956;134511" },
+                    { 5, "11108;5094" },
+                    { 6, "3449;44868" },
+                    { 7, "EPWCFXKISTZVJHDGNABLQYMORU;952" },
+                    { 8, "36891;20083" },
+                    { 9, "424112;3487352628" },
+                    { 10, "ERCXLAJL;10813" },
+                    { 11, "243,64;90,101,15" },
+                    { 12, "4110;2650000000466" },
+                    { 13, "76,108;2,84" },
+                    { 14, "9211134315;20357548" },
+                    { 15, "195811;69867" },
+                    { 16, "560;622" },
+                    { 17, "31934;24790" },
                     { 18, "614812;212176" },
-                    {19, "1824;21340800" }
+                    { 19, "1824;21340800" },
+                    { 20, "" },
+                    { 19, "5745418;5090905" }
                 };
             }
             return null;
@@ -384,7 +386,7 @@ namespace AdventOfCode
                     { 7, new Days_2015.Day07() },
                 };
             }
-            if(year == 2016)
+            if (year == 2016)
             {
                 return new Dictionary<int, IPuzzle>
                 {
