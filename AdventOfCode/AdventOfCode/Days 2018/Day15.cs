@@ -60,9 +60,9 @@ namespace AdventOfCode.Days_2018
             }
         }
 
-        public void UpdateUnit(List<Unit> units, Unit unit, UnitType attackType, string[,] map, int width, int height)
+        public void UpdateUnit(List<Unit> units, Unit unit, string[,] map, int width, int height)
         {
-            var targets = units.Where(x => x.Type == attackType && x.HitPoints > 0).ToList();
+            var targets = units.Where(x => x.Type != unit.Type && x.HitPoints > 0).ToList();
             if (targets.Count() == 0)
                 return;
 
@@ -170,7 +170,7 @@ namespace AdventOfCode.Days_2018
                         unit.Position.Y++;
                     }
 
-                    var targets2 = units.Where(x => x.Type == attackType && x.HitPoints > 0).ToList();
+                    var targets2 = units.Where(x => x.Type != unit.Type && x.HitPoints > 0).ToList();
                     if (targets2.Count() == 0)
                         return;
 
@@ -190,38 +190,31 @@ namespace AdventOfCode.Days_2018
 
         private void Attack(Unit unit, List<Unit> units, List<Unit> attackable)
         {
+            Unit u = null;
             if (attackable.Count > 1)
             {
                 attackable = attackable.OrderBy(x => x.HitPoints).ToList();
-
                 if (attackable[0].HitPoints != attackable[1].HitPoints)
                 {
-                    Unit u = attackable[0];
-                    if (unit.HitPoints > 0)
-                        u.HitPoints -= unit.AttackPower;
-                    if (u.HitPoints <= 0)
-                        units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                    u = attackable[0];
                 }
                 else
                 {
                     //More than one with same hitpoints
                     attackable = attackable.OrderBy(x => x.Position.Y).ThenBy(x => x.Position.X).ToList();
-                    Unit u = attackable[0];
-                    if (unit.HitPoints > 0)
-                        u.HitPoints -= unit.AttackPower;
-                    if (u.HitPoints <= 0)
-                        units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                    u = attackable[0];
                 }
             }
             else
             {
                 //One unit to attack
-                Unit u = attackable[0];
-                if (unit.HitPoints > 0)
-                    u.HitPoints -= unit.AttackPower;
-                if (u.HitPoints <= 0)
-                    units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
+                u = attackable[0];
             }
+            if (unit.HitPoints > 0)
+                u.HitPoints -= unit.AttackPower;
+
+            if (u.HitPoints <= 0)
+                units.RemoveAll(x => x.Position.X == u.Position.X && x.Position.Y == u.Position.Y);
         }
 
         private void PaintShortestPath(int[,] shortestPath, int width, int height)
@@ -344,16 +337,8 @@ namespace AdventOfCode.Days_2018
 
                 foreach (var unit in units.ToList())
                 {
-                    if (unit.Type == UnitType.Elf)
-                    {
-                        if (unit.HitPoints > 0)
-                            UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
-                    }
-                    else
-                    {
-                        if (unit.HitPoints > 0)
-                            UpdateUnit(units, unit, UnitType.Elf, map, width, height);
-                    }
+                    if (unit.HitPoints > 0)
+                        UpdateUnit(units, unit, map, width, height);
                 }
                 rounds++;
                 if (paint)
@@ -475,28 +460,14 @@ namespace AdventOfCode.Days_2018
 
                     foreach (var unit in units.ToList())
                     {
-                        if (unit.Type == UnitType.Elf)
-                        {
-                            if (unit.HitPoints > 0)
-                                UpdateUnit(units, unit, UnitType.Goblin, map, width, height);
-                            else
-                            {
-
-                            }
-                        }
-                        else
-                        {
-                            if (unit.HitPoints > 0)
-                                UpdateUnit(units, unit, UnitType.Elf, map, width, height);
-                            else
-                            {
-
-                            }
-                        }
+                        UpdateUnit(units, unit, map, width, height);
                     }
+
                     if (units.Count(x => x.Type == UnitType.Elf) != elves)
                         break;
+
                     rounds++;
+
                     if (paint)
                     {
                         Console.WriteLine("After round {0}", rounds);
