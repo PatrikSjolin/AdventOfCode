@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -169,8 +170,6 @@ namespace AdventOfCode
                 }
             }
 
-            //List<Point> notVisitedNeighbours = unvisitedNodes.Where(x => paths[x.X, x.Y] < int.MaxValue).ToList();
-
             int smallestCost = int.MaxValue;
             int smallestX = 0;
             int smallestY = 0;
@@ -192,23 +191,193 @@ namespace AdventOfCode
                 FindShortestPath(map, unvisitedNodes, paths, new Point(smallestX, smallestY), destination);
         }
 
+        static Dictionary<Point, int> visitedNodesWithTools = new Dictionary<Point, int>();
+
+        public static void FindShortestPath(string[,] map, List<Point> unvisitedNodes, int[,] paths, Point current, Point destination, int tool)
+        {
+            List<Point> neighbours = GetNeighbours(map, current.X, current.Y);
+
+            unvisitedNodes.Remove(current);
+
+            foreach (var n in neighbours)
+            {
+                int nx = n.X;
+                int ny = n.Y;
+
+                KeyValuePair<int, int> costToGoToNew = GetCostAndTool(tool, map[current.X, current.Y], map[nx, ny]);
+
+
+                if (paths[current.X, current.Y] + costToGoToNew.Key < paths[nx, ny])
+                {
+                    visitedNodesWithTools[new Point(nx, ny)] = costToGoToNew.Value;
+                    paths[nx, ny] = paths[current.X, current.Y] + costToGoToNew.Key;
+                }
+            }
+
+            int smallestCost = int.MaxValue;
+            int smallestX = 0;
+            int smallestY = 0;
+
+            foreach (var nv in unvisitedNodes)
+            {
+                if (paths[nv.X, nv.Y] < smallestCost)
+                {
+                    smallestCost = paths[nv.X, nv.Y];
+                    smallestX = nv.X;
+                    smallestY = nv.Y;
+                }
+            }
+
+            if (smallestX == destination.X && smallestY == destination.Y)
+            {
+                int exitTool = visitedNodesWithTools[new Point(smallestX, smallestY)];
+                if (exitTool != 1)
+                    paths[smallestX, smallestY] += 7;
+                return;
+            }
+
+            if (smallestCost != int.MaxValue)
+            {
+                KeyValuePair<int, int> costToGoToNew = GetCostAndTool(visitedNodesWithTools[new Point(smallestX, smallestY)], map[current.X, current.Y],
+                    map[smallestX, smallestY]);
+                FindShortestPath(map, unvisitedNodes, paths, new Point(smallestX, smallestY), destination, costToGoToNew.Value);
+            }
+        }
+
+        private static KeyValuePair<int, int> GetCostAndTool(int tool, string v1, string v2)
+        {
+            //KeyValuePair<int, int> costAndTool = new KeyValuePair<int, int>();
+            int cost = -1;
+            //int tool = -1;
+            if (v1 == v2)
+            {
+                cost = 1;
+                return new KeyValuePair<int, int>(cost, tool);
+            }
+
+            if(v1 == "." && v2 == "=")
+            {
+                if(tool == 2)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 2);
+                }
+            }
+            if(v1 == "." && v2 == "|")
+            {
+                if(tool == 1)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 1);
+                }
+            }
+            if(v1 == "=" && v2 == ".")
+            {
+                if (tool == 2)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 2);
+                }
+            }
+            if(v1 == "=" && v2 == "|")
+            {
+                if(tool == 0)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 0);
+                }
+            }
+            if(v1 == "|" && v2 == ".")
+            {
+                if (tool == 1)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 1);
+                }
+            }
+            if(v1 == "|" && v2 == "=")
+            {
+                if (tool == 0)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 0);
+                }
+            }
+            cost = 1;
+            return new KeyValuePair<int, int>(cost, tool);
+        }
+
         private static List<Point> GetNeighbours(bool[,] map, int x, int y)
         {
             List<Point> neighbours = new List<Point>();
 
-            if (y + 1 < map.GetLength(1) && map[x, y + 1] == true)
+            if (y + 1 < map.GetLength(1) && map[x,y + 1])
             {
                 neighbours.Add(new Point(x, y + 1));
             }
-            if (x + 1 < map.GetLength(0) && map[x + 1, y] == true)
+            if (x + 1 < map.GetLength(0) && map[x + 1, y])
             {
                 neighbours.Add(new Point(x + 1, y));
             }
-            if (y - 1 >= 0 && map[x, y - 1] == true)
+            if (y - 1 >= 0 && map[x, y - 1])
             {
                 neighbours.Add(new Point(x, y - 1));
             }
-            if (x - 1 >= 0 && map[x - 1, y] == true)
+            if (x - 1 >= 0 && map[x - 1, y])
+            {
+                neighbours.Add(new Point(x - 1, y));
+            }
+
+            return neighbours;
+        }
+
+        private static List<Point> GetNeighbours(string[,] map, int x, int y)
+        {
+            List<Point> neighbours = new List<Point>();
+
+            if (y + 1 < map.GetLength(1))
+            {
+                neighbours.Add(new Point(x, y + 1));
+            }
+            if (x + 1 < map.GetLength(0))
+            {
+                neighbours.Add(new Point(x + 1, y));
+            }
+            if (y - 1 >= 0)
+            {
+                neighbours.Add(new Point(x, y - 1));
+            }
+            if (x - 1 >= 0)
             {
                 neighbours.Add(new Point(x - 1, y));
             }
