@@ -368,6 +368,13 @@ namespace AdventOfCode
                     { 21, "5745418;5090905" }
                 };
             }
+            if (year == 2019)
+            {
+                return new Dictionary<int, string>
+                {
+                    { 1, "3231941;4845049" },
+                };
+            }
             return null;
         }
 
@@ -478,6 +485,37 @@ namespace AdventOfCode
                     { 23, new Days_2018.Day23() },
                     { 24, new Days_2018.Day24() },
                     { 25, new Days_2018.Day25() }
+                };
+            }
+            if (year == 2019)
+            {
+                return new Dictionary<int, IPuzzle>
+                {
+                    { 1, new Days_2019.Day01() },
+                    //{ 2, new Days_2018.Day02() },
+                    //{ 3, new Days_2018.Day03() },
+                    //{ 4, new Days_2018.Day04() },
+                    //{ 5, new Days_2018.Day05() },
+                    //{ 6, new Days_2018.Day06() },
+                    //{ 7, new Days_2018.Day07() },
+                    //{ 8, new Days_2018.Day08() },
+                    //{ 9, new Days_2018.Day09() },
+                    //{ 10, new Days_2018.Day10() },
+                    //{ 11, new Days_2018.Day11() },
+                    //{ 12, new Days_2018.Day12() },
+                    //{ 13, new Days_2018.Day13() },
+                    //{ 14, new Days_2018.Day14() },
+                    //{ 15, new Days_2018.Day15() },
+                    //{ 16, new Days_2018.Day16() },
+                    //{ 17, new Days_2018.Day17() },
+                    //{ 18, new Days_2018.Day18() },
+                    //{ 19, new Days_2018.Day19() },
+                    //{ 20, new Days_2018.Day20() },
+                    //{ 21, new Days_2018.Day21() },
+                    //{ 22, new Days_2018.Day22() },
+                    //{ 23, new Days_2018.Day23() },
+                    //{ 24, new Days_2018.Day24() },
+                    //{ 25, new Days_2018.Day25() }
                 };
             }
             return null;
