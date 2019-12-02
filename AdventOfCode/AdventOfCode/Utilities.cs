@@ -21,12 +21,7 @@ namespace AdventOfCode
         {
             Point p = (Point)obj;
 
-            if (p.X == X && p.Y == Y)
-            {
-                return true;
-            }
-
-            return false;
+            return p.X == X && p.Y == Y;
         }
 
         public override int GetHashCode()
@@ -35,8 +30,44 @@ namespace AdventOfCode
         }
     }
 
+    public class Point3D : Point
+    {
+        public int Z { get; set; }
+
+        public Point3D(int x, int y, int z) : base(x, y)
+        {
+            Z = z;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Point3D p = (Point3D)obj;
+            return p.Z == Z && base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Z * base.GetHashCode() * 13 + 21;
+        }
+    }
+
     public static class Utilities
     {
+        public static void GenerateCoordinates(int distance)
+        {
+            int r = distance;
+
+            for (int a = -r; a <= r; a++)
+            {
+                for (int b = -r + Math.Abs(a); b <= r - Math.Abs(a); b++)
+                {
+                    for (int c = -r + Math.Abs(a) + Math.Abs(b); c <= r - (Math.Abs(a) + Math.Abs(b)); c++)
+                    {
+                    }
+                }
+            }
+        }
+
         public static void FindShortestPath(bool[,] map, List<Point> unvisitedNodes, int[,] paths, int x, int y)
         {
             List<Point> neighbours = GetNeighbours(map, x, y);

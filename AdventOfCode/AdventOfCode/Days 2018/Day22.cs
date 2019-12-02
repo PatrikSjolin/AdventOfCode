@@ -16,15 +16,15 @@ namespace AdventOfCode.Days_2018
         Point target;
         Point start;
 
-        int extra = 140;
+        int extra = 100;
 
         public string RunOne()
         {
             //depth = 510;
             //target = new Point(10, 10);
 
-            depth = 3879;
-            target = new Point(8, 713);
+            depth = 3339;
+            target = new Point(10, 715);
 
             start = new Point(0, 0);
             int sum = 0;
