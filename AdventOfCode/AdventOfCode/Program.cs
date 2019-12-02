@@ -492,8 +492,8 @@ namespace AdventOfCode
                 return new Dictionary<int, IPuzzle>
                 {
                     { 1, new Days_2019.Day01() },
-                    //{ 2, new Days_2018.Day02() },
-                    //{ 3, new Days_2018.Day03() },
+                    { 2, new Days_2019.Day02() },
+                    { 3, new Days_2019.Day03() },
                     //{ 4, new Days_2018.Day04() },
                     //{ 5, new Days_2018.Day05() },
                     //{ 6, new Days_2018.Day06() },
