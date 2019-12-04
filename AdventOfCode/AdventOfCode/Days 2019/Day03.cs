@@ -30,7 +30,7 @@ namespace AdventOfCode.Days_2019
             foreach (var v in wire1)
             {
                 string direction = v.First().ToString();
-                int moves = int.Parse(v.Substring(1, v.Length - 1));
+                int moves = int.Parse(v.Substring(1));
 
                 Point dir = directionMap[direction];
 
@@ -50,7 +50,7 @@ namespace AdventOfCode.Days_2019
             foreach (var v in wire2)
             {
                 string direction = v.First().ToString();
-                int moves = int.Parse(v.Substring(1, v.Length - 1));
+                int moves = int.Parse(v.Substring(1));
 
                 Point dir = directionMap[direction];
 
@@ -87,7 +87,7 @@ namespace AdventOfCode.Days_2019
             foreach (var v in wire1)
             {
                 string direction = v.First().ToString();
-                int moves = int.Parse(v.Substring(1, v.Length - 1));
+                int moves = int.Parse(v.Substring(1));
                 Point dir = directionMap[direction];
                 for (int i = 0; i < moves; i++)
                 {
@@ -110,7 +110,7 @@ namespace AdventOfCode.Days_2019
             foreach (var v in wire2)
             {
                 string direction = v.First().ToString();
-                int moves = int.Parse(v.Substring(1, v.Length - 1));
+                int moves = int.Parse(v.Substring(1));
                 Point dir = directionMap[direction];
                 for (int i = 0; i < moves; i++)
                 {
