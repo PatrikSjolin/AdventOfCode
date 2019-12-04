@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Days_2019
+﻿namespace AdventOfCode.Days_2019
 {
     public class Day04 : IPuzzle
     {
@@ -30,6 +24,18 @@ namespace AdventOfCode.Days_2019
             return met;
         }
 
+        public string RunOne()
+        {
+            int sum = 0;
+
+            for (int i = start; i <= stop; i++)
+            {
+                sum += Match(i) ? 1 : 0;
+            }
+
+            return sum.ToString();
+        }
+
         private int GetNumber(string n, int index)
         {
             if (index < 0)
@@ -50,25 +56,15 @@ namespace AdventOfCode.Days_2019
                 if (n[i] > n[i + 1])
                     return false;
 
-                if (n[i] == GetNumber(n, i + 1) && n[i] != GetNumber(n, i + 2) && n[i] != GetNumber(n, i - 1))
+                if (n[i] == GetNumber(n, i + 1) &&
+                    n[i] != GetNumber(n, i + 2) &&
+                    n[i] != GetNumber(n, i - 1))
                 {
                     met = true;
                 }
             }
 
             return met;
-        }
-
-        public string RunOne()
-        {
-            int sum = 0;
-
-            for (int i = start; i <= stop; i++)
-            {
-                sum += Match(i) ? 1 : 0;
-            }
-
-            return sum.ToString();
         }
 
         public string RunTwo()

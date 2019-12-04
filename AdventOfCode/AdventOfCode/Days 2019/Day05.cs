@@ -8,7 +8,7 @@ namespace AdventOfCode.Days_2019
 {
     public class Day05 : IPuzzle
     {
-        public bool Active => throw new NotImplementedException();
+        public bool Active => false;
 
         public string RunOne()
         {
