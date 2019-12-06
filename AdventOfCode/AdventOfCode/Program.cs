@@ -88,11 +88,12 @@ namespace AdventOfCode
 
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
+                        Console.WriteLine("\n");
                         foreach (var p in puzzles.Where(x => x.Value.Active))
                         {
                             Console.WriteLine("Testing puzzle {0}", p.Key);
                             Console.Write("a) ");
-                            int timeElapsed = 0;
+                            double timeElapsed = 0;
                             string result = "";
                             timeElapsed = TimeTask(() => result = p.Value.RunOne(), true);
                             if (result != solutions[p.Key].Split(';')[0])
@@ -110,7 +111,7 @@ namespace AdventOfCode
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
 
-                            Console.WriteLine("Finished in {0} ms", timeElapsed);
+                            Console.WriteLine("Finished in {0:0.00} ms", timeElapsed);
                             Console.WriteLine();
 
                             Console.Write("b) ");
@@ -131,7 +132,7 @@ namespace AdventOfCode
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
 
-                            Console.WriteLine("Finished in {0} ms", timeElapsed);
+                            Console.WriteLine("Finished in {0:0.00} ms", timeElapsed);
                             Console.WriteLine();
                         }
                         break;
@@ -143,14 +144,14 @@ namespace AdventOfCode
                             int puzzleNumber = int.Parse(Console.ReadLine());
                             Console.WriteLine("Solution to puzzle {0}", puzzleNumber);
                             Console.Write("a) ");
-                            int timeElapsed = 0;
+                            double timeElapsed = 0;
                             timeElapsed = TimeTask(() => puzzles[puzzleNumber].RunOne());
 
-                            Console.WriteLine("Finished in {0} ms", timeElapsed);
+                            Console.WriteLine("Finished in {0:0.00} ms", timeElapsed);
                             Console.Write("b) ");
                             timeElapsed = TimeTask(() => puzzles[puzzleNumber].RunTwo());
 
-                            Console.WriteLine("Finished in {0} ms", timeElapsed);
+                            Console.WriteLine("Finished in {0:0.00} ms", timeElapsed);
                             Console.WriteLine();
                             break;
                         }
@@ -160,11 +161,11 @@ namespace AdventOfCode
                             Console.Write("\nEnter number of runs: ");
 
                             int runs = int.Parse(Console.ReadLine());
-                            Dictionary<int, int> times = new Dictionary<int, int>();
+                            Dictionary<int, double> times = new Dictionary<int, double>();
 
                             foreach (var p in puzzles.Where(x => x.Value.Active))
                             {
-                                int sum = 0;
+                                double sum = 0;
                                 for (int i = 0; i < runs; i++)
                                 {
                                     sum += TimeTask(() => p.Value.RunOne(), true);
@@ -177,11 +178,11 @@ namespace AdventOfCode
                             Console.ForegroundColor = ConsoleColor.White;
                             foreach (var time in times)
                             {
-                                Console.WriteLine("Puzzle {0}: {1} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), time.Value / runs);
+                                Console.WriteLine("Puzzle {0}: {1:0.00} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), time.Value / runs);
                             }
 
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum() / runs);
+                            Console.WriteLine("\nTotal time: {0:0.00} ms", times.Values.Sum() / runs);
                             Console.ForegroundColor = ConsoleColor.White;
                             break;
                         }
@@ -190,60 +191,60 @@ namespace AdventOfCode
                         {
                             Console.Write("\nEnter number of runs: ");
 
-                            int runs = int.Parse(Console.ReadLine());
-                            Dictionary<int, Point> times = new Dictionary<int, Point>();
+                            //int runs = int.Parse(Console.ReadLine());
+                            //Dictionary<int, Tuple<decimal, decimal>> times = new Dictionary<int, Tuple<decimal,>();
 
-                            foreach (var p in puzzles.Where(x => x.Value.Active))
-                            {
-                                Point point = new Point(0, 0);
-                                for (int i = 0; i < runs; i++)
-                                {
-                                    point.X = TimeTask(() => p.Value.RunOne(), true);
-                                    point.Y = TimeTask(() => p.Value.RunTwo(), true);
-                                }
-                                times.Add(p.Key, point);
-                            }
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\nAverage times after {0} runs:", runs);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            foreach (var time in times)
-                            {
-                                Console.Write("Puzzle {0}: {1} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), (time.Value.X + time.Value.Y) / runs);
-                                Console.Write(" (A) {0} ms, ", time.Value.X);
-                                Console.WriteLine("B) {0} ms)", time.Value.Y);
-                            }
+                            //foreach (var p in puzzles.Where(x => x.Value.Active))
+                            //{
+                            //    Point point = new Point(0, 0);
+                            //    for (int i = 0; i < runs; i++)
+                            //    {
+                            //        point.X = TimeTask(() => p.Value.RunOne(), true);
+                            //        point.Y = TimeTask(() => p.Value.RunTwo(), true);
+                            //    }
+                            //    times.Add(p.Key, point);
+                            //}
+                            //Console.ForegroundColor = ConsoleColor.Green;
+                            //Console.WriteLine("\nAverage times after {0} runs:", runs);
+                            //Console.ForegroundColor = ConsoleColor.White;
+                            //foreach (var time in times)
+                            //{
+                            //    Console.Write("Puzzle {0}: {1} ms", time.Key < 10 ? ("0" + time.Key) : time.Key.ToString(), (time.Value.X + time.Value.Y) / runs);
+                            //    Console.Write(" (A) {0} ms, ", time.Value.X);
+                            //    Console.WriteLine("B) {0} ms)", time.Value.Y);
+                            //}
 
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum(x => x.X + x.Y) / runs);
-                            Console.ForegroundColor = ConsoleColor.White;
+                            //Console.ForegroundColor = ConsoleColor.Green;
+                            //Console.WriteLine("\nTotal time: {0} ms", times.Values.Sum(x => x.X + x.Y) / runs);
+                            //Console.ForegroundColor = ConsoleColor.White;
                             break;
                         }
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
                         {
-                            Console.Write("\nEnter puzzle number: ");
-                            int puzzleNumber = int.Parse(Console.ReadLine());
+                            //Console.Write("\nEnter puzzle number: ");
+                            //int puzzleNumber = int.Parse(Console.ReadLine());
 
 
-                            Console.Write("\nEnter number of runs: ");
-                            int runs = int.Parse(Console.ReadLine());
-                            List<Point> times = new List<Point>();
+                            //Console.Write("\nEnter number of runs: ");
+                            //int runs = int.Parse(Console.ReadLine());
+                            //List<Point> times = new List<Point>();
 
-                            for (int i = 0; i < runs; i++)
-                            {
-                                Point p = new Point(0, 0);
-                                p.X = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
-                                p.Y = TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
-                                times.Add(p);
-                            }
+                            //for (int i = 0; i < runs; i++)
+                            //{
+                            //    Point p = new Point(0, 0);
+                            //    p.X = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
+                            //    p.Y = TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
+                            //    times.Add(p);
+                            //}
 
-                            int sumX = times.Sum(x => x.X);
-                            int sumY = times.Sum(x => x.Y);
+                            //int sumX = times.Sum(x => x.X);
+                            //int sumY = times.Sum(x => x.Y);
 
-                            Console.WriteLine("\nAverage times after {0} runs:", runs);
-                            Console.WriteLine("A: {0} ms", sumX / runs);
-                            Console.WriteLine("B: {0} ms", sumY / runs);
-                            Console.WriteLine();
+                            //Console.WriteLine("\nAverage times after {0} runs:", runs);
+                            //Console.WriteLine("A: {0} ms", sumX / runs);
+                            //Console.WriteLine("B: {0} ms", sumY / runs);
+                            //Console.WriteLine();
                             break;
                         }
 
@@ -526,7 +527,7 @@ namespace AdventOfCode
             return null;
         }
 
-        static int TimeTask(Func<string> function, bool silent = false)
+        static double TimeTask(Func<string> function, bool silent = false)
         {
             DateTime start = DateTime.Now;
 
@@ -534,7 +535,7 @@ namespace AdventOfCode
             if (!silent)
                 Console.WriteLine(result);
 
-            int timeElapsed = (int)DateTime.Now.Subtract(start).TotalMilliseconds;
+            double timeElapsed = DateTime.Now.Subtract(start).TotalMilliseconds;
 
             return timeElapsed;
         }
