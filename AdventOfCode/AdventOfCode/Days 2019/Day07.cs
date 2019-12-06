@@ -12,7 +12,7 @@ namespace AdventOfCode.Days_2019
 
         public string RunOne()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public string RunTwo()

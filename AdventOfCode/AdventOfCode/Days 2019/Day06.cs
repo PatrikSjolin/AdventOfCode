@@ -26,27 +26,24 @@ namespace AdventOfCode.Days_2019
                 }
             }
 
-
-            Traverse(orbits, orbits["COM"]);
+            Traverse(orbits, orbits["COM"], 0);
 
             return sum.ToString();
         }
+
         int sum = 0;
-        private int Traverse(Dictionary<string, List<string>> orbits, List<string> list)
+
+        private void Traverse(Dictionary<string, List<string>> orbits, List<string> children, int level)
         {
-            int summ = 0;
-            foreach (var o in list)
+            level++;
+            foreach(var c in children)
             {
-                summ++;
-
-                if (orbits.ContainsKey(o))
+                sum += level;
+                if (orbits.ContainsKey(c))
                 {
-                    summ += Traverse(orbits, orbits[o]);
+                    Traverse(orbits, orbits[c], level);
                 }
-
             }
-            sum += summ;
-            return summ;
         }
 
         public string RunTwo()

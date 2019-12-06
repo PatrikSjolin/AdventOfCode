@@ -15,7 +15,7 @@ namespace AdventOfCode.Days_2019
             List<int> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => int.Parse(x)).ToList();
 
             int input = 1;
-
+            string output = "";
             for (int i = 0; i < inputs.Count;)
             {
                 int op = 0;
@@ -38,13 +38,9 @@ namespace AdventOfCode.Days_2019
                     op = (int)char.GetNumericValue(start[2]);
                     par1 = (int)char.GetNumericValue(start[0]);
                 }
-                else if(start.Length == 5)
+                else if(start.Length == 2)
                 {
-
-                }
-                else
-                {
-                    break;
+                    op = int.Parse(start);
                 }
 
                 if (op == 1)
@@ -64,20 +60,16 @@ namespace AdventOfCode.Days_2019
                 }
                 else if (op == 4)
                 {
-                    Console.WriteLine(inputs[inputs[i + 1]].ToString());
+                    output = inputs[inputs[i + 1]].ToString();
                     i += 2;
                 }
                 else if (op == 99)
                 {
-                    return inputs[0].ToString();
-                }
-                else
-                {
-
+                    return output;
                 }
             }
 
-            return "";
+            return output;
         }
 
         private int GetValue(List<int> inputs, int v, int par)
@@ -96,10 +88,9 @@ namespace AdventOfCode.Days_2019
             for (int i = 0; i < inputs.Count;)
             {
                 string start = inputs[i].ToString();
-                int op;
+                int op = 0;
                 int par1 = 0;
                 int par2 = 0;
-                int par3 = 0;
 
                 if (start.Length == 1)
                 {
@@ -117,19 +108,6 @@ namespace AdventOfCode.Days_2019
                     op = (int)char.GetNumericValue(start[2]);
                     par1 = (int)char.GetNumericValue(start[0]);
                 }
-                else if (start.Length == 5)
-                {
-                    op = (int)char.GetNumericValue(start[4]);
-                    par1 = (int)char.GetNumericValue(start[2]);
-                    par2 = (int)char.GetNumericValue(start[1]);
-                    par3 = (int)char.GetNumericValue(start[0]);
-                }
-                else
-                {
-                    op = 0;
-                }
-
-
 
                 if (op == 1)
                 {
@@ -200,15 +178,9 @@ namespace AdventOfCode.Days_2019
                 {
                     return inputs[0].ToString();
                 }
-                else
-                {
-
-                }
             }
 
-
             return "";
-
         }
     }
 }
