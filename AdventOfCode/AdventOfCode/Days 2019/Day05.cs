@@ -8,7 +8,7 @@ namespace AdventOfCode.Days_2019
 {
     public class Day05 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public string RunOne()
         {
@@ -148,8 +148,7 @@ namespace AdventOfCode.Days_2019
                 }
                 else if (op == 4)
                 {
-                    Console.WriteLine(inputs[inputs[i + 1]].ToString());
-                    i += 2;
+                    return inputs[inputs[i + 1]].ToString();
                 }
                 else if (op == 5)
                 {
