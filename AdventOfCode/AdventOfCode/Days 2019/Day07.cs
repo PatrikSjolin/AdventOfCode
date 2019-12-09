@@ -21,33 +21,7 @@ namespace AdventOfCode.Days_2019
             List<int> inputs2 = System.IO.File.ReadAllLines(@"..\..\Data\2019\input07.txt")[0].Split(',').Select(x => int.Parse(x)).ToList();
 
             Tuple<int, List<int>> maxSetting = new Tuple<int, List<int>>(int.MinValue, new List<int>());
-
-            List<List<int>> phaseSettings = new List<List<int>>();
-
-            for(int i = 0; i <= 4; i++)
-            {
-                for(int j = 0; j <= 4; j++)
-                {
-                    if (i == j)
-                        continue;
-                    for(int k = 0; k <= 4; k++)
-                    {
-                        if (k == i || k == j)
-                            continue;
-                        for(int l = 0; l <= 4; l++)
-                        {
-                            if (l == k || l == j || l == i)
-                                continue;
-                            for(int a = 0; a <= 4; a++)
-                            {
-                                if (a == l || a == k || a == j || a == i)
-                                    continue;
-                                phaseSettings.Add(new List<int> { i, j, k, l, a });
-                            }
-                        }
-                    }
-                }
-            }
+            List<List<int>> phaseSettings = GeneratePhaseSettings(0, 4);
 
             foreach (var setting in phaseSettings)
             {
@@ -170,6 +144,38 @@ namespace AdventOfCode.Days_2019
             return maxSetting.Item1.ToString();
         }
 
+        private static List<List<int>> GeneratePhaseSettings(int start, int end)
+        {
+            List<List<int>> phaseSettings = new List<List<int>>();
+
+            for (int i = start; i <= end; i++)
+            {
+                for (int j = start; j <= end; j++)
+                {
+                    if (i == j)
+                        continue;
+                    for (int k = start; k <= end; k++)
+                    {
+                        if (k == i || k == j)
+                            continue;
+                        for (int l = start; l <= end; l++)
+                        {
+                            if (l == k || l == j || l == i)
+                                continue;
+                            for (int a = start; a <= end; a++)
+                            {
+                                if (a == l || a == k || a == j || a == i)
+                                    continue;
+                                phaseSettings.Add(new List<int> { i, j, k, l, a });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return phaseSettings;
+        }
+
         public class State
         {
             public int Pointer { get; set; }
@@ -183,32 +189,7 @@ namespace AdventOfCode.Days_2019
 
             Tuple<int, List<int>> maxSetting = new Tuple<int, List<int>>(int.MinValue, new List<int>());
 
-            List<List<int>> phaseSettings = new List<List<int>>();
-
-            for (int i = 5; i <= 9; i++)
-            {
-                for (int j = 5; j <= 9; j++)
-                {
-                    if (i == j)
-                        continue;
-                    for (int k = 5; k <= 9; k++)
-                    {
-                        if (k == i || k == j)
-                            continue;
-                        for (int l = 5; l <= 9; l++)
-                        {
-                            if (l == k || l == j || l == i)
-                                continue;
-                            for (int a = 5; a <= 9; a++)
-                            {
-                                if (a == l || a == k || a == j || a == i)
-                                    continue;
-                                phaseSettings.Add(new List<int> { i, j, k, l, a });
-                            }
-                        }
-                    }
-                }
-            }
+            List<List<int>> phaseSettings = GeneratePhaseSettings(5, 9);
 
             foreach (var setting in phaseSettings)
             {
@@ -334,7 +315,7 @@ namespace AdventOfCode.Days_2019
                         }
                         else if (op == 99)
                         {
-                            if(j == 4)
+                            if (j == 4)
                             {
                                 done = true;
                             }
@@ -344,13 +325,12 @@ namespace AdventOfCode.Days_2019
 
                     if (done)
                     {
-                        if(state[4].LastOutput > maxSetting.Item1)
+                        if (state[4].LastOutput > maxSetting.Item1)
                         {
                             maxSetting = new Tuple<int, List<int>>(state[4].LastOutput, setting);
                         }
                         break;
                     }
-
                 }
             }
             return maxSetting.Item1.ToString();
