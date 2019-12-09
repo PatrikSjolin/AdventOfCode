@@ -210,7 +210,7 @@ namespace AdventOfCode.Days_2019
 
                 for (int j = 0; j < setting.Count; j = (j + 1) % 5)
                 {
-                    for (int i = state[j].Pointer; i < state[j].Register.Count;)
+                    for (int i = state[j].Pointer; ;)
                     {
                         string start = state[j].Register[i].ToString();
                         int op = 0;
