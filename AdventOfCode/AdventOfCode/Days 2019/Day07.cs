@@ -144,7 +144,7 @@ namespace AdventOfCode.Days_2019
             return maxSetting.Item1.ToString();
         }
 
-        private static List<List<int>> GeneratePhaseSettings(int start, int end)
+        private List<List<int>> GeneratePhaseSettings(int start, int end)
         {
             List<List<int>> phaseSettings = new List<List<int>>();
 
