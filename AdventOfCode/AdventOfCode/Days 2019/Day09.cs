@@ -15,7 +15,7 @@ namespace AdventOfCode.Days_2019
             public int Pointer { get; set; }
         }
 
-        private long GetValue(List<long> inputs, int v, int par)
+        private static long GetValue(long[] inputs, int v, int par)
         {
             if (par == 0)
             {
@@ -29,193 +29,22 @@ namespace AdventOfCode.Days_2019
                 return -21345;
         }
 
-        int relevantBase = 0;
+        static int relevantBase = 0;
 
         public string RunOne()
         {
+            relevantBase = 0;
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
-            for(int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 inputs.Add(0);
             }
 
-            long output = 1;
-
-            for (int i = 0; ;)
-            {
-                string start = inputs[i].ToString();
-                long op = 0;
-                int par1 = 0;
-                int par2 = 0;
-                int par3 = 0;
-
-                if (start.Length == 1)
-                {
-                    op = inputs[i];
-                }
-                else if (start.Length == 4)
-                {
-                    op = (int)char.GetNumericValue(start[3]);
-                    par1 = (int)char.GetNumericValue(start[1]);
-                    par2 = (int)char.GetNumericValue(start[0]);
-
-                }
-                else if (start.Length == 3)
-                {
-                    op = (int)char.GetNumericValue(start[2]);
-                    par1 = (int)char.GetNumericValue(start[0]);
-                }
-                else if(start.Length == 2)
-                {
-                    op = 99;
-                }
-                else if(start.Length == 5)
-                {
-                    op = (int)char.GetNumericValue(start[4]);
-                    par1 = (int)char.GetNumericValue(start[2]);
-                    par2 = (int)char.GetNumericValue(start[1]);
-                    par3 = (int)char.GetNumericValue(start[0]);
-                }
-                else
-                {
-                    throw new Exception();
-                }
-
-                if (op == 1)
-                {
-                    if (par3 == 2)
-                    {
-                        inputs[(int)inputs[i + 3] + relevantBase] = GetValue(inputs, i + 1, par1) + GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        inputs[(int)inputs[i + 3]] = GetValue(inputs, i + 1, par1) + GetValue(inputs, i + 2, par2);
-                    }
-                    i += 4;
-                }
-                else if (op == 2)
-                {
-                    if(par3 == 2)
-                    {
-                        inputs[(int)inputs[i + 3] + relevantBase] = GetValue(inputs, i + 1, par1) * GetValue(inputs, i + 2, par2);
-                    }
-                    else if(par3 == 1)
-                    {
-
-                    }
-                    else if(par3 == 0)
-                    {
-                        inputs[(int)inputs[i + 3]] = GetValue(inputs, i + 1, par1) * GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
-                    i += 4;
-                }
-                else if (op == 3)
-                {
-                    if (i == 0)
-                    {
-                        inputs[(int)inputs[i + 1]] = output;
-                    }
-                    else
-                    {
-                        if(par1 == 2)
-                        {
-                            inputs[(int)inputs[i + 1] + relevantBase] = output;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 1]] = output;
-                        }
-                    }
-                    i += 2;
-                }
-                else if (op == 4)
-                {
-                    output = GetValue(inputs, i + 1, par1);
-                    //if (j == 4 && output > maxSetting.Item1)
-                    //    maxSetting = new Tuple<int, List<int>>(output, setting);
-                    i += 2;
-                    //break;
-                }
-                else if (op == 5)
-                {
-                    if (GetValue(inputs, i + 1, par1) != 0)
-                    {
-                        i = (int)GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        i += 3;
-                    }
-                }
-                else if (op == 6)
-                {
-                    if (GetValue(inputs, i + 1, par1) == 0)
-                    {
-                        i = (int)GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        i += 3;
-                    }
-                }
-                else if (op == 7)
-                {
-                    if (GetValue(inputs, i + 1, par1) < GetValue(inputs, i + 2, par2))
-                    {
-                        SetValue(inputs, i + 3, par3, 1);
-                        //inputs[(int)inputs[i + 3]] = 1;
-                    }
-                    else
-                    {
-                        SetValue(inputs, i + 3, par3, 0);
-                        //inputs[(int)inputs[i + 3]] = 0;
-                    }
-                    i += 4;
-                }
-                else if (op == 8)
-                {
-                    if (GetValue(inputs, i + 1, par1) == GetValue(inputs, i + 2, par2))
-                    {
-                        if(par3 == 2)
-                        {
-                            inputs[(int)inputs[i + 3] + relevantBase] = 1;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 3]] = 1;
-                        }
-                    }
-                    else
-                    {
-                        if(par3 == 2)
-                        {
-                            inputs[(int)inputs[i + 3] + relevantBase] = 0;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 3]] = 0;
-                        }
-                    }
-                    i += 4;
-                }
-                else if(op == 9)
-                {
-                    relevantBase += (int)GetValue(inputs, i + 1, par1);
-                    i += 2;
-                }
-                else if (op == 99)
-                {
-                    return output.ToString();
-                }
-            }
+            return Compute(inputs.ToArray(), 1).ToString();
         }
 
-        private void SetValue(List<long> inputs, int i, int par3, long value)
+        private static void SetValue(long[] inputs, int i, int par3, long value)
         {
             if (par3 == 2)
             {
@@ -227,189 +56,147 @@ namespace AdventOfCode.Days_2019
             }
         }
 
-        public string RunTwo()
+        public static long Compute(long[] inputs, int input)
         {
-            relevantBase = 0;
-            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+            long output = input;
 
-            for (int i = 0; i < 10000; i++)
+            for (int pointer = 0; ;)
             {
-                inputs.Add(0);
-            }
-
-            long output = 2;
-
-            for (int i = 0; ;)
-            {
-                string start = inputs[i].ToString();
+                string start = inputs[pointer].ToString();
                 long op = 0;
                 int par1 = 0;
                 int par2 = 0;
                 int par3 = 0;
 
-                if (start.Length == 1)
+                switch (start.Length)
                 {
-                    op = inputs[i];
-                }
-                else if (start.Length == 4)
-                {
-                    op = (int)char.GetNumericValue(start[3]);
-                    par1 = (int)char.GetNumericValue(start[1]);
-                    par2 = (int)char.GetNumericValue(start[0]);
-
-                }
-                else if (start.Length == 3)
-                {
-                    op = (int)char.GetNumericValue(start[2]);
-                    par1 = (int)char.GetNumericValue(start[0]);
-                }
-                else if (start.Length == 2)
-                {
-                    op = 99;
-                }
-                else if (start.Length == 5)
-                {
-                    op = (int)char.GetNumericValue(start[4]);
-                    par1 = (int)char.GetNumericValue(start[2]);
-                    par2 = (int)char.GetNumericValue(start[1]);
-                    par3 = (int)char.GetNumericValue(start[0]);
-                }
-                else
-                {
-                    throw new Exception();
+                    case 1:
+                        op = inputs[pointer];
+                        break;
+                    case 2:
+                        op = inputs[pointer];
+                        break;
+                    case 3:
+                        op = (int)char.GetNumericValue(start[2]);
+                        par1 = (int)char.GetNumericValue(start[0]);
+                        break;
+                    case 4:
+                        op = (int)char.GetNumericValue(start[3]);
+                        par1 = (int)char.GetNumericValue(start[1]);
+                        par2 = (int)char.GetNumericValue(start[0]);
+                        break;
+                    case 5:
+                        op = (int)char.GetNumericValue(start[4]);
+                        par1 = (int)char.GetNumericValue(start[2]);
+                        par2 = (int)char.GetNumericValue(start[1]);
+                        par3 = (int)char.GetNumericValue(start[0]);
+                        break;
+                    default:
+                        break;
                 }
 
-                if (op == 1)
+                switch (op)
                 {
-                    if (par3 == 2)
-                    {
-                        inputs[(int)inputs[i + 3] + relevantBase] = GetValue(inputs, i + 1, par1) + GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        inputs[(int)inputs[i + 3]] = GetValue(inputs, i + 1, par1) + GetValue(inputs, i + 2, par2);
-                    }
-                    i += 4;
-                }
-                else if (op == 2)
-                {
-                    if (par3 == 2)
-                    {
-                        inputs[(int)inputs[i + 3] + relevantBase] = GetValue(inputs, i + 1, par1) * GetValue(inputs, i + 2, par2);
-                    }
-                    else if (par3 == 1)
-                    {
-
-                    }
-                    else if (par3 == 0)
-                    {
-                        inputs[(int)inputs[i + 3]] = GetValue(inputs, i + 1, par1) * GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
-                    i += 4;
-                }
-                else if (op == 3)
-                {
-                    if (i == 0)
-                    {
-                        inputs[(int)inputs[i + 1]] = output;
-                    }
-                    else
-                    {
-                        if (par1 == 2)
-                        {
-                            inputs[(int)inputs[i + 1] + relevantBase] = output;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 1]] = output;
-                        }
-                    }
-                    i += 2;
-                }
-                else if (op == 4)
-                {
-                    output = GetValue(inputs, i + 1, par1);
-                    //if (j == 4 && output > maxSetting.Item1)
-                    //    maxSetting = new Tuple<int, List<int>>(output, setting);
-                    i += 2;
-                    //break;
-                }
-                else if (op == 5)
-                {
-                    if (GetValue(inputs, i + 1, par1) != 0)
-                    {
-                        i = (int)GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        i += 3;
-                    }
-                }
-                else if (op == 6)
-                {
-                    if (GetValue(inputs, i + 1, par1) == 0)
-                    {
-                        i = (int)GetValue(inputs, i + 2, par2);
-                    }
-                    else
-                    {
-                        i += 3;
-                    }
-                }
-                else if (op == 7)
-                {
-                    if (GetValue(inputs, i + 1, par1) < GetValue(inputs, i + 2, par2))
-                    {
-                        SetValue(inputs, i + 3, par3, 1);
-                        //inputs[(int)inputs[i + 3]] = 1;
-                    }
-                    else
-                    {
-                        SetValue(inputs, i + 3, par3, 0);
-                        //inputs[(int)inputs[i + 3]] = 0;
-                    }
-                    i += 4;
-                }
-                else if (op == 8)
-                {
-                    if (GetValue(inputs, i + 1, par1) == GetValue(inputs, i + 2, par2))
-                    {
-                        if (par3 == 2)
-                        {
-                            inputs[(int)inputs[i + 3] + relevantBase] = 1;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 3]] = 1;
-                        }
-                    }
-                    else
-                    {
-                        if (par3 == 2)
-                        {
-                            inputs[(int)inputs[i + 3] + relevantBase] = 0;
-                        }
-                        else
-                        {
-                            inputs[(int)inputs[i + 3]] = 0;
-                        }
-                    }
-                    i += 4;
-                }
-                else if (op == 9)
-                {
-                    relevantBase += (int)GetValue(inputs, i + 1, par1);
-                    i += 2;
-                }
-                else if (op == 99)
-                {
-                    return output.ToString();
+                    case 1:
+                            SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) + GetValue(inputs, pointer + 2, par2));
+                            pointer += 4;
+                            break;
+                    case 2:
+                        
+                            SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) * GetValue(inputs, pointer + 2, par2));
+                            pointer += 4;
+                        break;
+                    case 3:
+                        
+                            if (pointer == 0)
+                            {
+                                inputs[inputs[pointer + 1]] = output;
+                            }
+                            else
+                            {
+                                if (par1 == 2)
+                                {
+                                    inputs[inputs[pointer + 1] + relevantBase] = output;
+                                }
+                                else
+                                {
+                                    inputs[inputs[pointer + 1]] = output;
+                                }
+                            }
+                            pointer += 2;
+                        break;
+                    case 4:
+                        
+                            output = GetValue(inputs, pointer + 1, par1);
+                            pointer += 2;
+                        break;
+                    case 5:
+                        
+                        
+                            if (GetValue(inputs, pointer + 1, par1) != 0)
+                            {
+                                pointer = (int)GetValue(inputs, pointer + 2, par2);
+                            }
+                            else
+                            {
+                                pointer += 3;
+                            }
+                        break;
+                    case 6:
+                        
+                            if (GetValue(inputs, pointer + 1, par1) == 0)
+                            {
+                                pointer = (int)GetValue(inputs, pointer + 2, par2);
+                            }
+                            else
+                            {
+                                pointer += 3;
+                            }
+                        break;
+                    case 7:
+                        
+                            if (GetValue(inputs, pointer + 1, par1) < GetValue(inputs, pointer + 2, par2))
+                            {
+                                SetValue(inputs, pointer + 3, par3, 1);
+                            }
+                            else
+                            {
+                                SetValue(inputs, pointer + 3, par3, 0);
+                            }
+                            pointer += 4;
+                        break;
+                    case 8:
+                            if (GetValue(inputs, pointer + 1, par1) == GetValue(inputs, pointer + 2, par2))
+                            {
+                                SetValue(inputs, pointer + 3, par3, 1);
+                            }
+                            else
+                            {
+                                SetValue(inputs, pointer + 3, par3, 0);
+                            }
+                            pointer += 4;
+                        break;
+                    case 9:
+                            relevantBase += (int)GetValue(inputs, pointer + 1, par1);
+                            pointer += 2;
+                        break;
+                    case 99:
+                            return output;
                 }
             }
+        }
+
+        public string RunTwo()
+        {
+            relevantBase = 0;
+            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                inputs.Add(0);
+            }
+
+            return Compute(inputs.ToArray(), 2).ToString();
         }
     }
 }

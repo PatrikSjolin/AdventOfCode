@@ -135,6 +135,11 @@
     <Compile Include="Days 2019\Day08.cs" />
     <Compile Include="Days 2019\Day09.cs" />
     <Compile Include="Days 2019\Day10.cs" />
+    <Compile Include="Days 2019\Day11.cs" />
+    <Compile Include="Days 2019\Day12.cs" />
+    <Compile Include="Days 2019\Day13.cs" />
+    <Compile Include="Days 2019\Day14.cs" />
+    <Compile Include="Days 2019\Day15.cs" />
     <Compile Include="IPuzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

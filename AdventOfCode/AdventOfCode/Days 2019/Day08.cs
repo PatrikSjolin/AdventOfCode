@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace AdventOfCode.Days_2019
 {
@@ -17,7 +16,7 @@ namespace AdventOfCode.Days_2019
             int recordLayer = -1;
 
             int zeros = 0;
-            string inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input08.txt").ToList()[0];
+            string inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input08.txt")[0];
 
             int start = 0;
 
@@ -68,7 +67,7 @@ namespace AdventOfCode.Days_2019
             int width = 25;
             int height = 6;
 
-            string inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input08.txt").ToList()[0];
+            string inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input08.txt")[0];
 
             int[,] grid = new int[25, 6];
 

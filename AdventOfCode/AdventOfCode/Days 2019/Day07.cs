@@ -8,7 +8,7 @@ namespace AdventOfCode.Days_2019
     {
         public bool Active => true;
 
-        private int GetValue(List<int> inputs, int v, int par)
+        private int GetValue(int[] inputs, int v, int par)
         {
             if (par == 0)
                 return inputs[inputs[v]];
@@ -28,9 +28,9 @@ namespace AdventOfCode.Days_2019
                 int output = 0;
                 for (int j = 0; j < setting.Count; j++)
                 {
-                    List<int> inputs = inputs2.ToList();
+                    int[] inputs = inputs2.ToArray();
 
-                    for (int i = 0; i < inputs.Count;)
+                    for (int i = 0; i < inputs.Length;)
                     {
                         string start = inputs[i].ToString();
                         int op = 0;
@@ -179,7 +179,7 @@ namespace AdventOfCode.Days_2019
         public class State
         {
             public int Pointer { get; set; }
-            public List<int> Register { get; set; }
+            public int[] Register { get; set; }
             public int LastOutput { get; set; }
         }
 
@@ -199,11 +199,11 @@ namespace AdventOfCode.Days_2019
 
                 Dictionary<int, State> state = new Dictionary<int, State>
                 {
-                    { 0, new State { Pointer = 0, Register = inputs.ToList() } },
-                    { 1, new State { Pointer = 0, Register = inputs.ToList() } },
-                    { 2, new State { Pointer = 0, Register = inputs.ToList() } },
-                    { 3, new State { Pointer = 0, Register = inputs.ToList() } },
-                    { 4, new State { Pointer = 0, Register = inputs.ToList() } },
+                    { 0, new State { Pointer = 0, Register = inputs.ToArray() } },
+                    { 1, new State { Pointer = 0, Register = inputs.ToArray() } },
+                    { 2, new State { Pointer = 0, Register = inputs.ToArray() } },
+                    { 3, new State { Pointer = 0, Register = inputs.ToArray() } },
+                    { 4, new State { Pointer = 0, Register = inputs.ToArray() } },
                 };
 
                 bool done = false;
