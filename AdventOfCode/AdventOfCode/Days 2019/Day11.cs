@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
 {
@@ -12,10 +10,10 @@ namespace AdventOfCode.Days_2019
 
         static int size = 120;
 
-        int[,] grid = new int[size, size];
-        int x = size / 2;
-        int y = size / 2;
-        bool Move = false;
+        int[,] grid;
+        int x;
+        int y;
+        bool move;
 
         Dictionary<Point, bool> painted = new Dictionary<Point, bool>();
 
@@ -32,14 +30,19 @@ namespace AdventOfCode.Days_2019
         public string RunOne()
         {
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input11.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
-            
+
+            grid = new int[size, size];
+            x = size / 2;
+            y = size / 2;
+            move = false;
+            direction = 0;
+
             for (int i = 0; i < 1000; i++)
             {
                 inputs.Add(0);
             }
 
-            Computer c = new Computer();
-            c.Input = 0;
+            Computer c = new Computer(0);
             c.OutputEvent += C_Output;
             c.Compute(inputs.ToArray(), 0);
 
@@ -52,15 +55,15 @@ namespace AdventOfCode.Days_2019
         {
             int value = (int)((Computer)sender).Output;
 
-            if (!Move)
+            if (!move)
             {
                 if (!painted.Keys.Contains(new Point(x, y)))
                     painted.Add(new Point(x, y), true);
                 grid[x, y] = value;
-                Move = true;
+                move = true;
                 ((Computer)sender).Input = value;
             }
-            else if (Move)
+            else if (move)
             {
                 if(value == 1)
                 {
@@ -79,7 +82,7 @@ namespace AdventOfCode.Days_2019
 
                 ((Computer)sender).Input = grid[x, y];
 
-                Move = false;
+                move = false;
             }
         }
 
@@ -90,7 +93,7 @@ namespace AdventOfCode.Days_2019
             grid = new int[size, size];
             x = size / 2;
             y = size / 2;
-            Move = false;
+            move = false;
             direction = 0;
 
             for (int i = 0; i < size; i++)
@@ -107,8 +110,7 @@ namespace AdventOfCode.Days_2019
             }
 
 
-            Computer c = new Computer();
-            c.Input = 1;
+            Computer c = new Computer(1);
             c.OutputEvent += C_Output;
             c.Compute(inputs.ToArray(), 0);
 

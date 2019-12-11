@@ -10,8 +10,7 @@ namespace AdventOfCode.Days_2019
         public string RunOne()
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
-            Computer c = new Computer();
-            c.Input = 1;
+            Computer c = new Computer(1);
             return c.Compute(inputs, 1).ToString();
         }
 
@@ -26,8 +25,7 @@ namespace AdventOfCode.Days_2019
         public string RunTwo()
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
-            Computer c = new Computer();
-            c.Input = 5;
+            Computer c = new Computer(5);
             return c.Compute(inputs, 5).ToString();
         }
     }

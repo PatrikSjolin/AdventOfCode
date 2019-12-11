@@ -8,6 +8,11 @@ namespace AdventOfCode.Days_2019
     {
         private int relevantBase = 0;
 
+        public Computer(int input)
+        {
+            Input = input;
+        }
+
         public event EventHandler OutputEvent;
 
         private void SetValue(long[] inputs, int i, int par3, long value)
@@ -40,17 +45,14 @@ namespace AdventOfCode.Days_2019
 
         public long Compute(long[] inputs, int input)
         {
-            long output = input;
-
             for (int pointer = 0; ;)
             {
-                string start = inputs[pointer].ToString();
                 long op = 0;
                 int par1 = 0;
                 int par2 = 0;
                 int par3 = 0;
 
-                switch (start.Length)
+                switch ((int)Math.Floor(Math.Log10(inputs[pointer])) + 1)
                 {
                     case 1:
                         op = inputs[pointer];
@@ -59,19 +61,19 @@ namespace AdventOfCode.Days_2019
                         op = inputs[pointer];
                         break;
                     case 3:
-                        op = (int)char.GetNumericValue(start[2]);
-                        par1 = (int)char.GetNumericValue(start[0]);
+                        op = inputs[pointer] % 10;
+                        par1 = (int)inputs[pointer] / 100;
                         break;
                     case 4:
-                        op = (int)char.GetNumericValue(start[3]);
-                        par1 = (int)char.GetNumericValue(start[1]);
-                        par2 = (int)char.GetNumericValue(start[0]);
+                        op = inputs[pointer] % 10;
+                        par1 = (int)(inputs[pointer] / 100) % 10;
+                        par2 = (int)inputs[pointer] / 1000;
                         break;
                     case 5:
-                        op = (int)char.GetNumericValue(start[4]);
-                        par1 = (int)char.GetNumericValue(start[2]);
-                        par2 = (int)char.GetNumericValue(start[1]);
-                        par3 = (int)char.GetNumericValue(start[0]);
+                        op = inputs[pointer] % 10;
+                        par1 = (int)(inputs[pointer] / 100) % 10;
+                        par2 = (int)(inputs[pointer] / 1000) % 10;
+                        par3 = (int)inputs[pointer] / 10000;
                         break;
                     default:
                         break;
@@ -89,27 +91,19 @@ namespace AdventOfCode.Days_2019
                         pointer += 4;
                         break;
                     case 3:
-
-                        if (pointer == 0)
+                        if (par1 == 2)
                         {
-                            inputs[inputs[pointer + 1]] = Input;
+                            inputs[inputs[pointer + 1] + relevantBase] = Input;
                         }
                         else
                         {
-                            if (par1 == 2)
-                            {
-                                inputs[inputs[pointer + 1] + relevantBase] = Input;
-                            }
-                            else
-                            {
-                                inputs[inputs[pointer + 1]] = Input;
-                            }
+                            inputs[inputs[pointer + 1]] = Input;
                         }
                         pointer += 2;
                         break;
                     case 4:
                         
-                        output = Output = GetValue(inputs, pointer + 1, par1);
+                        Output = GetValue(inputs, pointer + 1, par1);
 
                         pointer += 2;
                         if (OutputEvent != null)
@@ -164,7 +158,7 @@ namespace AdventOfCode.Days_2019
                         pointer += 2;
                         break;
                     case 99:
-                        return output;
+                        return Output;
                 }
             }
         }
@@ -183,8 +177,7 @@ namespace AdventOfCode.Days_2019
                 inputs.Add(0);
             }
 
-            Computer c = new Computer();
-            c.Input = 1;
+            Computer c = new Computer(1);
 
             return c.Compute(inputs.ToArray(), 1).ToString();
         }
@@ -197,8 +190,7 @@ namespace AdventOfCode.Days_2019
                 inputs.Add(0);
             }
 
-            Computer c = new Computer();
-            c.Input = 2;
+            Computer c = new Computer(2);
 
             return c.Compute(inputs.ToArray(), 2).ToString();
         }
