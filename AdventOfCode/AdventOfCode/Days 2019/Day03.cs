@@ -117,9 +117,10 @@ namespace AdventOfCode.Days_2019
                     steps++;
                     x += dir.X;
                     y += dir.Y;
-                    if (points.Contains(new Point(x, y)))
+                    Point p = new Point(x, y);
+                    if (points.Contains(p))
                     {
-                        int newDistance = steps + pointSteps[new Point(x, y)];
+                        int newDistance = steps + pointSteps[p];
                         if (newDistance < distance)
                             distance = newDistance;
                     }

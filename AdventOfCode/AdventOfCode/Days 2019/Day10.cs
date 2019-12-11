@@ -12,8 +12,8 @@ namespace AdventOfCode.Days_2019
         {
             List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input10.txt").ToList();
 
-            Dictionary<Tuple<int, int>, int> astroids = new Dictionary<Tuple<int, int>, int>();
-            HashSet<Tuple<int, int>> ast = new HashSet<Tuple<int, int>>();
+            Dictionary<Tuple<int, int>, int> astroidVisibles = new Dictionary<Tuple<int, int>, int>();
+            HashSet<Tuple<int, int>> astroids = new HashSet<Tuple<int, int>>();
 
             for (int j = 0; j < inputs.Count; j++)
             {
@@ -21,36 +21,116 @@ namespace AdventOfCode.Days_2019
                 {
                     if (inputs[j][i] == '#')
                     {
-                        astroids.Add(new Tuple<int, int>(i, j), 0);
-                        ast.Add(new Tuple<int, int>(i, j));
+                        astroids.Add(new Tuple<int, int>(i, j));
                     }
                 }
             }
 
-            foreach (var a in astroids.Keys.ToList())
+            foreach (var a in astroids)
             {
                 int canSee = 0;
                 foreach (var b in astroids)
                 {
-                    if (!a.Equals(b.Key))
-                        canSee += IsVisible(a, b.Key, ast);
+                    if (!a.Equals(b))
+                        canSee += IsVisible(a, b, astroids);
                 }
-                astroids[a] = canSee;
+                astroidVisibles.Add(a, canSee);
             }
 
             int max = int.MinValue;
-            Tuple<int, int> bestAstroids = null;
 
-            foreach (var a in astroids)
+            foreach (var a in astroidVisibles)
             {
                 if (a.Value > max)
                 {
                     max = a.Value;
-                    bestAstroids = a.Key;
                 }
             }
 
             return max.ToString();
+        }
+
+        public string RunTwo()
+        {
+            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input10.txt").ToList();
+
+            Dictionary<Tuple<int, int>, int> astroidVisibles = new Dictionary<Tuple<int, int>, int>();
+            HashSet<Tuple<int, int>> astroids = new HashSet<Tuple<int, int>>();
+
+            for (int j = 0; j < inputs.Count; j++)
+            {
+                for (int i = 0; i < inputs[j].Length; i++)
+                {
+                    if (inputs[j][i] == '#')
+                    {
+                        astroids.Add(new Tuple<int, int>(i, j));
+                    }
+                }
+            }
+
+            foreach (var a in astroids)
+            {
+                int canSee = 0;
+                foreach (var b in astroids)
+                {
+                    if (!a.Equals(b))
+                        canSee += IsVisible(a, b, astroids);
+                }
+                astroidVisibles.Add(a, canSee);
+            }
+
+            int max = int.MinValue;
+            Tuple<int, int> bestAstroid = null;
+
+            foreach (var a in astroidVisibles)
+            {
+                if (a.Value > max)
+                {
+                    max = a.Value;
+                    bestAstroid = a.Key;
+                }
+            }
+
+            int destroyed = 0;
+
+            while (true)
+            {
+                List<Tuple<int, int>> visible = new List<Tuple<int, int>>();
+                foreach (var a in astroidVisibles.Keys.ToList())
+                {
+                    if (!a.Equals(bestAstroid))
+                    {
+                        if (IsVisible(a, bestAstroid, astroids) == 1)
+                        {
+                            visible.Add(a);
+                        }
+                    }
+                }
+
+                if (destroyed + visible.Count >= 200)
+                {
+                    List<Tuple<int, int>> positiveX = visible.Where(x => x.Item1 >= bestAstroid.Item1).ToList();
+                    List<Tuple<int, int>> negativeX = visible.Where(x => !positiveX.Contains(x)).ToList();
+
+                    positiveX = positiveX.OrderByDescending(x => ((double)bestAstroid.Item2 - x.Item2) / (x.Item1 - (double)bestAstroid.Item1)).ToList();
+                    negativeX = negativeX.OrderByDescending(x => ((double)bestAstroid.Item2 - x.Item2) / (x.Item1 - (double)bestAstroid.Item1)).ToList();
+
+                    positiveX.AddRange(negativeX);
+
+                    visible = positiveX;
+                }
+
+                for (int i = 0; i < visible.Count; i++)
+                {
+                    astroidVisibles.Remove(visible[i]);
+                    destroyed++;
+
+                    if (destroyed == 200)
+                    {
+                        return ((visible[i].Item1 * 100) + visible[i].Item2).ToString();
+                    }
+                }
+            }
         }
 
         private static int GCD(int a, int b)
@@ -91,87 +171,6 @@ namespace AdventOfCode.Days_2019
                     else
                         return 0;
                 }
-            }
-        }
-
-        public string RunTwo()
-        {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input10.txt").ToList();
-
-            Dictionary<Tuple<int, int>, int> astroids = new Dictionary<Tuple<int, int>, int>();
-            HashSet<Tuple<int, int>> ast = new HashSet<Tuple<int, int>>();
-
-            for (int j = 0; j < inputs.Count; j++)
-            {
-                for (int i = 0; i < inputs[j].Length; i++)
-                {
-                    if (inputs[j][i] == '#')
-                    {
-                        astroids.Add(new Tuple<int, int>(i, j), 0);
-                        ast.Add(new Tuple<int, int>(i, j));
-                    }
-                }
-            }
-
-            foreach (var a in astroids.Keys.ToList())
-            {
-                int canSee = 0;
-                foreach (var b in astroids)
-                {
-                    if (!a.Equals(b.Key))
-                        canSee += IsVisible(a, b.Key, ast);
-                }
-                astroids[a] = canSee;
-            }
-
-            int max = int.MinValue;
-            Tuple<int, int> bestAstroid = null;
-
-            foreach (var a in astroids)
-            {
-                if (a.Value > max)
-                {
-                    max = a.Value;
-                    bestAstroid = a.Key;
-                }
-            }
-
-            int destroyed = 0;
-
-            while (true)
-            {
-                List<Tuple<int, int>> visible = new List<Tuple<int, int>>();
-                foreach(var a in astroids.Keys.ToList())
-                {
-                    if (!a.Equals(bestAstroid))
-                    {
-                        if (IsVisible(a, bestAstroid, ast) == 1)
-                        {
-                            visible.Add(a);
-                        }
-                    }
-                }
-
-                List<Tuple<int, int>> positiveX = visible.Where(x => x.Item1 >= bestAstroid.Item1).ToList();
-                List<Tuple<int, int>> negativeX = visible.Where(x => !positiveX.Contains(x)).ToList();
-
-                
-                positiveX = positiveX.OrderByDescending(x => ((double)bestAstroid.Item2 - x.Item2) / (x.Item1 - (double)bestAstroid.Item1)).ToList();
-                negativeX = negativeX.OrderByDescending(x => ((double)bestAstroid.Item2 - x.Item2) / (x.Item1 - (double)bestAstroid.Item1)).ToList();
-
-                positiveX.AddRange(negativeX);
-
-                for (int i = 0; i < positiveX.Count; i++)
-                {
-                    astroids.Remove(positiveX[i]);
-                    destroyed++;
-
-                    if(destroyed == 200)
-                    {
-                        return ((positiveX[i].Item1 * 100) + positiveX[i].Item2).ToString();
-                    }
-                }
-
             }
         }
     }

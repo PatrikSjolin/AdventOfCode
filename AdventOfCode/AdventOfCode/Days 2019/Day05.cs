@@ -11,7 +11,7 @@ namespace AdventOfCode.Days_2019
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
             Computer c = new Computer(1);
-            return c.Compute(inputs, 1).ToString();
+            return c.Compute(inputs).ToString();
         }
 
         private int GetValue(List<int> inputs, int v, int par)
@@ -26,7 +26,7 @@ namespace AdventOfCode.Days_2019
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
             Computer c = new Computer(5);
-            return c.Compute(inputs, 5).ToString();
+            return c.Compute(inputs).ToString();
         }
     }
 }

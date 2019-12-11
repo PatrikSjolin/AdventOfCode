@@ -44,7 +44,7 @@ namespace AdventOfCode.Days_2019
 
             Computer c = new Computer(0);
             c.OutputEvent += C_Output;
-            c.Compute(inputs.ToArray(), 0);
+            c.Compute(inputs.ToArray());
 
             return painted.Count.ToString();
         }
@@ -53,7 +53,8 @@ namespace AdventOfCode.Days_2019
 
         private void C_Output(object sender, EventArgs e)
         {
-            int value = (int)((Computer)sender).Output;
+            Computer c = ((Computer)sender);
+            int value = (int)c.Output;
 
             if (!move)
             {
@@ -61,7 +62,7 @@ namespace AdventOfCode.Days_2019
                     painted.Add(new Point(x, y), true);
                 grid[x, y] = value;
                 move = true;
-                ((Computer)sender).Input = value;
+                c.Input = value;
             }
             else if (move)
             {
@@ -80,7 +81,7 @@ namespace AdventOfCode.Days_2019
                 x += directions[direction].X;
                 y += directions[direction].Y;
 
-                ((Computer)sender).Input = grid[x, y];
+                c.Input = grid[x, y];
 
                 move = false;
             }
@@ -112,7 +113,7 @@ namespace AdventOfCode.Days_2019
 
             Computer c = new Computer(1);
             c.OutputEvent += C_Output;
-            c.Compute(inputs.ToArray(), 0);
+            c.Compute(inputs.ToArray());
 
             //Console.WriteLine();
             //for (int i = size-1; i >= 0; i--)
