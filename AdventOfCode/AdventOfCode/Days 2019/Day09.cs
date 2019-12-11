@@ -4,47 +4,13 @@ using System.Linq;
 
 namespace AdventOfCode.Days_2019
 {
-    public class Day09 : IPuzzle
+    public class Computer
     {
-        public bool Active => true;
+        private int relevantBase = 0;
 
-        public class Computer
-        {
-            public List<int> Program { get; set; }
+        public event EventHandler OutputEvent;
 
-            public int Pointer { get; set; }
-        }
-
-        private static long GetValue(long[] inputs, int v, int par)
-        {
-            if (par == 0)
-            {
-                return inputs[(int)inputs[v]];
-            }
-            else if (par == 1)
-                return inputs[v];
-            else if (par == 2)
-                return inputs[(int)inputs[v] + relevantBase];
-            else
-                return -21345;
-        }
-
-        static int relevantBase = 0;
-
-        public string RunOne()
-        {
-            relevantBase = 0;
-            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
-
-            for (int i = 0; i < 1000; i++)
-            {
-                inputs.Add(0);
-            }
-
-            return Compute(inputs.ToArray(), 1).ToString();
-        }
-
-        private static void SetValue(long[] inputs, int i, int par3, long value)
+        private void SetValue(long[] inputs, int i, int par3, long value)
         {
             if (par3 == 2)
             {
@@ -56,7 +22,23 @@ namespace AdventOfCode.Days_2019
             }
         }
 
-        public static long Compute(long[] inputs, int input)
+        private long GetValue(long[] inputs, int v, int par)
+        {
+            if (par == 0)
+                return inputs[(int)inputs[v]];
+            else if (par == 1)
+                return inputs[v];
+            else if (par == 2)
+                return inputs[(int)inputs[v] + relevantBase];
+            else
+                return -21345;
+        }
+
+        public int Input { get; set; }
+
+        public long Output { get; set; }
+
+        public long Compute(long[] inputs, int input)
         {
             long output = input;
 
@@ -98,97 +80,102 @@ namespace AdventOfCode.Days_2019
                 switch (op)
                 {
                     case 1:
-                            SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) + GetValue(inputs, pointer + 2, par2));
-                            pointer += 4;
-                            break;
+                        SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) + GetValue(inputs, pointer + 2, par2));
+                        pointer += 4;
+                        break;
                     case 2:
-                        
-                            SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) * GetValue(inputs, pointer + 2, par2));
-                            pointer += 4;
+
+                        SetValue(inputs, pointer + 3, par3, GetValue(inputs, pointer + 1, par1) * GetValue(inputs, pointer + 2, par2));
+                        pointer += 4;
                         break;
                     case 3:
-                        
-                            if (pointer == 0)
+
+                        if (pointer == 0)
+                        {
+                            inputs[inputs[pointer + 1]] = Input;
+                        }
+                        else
+                        {
+                            if (par1 == 2)
                             {
-                                inputs[inputs[pointer + 1]] = output;
+                                inputs[inputs[pointer + 1] + relevantBase] = Input;
                             }
                             else
                             {
-                                if (par1 == 2)
-                                {
-                                    inputs[inputs[pointer + 1] + relevantBase] = output;
-                                }
-                                else
-                                {
-                                    inputs[inputs[pointer + 1]] = output;
-                                }
+                                inputs[inputs[pointer + 1]] = Input;
                             }
-                            pointer += 2;
+                        }
+                        pointer += 2;
                         break;
                     case 4:
                         
-                            output = GetValue(inputs, pointer + 1, par1);
-                            pointer += 2;
+                        output = Output = GetValue(inputs, pointer + 1, par1);
+
+                        pointer += 2;
+                        if (OutputEvent != null)
+                            OutputEvent(this, new EventArgs());
                         break;
                     case 5:
-                        
-                        
-                            if (GetValue(inputs, pointer + 1, par1) != 0)
-                            {
-                                pointer = (int)GetValue(inputs, pointer + 2, par2);
-                            }
-                            else
-                            {
-                                pointer += 3;
-                            }
+                        if (GetValue(inputs, pointer + 1, par1) != 0)
+                        {
+                            pointer = (int)GetValue(inputs, pointer + 2, par2);
+                        }
+                        else
+                        {
+                            pointer += 3;
+                        }
                         break;
                     case 6:
-                        
-                            if (GetValue(inputs, pointer + 1, par1) == 0)
-                            {
-                                pointer = (int)GetValue(inputs, pointer + 2, par2);
-                            }
-                            else
-                            {
-                                pointer += 3;
-                            }
+
+                        if (GetValue(inputs, pointer + 1, par1) == 0)
+                        {
+                            pointer = (int)GetValue(inputs, pointer + 2, par2);
+                        }
+                        else
+                        {
+                            pointer += 3;
+                        }
                         break;
                     case 7:
-                        
-                            if (GetValue(inputs, pointer + 1, par1) < GetValue(inputs, pointer + 2, par2))
-                            {
-                                SetValue(inputs, pointer + 3, par3, 1);
-                            }
-                            else
-                            {
-                                SetValue(inputs, pointer + 3, par3, 0);
-                            }
-                            pointer += 4;
+
+                        if (GetValue(inputs, pointer + 1, par1) < GetValue(inputs, pointer + 2, par2))
+                        {
+                            SetValue(inputs, pointer + 3, par3, 1);
+                        }
+                        else
+                        {
+                            SetValue(inputs, pointer + 3, par3, 0);
+                        }
+                        pointer += 4;
                         break;
                     case 8:
-                            if (GetValue(inputs, pointer + 1, par1) == GetValue(inputs, pointer + 2, par2))
-                            {
-                                SetValue(inputs, pointer + 3, par3, 1);
-                            }
-                            else
-                            {
-                                SetValue(inputs, pointer + 3, par3, 0);
-                            }
-                            pointer += 4;
+                        if (GetValue(inputs, pointer + 1, par1) == GetValue(inputs, pointer + 2, par2))
+                        {
+                            SetValue(inputs, pointer + 3, par3, 1);
+                        }
+                        else
+                        {
+                            SetValue(inputs, pointer + 3, par3, 0);
+                        }
+                        pointer += 4;
                         break;
                     case 9:
-                            relevantBase += (int)GetValue(inputs, pointer + 1, par1);
-                            pointer += 2;
+                        relevantBase += (int)GetValue(inputs, pointer + 1, par1);
+                        pointer += 2;
                         break;
                     case 99:
-                            return output;
+                        return output;
                 }
             }
         }
+    }
 
-        public string RunTwo()
+    public class Day09 : IPuzzle
+    {
+        public bool Active => true;
+
+        public string RunOne()
         {
-            relevantBase = 0;
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
             for (int i = 0; i < 1000; i++)
@@ -196,7 +183,24 @@ namespace AdventOfCode.Days_2019
                 inputs.Add(0);
             }
 
-            return Compute(inputs.ToArray(), 2).ToString();
+            Computer c = new Computer();
+            c.Input = 1;
+
+            return c.Compute(inputs.ToArray(), 1).ToString();
+        }
+        public string RunTwo()
+        {
+            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input09.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                inputs.Add(0);
+            }
+
+            Computer c = new Computer();
+            c.Input = 2;
+
+            return c.Compute(inputs.ToArray(), 2).ToString();
         }
     }
 }

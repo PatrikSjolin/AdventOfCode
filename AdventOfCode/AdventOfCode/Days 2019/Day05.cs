@@ -10,7 +10,9 @@ namespace AdventOfCode.Days_2019
         public string RunOne()
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
-            return Day09.Compute(inputs, 1).ToString();
+            Computer c = new Computer();
+            c.Input = 1;
+            return c.Compute(inputs, 1).ToString();
         }
 
         private int GetValue(List<int> inputs, int v, int par)
@@ -24,7 +26,9 @@ namespace AdventOfCode.Days_2019
         public string RunTwo()
         {
             long[] inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input05.txt")[0].Split(',').Select(x => long.Parse(x)).ToArray();
-            return Day09.Compute(inputs, 5).ToString();
+            Computer c = new Computer();
+            c.Input = 5;
+            return c.Compute(inputs, 5).ToString();
         }
     }
 }
