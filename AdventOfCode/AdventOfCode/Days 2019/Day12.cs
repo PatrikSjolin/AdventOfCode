@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
 {
     public class Day12 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public string RunOne()
         {
@@ -114,74 +112,6 @@ namespace AdventOfCode.Days_2019
             }
         }
 
-        //public class State
-        //{
-        //    public int moon1x { get; set; }
-        //    public int moon1y { get; set; }
-        //    public int moon1z { get; set; }
-
-        //    public int moon1xv { get; set; }
-        //    public int moon1yv { get; set; }
-        //    public int moon1zv { get; set; }
-
-        //    public int moon2x { get; set; }
-        //    public int moon2y { get; set; }
-        //    public int moon2z { get; set; }
-
-        //    public int moon2xv { get; set; }
-        //    public int moon2yv { get; set; }
-        //    public int moon2zv { get; set; }
-
-        //    public int moon3x { get; set; }
-        //    public int moon3y { get; set; }
-        //    public int moon3z { get; set; }
-        //    public int moon3xv { get; set; }
-        //    public int moon3yv { get; set; }
-        //    public int moon3zv { get; set; }
-
-        //    public int moon4x { get; set; }
-        //    public int moon4y { get; set; }
-        //    public int moon4z { get; set; }
-        //    public int moon4xv { get; set; }
-        //    public int moon4yv { get; set; }
-        //    public int moon4zv { get; set; }
-
-        //    public override bool Equals(object obj)
-        //    {
-
-        //        State s = (State)obj;
-        //        return s.moon1x == moon1x &&
-        //               s.moon1xv == moon1xv &&
-        //               s.moon1y == moon1y &&
-        //               s.moon1yv == moon1yv &&
-        //               s.moon1z == moon1z &&
-        //               s.moon1zv == moon1zv &&
-        //               s.moon2x == moon2x &&
-        //               s.moon2xv == moon2xv &&
-        //               s.moon2y == moon2y &&
-        //               s.moon2yv == moon2yv &&
-        //               s.moon2z == moon2z &&
-        //               s.moon2zv == moon2zv &&
-        //               s.moon3x == moon3x &&
-        //               s.moon3xv == moon3xv &&
-        //               s.moon3y == moon3y &&
-        //               s.moon3yv == moon3yv &&
-        //               s.moon3z == moon3z &&
-        //               s.moon3zv == moon3zv &&
-        //               s.moon4x == moon4x &&
-        //               s.moon4xv == moon4xv &&
-        //               s.moon4y == moon4y &&
-        //               s.moon4yv == moon4yv &&
-        //               s.moon4z == moon4z &&
-        //               s.moon4zv == moon4zv;
-        //    }
-
-        //    public override int GetHashCode()
-        //    {
-        //        return moon1x + moon1xv + moon1y + moon1yv + moon1z + moon1zv + moon2x + moon2xv + moon2y + moon2yv + moon2z + moon2zv + moon3x + moon3xv + moon3y + moon3yv + moon3z + moon3zv + moon4x + moon4xv + moon4y + moon4yv + moon4z + moon4zv;
-        //    }
-        //}
-
         public string RunTwo()
         {
             List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input12.txt").ToList();
@@ -194,19 +124,18 @@ namespace AdventOfCode.Days_2019
                 int x = int.Parse(splits[0].Split('=')[1]);
                 int y = int.Parse(splits[1].Split('=')[1]);
                 int z = int.Parse(splits[2].Split('=')[1].Replace(">", ""));
+
                 moonsPositions.Add(new Point3D(x, y, z));
             }
 
             List<Point3D> moonsVelocities = new List<Point3D>();
-
-            HashSet<State> states = new HashSet<State>();
 
             for (int i = 0; i < moonsPositions.Count; i++)
             {
                 moonsVelocities.Add(new Point3D(0, 0, 0));
             }
 
-            states.Add(new State
+            State state = new State
             {
                 Position1 = moonsPositions[0].X,
                 Position2 = moonsPositions[1].X,
@@ -217,52 +146,11 @@ namespace AdventOfCode.Days_2019
                 Velocity2 = moonsVelocities[1].X,
                 Velocity3 = moonsVelocities[2].X,
                 Velocity4 = moonsVelocities[3].X,
-            });
+            };
 
-            long xRepeat = 0;
+            long xRepeat = StepsUntilRepeat(state);
 
-            for (long i = 0; i < 4686774924; i++)
-            {
-                for (int j = 0; j < moonsPositions.Count; j++)
-                {
-                    for (int k = 0; k < moonsPositions.Count; k++)
-                    {
-                        if (j == k)
-                            continue;
-
-                        int change = UpdateMoonVelocity(moonsPositions[j].X, moonsPositions[k].X);
-                        moonsVelocities[j].X += change;;
-                    }
-                }
-
-                for (int j = 0; j < moonsVelocities.Count; j++)
-                {
-                    moonsPositions[j].X += moonsVelocities[j].X;
-                }
-
-
-                State moonstate = new State
-                {
-                    Position1 = moonsPositions[0].X,
-                    Position2 = moonsPositions[1].X,
-                    Position3 = moonsPositions[2].X,
-                    Position4 = moonsPositions[3].X,
-
-                    Velocity1 = moonsVelocities[0].X,
-                    Velocity2 = moonsVelocities[1].X,
-                    Velocity3 = moonsVelocities[2].X,
-                    Velocity4 = moonsVelocities[3].X,
-                };
-
-                if (states.Contains(moonstate))
-                {
-                    xRepeat = i + 1;
-                    break;
-                }
-            }
-
-            states.Clear();
-            states.Add(new State
+            state = new State
             {
                 Position1 = moonsPositions[0].Y,
                 Position2 = moonsPositions[1].Y,
@@ -273,52 +161,11 @@ namespace AdventOfCode.Days_2019
                 Velocity2 = moonsVelocities[1].Y,
                 Velocity3 = moonsVelocities[2].Y,
                 Velocity4 = moonsVelocities[3].Y,
-            });
+            };
 
-            long yRepeat = 0;
+            long yRepeat = StepsUntilRepeat(state);
 
-            for (long i = 0; i < 4686774924; i++)
-            {
-                for (int j = 0; j < moonsPositions.Count; j++)
-                {
-                    for (int k = 0; k < moonsPositions.Count; k++)
-                    {
-                        if (j == k)
-                            continue;
-
-                        int change = UpdateMoonVelocity(moonsPositions[j].Y, moonsPositions[k].Y);
-                        moonsVelocities[j].Y += change; ;
-                    }
-                }
-
-                for (int j = 0; j < moonsVelocities.Count; j++)
-                {
-                    moonsPositions[j].Y += moonsVelocities[j].Y;
-                }
-
-
-                State moonstate = new State
-                {
-                    Position1 = moonsPositions[0].Y,
-                    Position2 = moonsPositions[1].Y,
-                    Position3 = moonsPositions[2].Y,
-                    Position4 = moonsPositions[3].Y,
-
-                    Velocity1 = moonsVelocities[0].Y,
-                    Velocity2 = moonsVelocities[1].Y,
-                    Velocity3 = moonsVelocities[2].Y,
-                    Velocity4 = moonsVelocities[3].Y,
-                };
-
-                if (states.Contains(moonstate))
-                {
-                    yRepeat = i + 1;
-                    break;
-                }
-            }
-
-            states.Clear();
-            states.Add(new State
+            state = new State
             {
                 Position1 = moonsPositions[0].Z,
                 Position2 = moonsPositions[1].Z,
@@ -329,59 +176,120 @@ namespace AdventOfCode.Days_2019
                 Velocity2 = moonsVelocities[1].Z,
                 Velocity3 = moonsVelocities[2].Z,
                 Velocity4 = moonsVelocities[3].Z,
-            });
+            };
 
-            long zRepeat = 0;
+            long zRepeat = StepsUntilRepeat(state);
+
+            List<int> primeFactorsX = GetPrimeFactors(xRepeat);
+            List<int> primeFactorsY = GetPrimeFactors(yRepeat);
+            List<int> primeFactorsZ = GetPrimeFactors(zRepeat);
+
+            for (int i = 0; i < primeFactorsX.Count; i++)
+            {
+                if (primeFactorsY.Contains(primeFactorsX[i]) && primeFactorsZ.Contains(primeFactorsX[i]))
+                {
+                    primeFactorsY.Remove(primeFactorsX[i]);
+                    primeFactorsZ.Remove(primeFactorsX[i]);
+                    primeFactorsX.Remove(primeFactorsX[i]);
+                }
+            }
+
+            primeFactorsX.AddRange(primeFactorsY);
+            primeFactorsX.AddRange(primeFactorsZ);
+
+            long sum = 1;
+
+            for (int i = 0; i < primeFactorsX.Count; i++)
+            {
+                sum *= primeFactorsX[i];
+            }
+
+            return sum.ToString();
+        }
+
+        private long StepsUntilRepeat(State state)
+        {
+            int[] moonsPositions = new int[4];
+            int[] moonsVelocities = new int[4];
+
+            moonsPositions[0] = state.Position1;
+            moonsPositions[1] = state.Position2;
+            moonsPositions[2] = state.Position3;
+            moonsPositions[3] = state.Position4;
+
+            moonsVelocities[0] = state.Velocity1;
+            moonsVelocities[1] = state.Velocity2;
+            moonsVelocities[2] = state.Velocity3;
+            moonsVelocities[3] = state.Velocity4;
+
+            long xRepeat = 0;
 
             for (long i = 0; i < 4686774924; i++)
             {
-                for (int j = 0; j < moonsPositions.Count; j++)
+                for (int j = 0; j < moonsPositions.Length; j++)
                 {
-                    for (int k = 0; k < moonsPositions.Count; k++)
+                    for (int k = 0; k < moonsPositions.Length; k++)
                     {
                         if (j == k)
                             continue;
 
-                        int change = UpdateMoonVelocity(moonsPositions[j].Z, moonsPositions[k].Z);
-                        moonsVelocities[j].Z += change; ;
+                        int change = UpdateMoonVelocity(moonsPositions[j], moonsPositions[k]);
+                        moonsVelocities[j] += change; ;
                     }
                 }
 
-                for (int j = 0; j < moonsVelocities.Count; j++)
+                for (int j = 0; j < moonsVelocities.Length; j++)
                 {
-                    moonsPositions[j].Z += moonsVelocities[j].Z;
+                    moonsPositions[j] += moonsVelocities[j];
                 }
 
 
                 State moonstate = new State
                 {
-                    Position1 = moonsPositions[0].Z,
-                    Position2 = moonsPositions[1].Z,
-                    Position3 = moonsPositions[2].Z,
-                    Position4 = moonsPositions[3].Z,
+                    Position1 = moonsPositions[0],
+                    Position2 = moonsPositions[1],
+                    Position3 = moonsPositions[2],
+                    Position4 = moonsPositions[3],
 
-                    Velocity1 = moonsVelocities[0].Z,
-                    Velocity2 = moonsVelocities[1].Z,
-                    Velocity3 = moonsVelocities[2].Z,
-                    Velocity4 = moonsVelocities[3].Z,
+                    Velocity1 = moonsVelocities[0],
+                    Velocity2 = moonsVelocities[1],
+                    Velocity3 = moonsVelocities[2],
+                    Velocity4 = moonsVelocities[3],
                 };
 
-                if (states.Contains(moonstate))
+                if (state.Equals(moonstate))
                 {
-                    zRepeat = i + 1;
+                    xRepeat = i + 1;
                     break;
                 }
             }
 
-            for(long i = 100000000000000; i < 2701771299153472; i++)
+            return xRepeat;
+        }
+
+        private List<int> GetPrimeFactors(long xRepeat)
+        {
+            List<int> primes = new List<int>();
+            int div = 2;
+
+            while (true)
             {
-                if(i % xRepeat == 0 && i % yRepeat == 0 && i % zRepeat == 0)
+                if (div == xRepeat)
                 {
-                    return i.ToString();
+                    primes.Add(div);
+                    return primes;
+                }
+
+                if (xRepeat % div == 0)
+                {
+                    primes.Add(div);
+                    xRepeat = xRepeat / div;
+                }
+                else
+                {
+                    div++;
                 }
             }
-
-            return "";
         }
     }
 }
