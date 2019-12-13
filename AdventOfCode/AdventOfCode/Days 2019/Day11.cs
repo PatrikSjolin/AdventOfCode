@@ -90,20 +90,13 @@ namespace AdventOfCode.Days_2019
         public string RunTwo()
         {
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input11.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
-
+            
             grid = new int[size, size];
             x = size / 2;
             y = size / 2;
             move = false;
             direction = 0;
-
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    grid[i, j] = 1;
-                }
-            }
+            painted.Clear();
 
             for (int i = 0; i < 1000; i++)
             {
@@ -115,21 +108,26 @@ namespace AdventOfCode.Days_2019
             c.OutputEvent += C_Output;
             c.Compute(inputs.ToArray());
 
-            //Console.WriteLine();
-            //for (int i = size-1; i >= 0; i--)
-            //{
-            //    Console.Write("@");
-            //    for (int j = 0; j < size; j++)
-            //    {
-            //        if (grid[j, i] == 1)
-            //            Console.ForegroundColor = ConsoleColor.Red;
-            //        else
-            //            Console.ForegroundColor = ConsoleColor.White;
-            //        Console.Write(grid[j, i]);
-            //    }
+            Console.WriteLine();
+            for (int i = size - 1; i >= 0; i--)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (grid[j, i] == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("\u2588");
 
-            //    Console.WriteLine();
-            //}
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" ");
+                    }
+                }
+
+                Console.WriteLine();
+            }
 
             return "KRZEAJHB";
         }
