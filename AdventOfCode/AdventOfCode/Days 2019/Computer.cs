@@ -12,6 +12,7 @@ namespace AdventOfCode.Days_2019
         }
 
         public event EventHandler OutputEvent;
+        public event EventHandler InputEvent;
 
         private void SetValue(long[] inputs, int i, int par3, long value)
         {
@@ -95,6 +96,10 @@ namespace AdventOfCode.Days_2019
                         }
                         else
                         {
+
+                            if (InputEvent != null)
+                                InputEvent(this, new EventArgs());
+
                             inputs[inputs[pointer + 1]] = Input;
                         }
                         pointer += 2;
