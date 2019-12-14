@@ -8,7 +8,7 @@ namespace AdventOfCode.Days_2019
 {
     public class Day13 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         Dictionary<Tuple<long, long>, long> gameBoard = new Dictionary<Tuple<long, long>, long>();
 
@@ -145,7 +145,7 @@ namespace AdventOfCode.Days_2019
             return points.ToString();
         }
 
-        bool visualize = true;
+        bool visualize = false;
 
 
         Dictionary<Tuple<long, long>, long> lastGameBoard = new Dictionary<Tuple<long, long>, long>();

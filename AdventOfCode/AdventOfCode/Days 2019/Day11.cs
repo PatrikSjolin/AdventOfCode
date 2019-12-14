@@ -108,26 +108,26 @@ namespace AdventOfCode.Days_2019
             c.OutputEvent += C_Output;
             c.Compute(inputs.ToArray());
 
-            Console.WriteLine();
-            for (int i = size - 1; i >= 0; i--)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    if (grid[j, i] == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("\u2588");
+            //Console.WriteLine();
+            //for (int i = size - 1; i >= 0; i--)
+            //{
+            //    for (int j = 0; j < size; j++)
+            //    {
+            //        if (grid[j, i] == 1)
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.Red;
+            //            Console.Write("\u2588");
 
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(" ");
-                    }
-                }
+            //        }
+            //        else
+            //        {
+            //            Console.ForegroundColor = ConsoleColor.White;
+            //            Console.Write(" ");
+            //        }
+            //    }
 
-                Console.WriteLine();
-            }
+            //    Console.WriteLine();
+            //}
 
             return "KRZEAJHB";
         }
