@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
@@ -37,7 +38,7 @@ namespace AdventOfCode.Days_2019
 
             int sum = 0;
 
-            foreach(var tile in gameBoard)
+            foreach (var tile in gameBoard)
             {
                 if (tile.Value == 2)
                     sum++;
@@ -60,23 +61,22 @@ namespace AdventOfCode.Days_2019
             Computer c = ((Computer)sender);
             long output = c.Output;
 
-                if (i % 3 == 2)
-                {
-                    gameBoard.Add(new Tuple<long, long>(x, y), output);
-                }
-                else if (i % 3 == 1)
-                {
-                    y = output;
-                }
-                else
-                {
-                    x = output;
-                }
+            if (i % 3 == 2)
+            {
+                gameBoard.Add(new Tuple<long, long>(x, y), output);
+            }
+            else if (i % 3 == 1)
+            {
+                y = output;
+            }
+            else
+            {
+                x = output;
+            }
             i++;
         }
 
         long points = 0;
-        bool play = false;
 
         private void C_OutputEvent2(object sender, EventArgs e)
         {
@@ -113,10 +113,6 @@ namespace AdventOfCode.Days_2019
                     x = output;
                 }
                 i++;
-
-                if (i > 3168)
-                {
-                }
             }
         }
 
@@ -146,80 +142,91 @@ namespace AdventOfCode.Days_2019
         }
 
         bool visualize = false;
-
+        bool play = false;
 
         Dictionary<Tuple<long, long>, long> lastGameBoard = new Dictionary<Tuple<long, long>, long>();
 
-
+        bool first = true;
         string[,] lastGrid;
 
         private void C_InputEvent(object sender, EventArgs e)
         {
-            if (play || visualize)
+            if(!play && visualize)
             {
-                Console.Clear();
-                Console.Write("SCORE: \n" + points);
+                Thread.Sleep(50);
+            }
+            if (visualize)
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.Write("SCORE: " + points);
                 InitBoard();
-                PrintGrid();
-
-                //    for (int i = 0; i < grid.GetLength(0); i++)
-                //    {
-                //        for (int j = 0; j < grid.GetLength(1); j++)
-                //        {
-                //            if(grid[i, j] != lastGrid[i, j])
-                //            {
-                //                Console.SetCursorPosition(i, j);
-
-
-                //                if (grid[i, j] == "4")
-                //                {
-                //                    Console.ForegroundColor = ConsoleColor.Red;
-                //                }
-                //                if (grid[i, j] == "3")
-                //                {
-                //                    Console.ForegroundColor = ConsoleColor.Green;
-                //                }
-                //                if (grid[i, j] == "2")
-                //                {
-                //                    Console.ForegroundColor = ConsoleColor.Blue;
-                //                }
-                //                if (grid[i, j] == "1")
-                //                {
-                //                    Console.ForegroundColor = ConsoleColor.Gray;
-                //                }
+                if (first)
+                {
+                    Console.Clear();
+                    Console.Write("SCORE: " + points);
+                    PrintGrid();
+                    first = false;
+                }
+                else
+                {
+                    for (int i = 0; i < grid.GetLength(1); i++)
+                    {
+                        for (int j = 0; j < grid.GetLength(0); j++)
+                        {
+                            if (grid[j, i] != lastGrid[j, i])
+                            {
+                                Console.SetCursorPosition(j, i + 1);
 
 
-                //                Console.Write(grid[i, j]);
-                //            }
-                //        }
-                //    }
+                                if (grid[j, i] == "4")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                }
+                                if (grid[j, i] == "3")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                }
+                                if (grid[j, i] == "2")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Blue;
+                                }
+                                if (grid[j, i] == "1")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Gray;
+                                }
 
-                //    lastGrid = new string[grid.GetLength(0), grid.GetLength(1)];
-                //    for(int i = 0; i < grid.GetLength(0); i++)
-                //    {
-                //        for(int j = 0; j < grid.GetLength(1); j++)
-                //        {
-                //            lastGrid[i, j] = grid[i, j];
-                //        }
-                //    }
+                                Console.Write(grid[j, i]);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.SetCursorPosition(0, 25);
+                            }
+                        }
+                    }
+                }
+
+                lastGrid = new string[grid.GetLength(0), grid.GetLength(1)];
+                for (int i = 0; i < grid.GetLength(1); i++)
+                {
+                    for (int j = 0; j < grid.GetLength(0); j++)
+                    {
+                        lastGrid[j, i] = grid[j, i];
+                    }
+                }
             }
 
             Computer c = ((Computer)sender);
 
-            Tuple<long, long> ball = gameBoard.Where(x => x.Value == 4).FirstOrDefault().Key;
-            Tuple<long, long> paddle = gameBoard.Where(x => x.Value == 3).FirstOrDefault().Key;
 
             if (!play)
             {
+                Tuple<long, long> ball = gameBoard.Where(x => x.Value == 4).FirstOrDefault().Key;
+                Tuple<long, long> paddle = gameBoard.Where(x => x.Value == 3).FirstOrDefault().Key;
 
-            if (paddle.Item1 < ball.Item1)
-            {
-                c.Input = 1;
-            }
-            else if (paddle.Item1 > ball.Item1)
-                c.Input = -1;
-            else
-                c.Input = 0;
+                if (paddle.Item1 < ball.Item1)
+                    c.Input = 1;
+                else if (paddle.Item1 > ball.Item1)
+                    c.Input = -1;
+                else
+                    c.Input = 0;
 
             }
             else
@@ -246,13 +253,13 @@ namespace AdventOfCode.Days_2019
             Console.WriteLine();
             for (int i = 0; i < grid.GetLength(1); i++)
             {
-                for(int j = 0; j < grid.GetLength(0); j++)
+                for (int j = 0; j < grid.GetLength(0); j++)
                 {
-                    if(grid[j, i] == "4")
+                    if (grid[j, i] == "4")
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                     }
-                    if(grid[j,i] == "3")
+                    if (grid[j, i] == "3")
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                     }
@@ -273,7 +280,6 @@ namespace AdventOfCode.Days_2019
 
         private void InitBoard()
         {
-
             long minX = int.MaxValue;
             long minY = int.MaxValue;
             long maxX = int.MinValue;
@@ -296,7 +302,7 @@ namespace AdventOfCode.Days_2019
 
             grid = new string[maxX + 1, maxY + 1];
 
-            foreach(var b in gameBoard)
+            foreach (var b in gameBoard)
             {
                 grid[b.Key.Item1, b.Key.Item2] = b.Value.ToString();
             }
