@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
 {
@@ -18,13 +16,12 @@ namespace AdventOfCode.Days_2019
         int i = 0;
 
         Computer c = new Computer(0);
-        List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input13.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
         long[] inputArray;
 
         public string RunOne()
         {
-            //List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input13.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input13.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
             for (int i = 0; i < 1000; i++)
             {
@@ -49,13 +46,6 @@ namespace AdventOfCode.Days_2019
             return sum.ToString();
         }
 
-        long x = 0;
-        long y = 0;
-
-        bool score = false;
-        int scoreCount = 0;
-
-
         private void C_OutputEvent(object sender, EventArgs e)
         {
             Computer c = ((Computer)sender);
@@ -76,7 +66,12 @@ namespace AdventOfCode.Days_2019
             i++;
         }
 
+        long x = 0;
+        long y = 0;
+
         long points = 0;
+        bool score = false;
+        int scoreCount = 0;
 
         private void C_OutputEvent2(object sender, EventArgs e)
         {
@@ -118,7 +113,7 @@ namespace AdventOfCode.Days_2019
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input13.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input13.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
             gameBoard.Clear();
 
             for (int i = 0; i < 10000; i++)
@@ -144,8 +139,6 @@ namespace AdventOfCode.Days_2019
         bool visualize = false;
         bool play = false;
 
-        Dictionary<Tuple<long, long>, long> lastGameBoard = new Dictionary<Tuple<long, long>, long>();
-
         bool first = true;
         string[,] lastGrid;
 
@@ -153,7 +146,7 @@ namespace AdventOfCode.Days_2019
         {
             if(!play && visualize)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(40);
             }
             if (visualize)
             {

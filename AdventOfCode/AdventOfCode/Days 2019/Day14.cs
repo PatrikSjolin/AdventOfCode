@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
 {
@@ -64,9 +62,7 @@ namespace AdventOfCode.Days_2019
             return ore.ToString();
         }
 
-
         Dictionary<string, long> extraResources = new Dictionary<string, long>();
-
 
         private void GetResources(KeyValuePair<Tuple<string, int>, List<Tuple<string, int>>> fuel, Dictionary<string, int> resources, Dictionary<Tuple<string, int>, List<Tuple<string, int>>> recipies, int amount)
         {
