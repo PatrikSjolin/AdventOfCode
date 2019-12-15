@@ -136,8 +136,8 @@ namespace AdventOfCode.Days_2019
             return points.ToString();
         }
 
-        bool visualize = true;
-        bool play = true;
+        bool visualize = false;
+        bool play = false;
 
         bool first = true;
         string[,] lastGrid;

@@ -7,7 +7,7 @@ namespace AdventOfCode.Days_2019
 {
     public class Day15 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public string RunOne()
         {
