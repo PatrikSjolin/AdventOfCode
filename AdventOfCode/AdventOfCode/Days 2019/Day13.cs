@@ -219,8 +219,8 @@ namespace AdventOfCode.Days_2019
 
             if (!play)
             {
-                Tuple<long, long> ball = gameBoard.Where(x => x.Value == 4).FirstOrDefault().Key;
-                Tuple<long, long> paddle = gameBoard.Where(x => x.Value == 3).FirstOrDefault().Key;
+                Tuple<long, long> ball = gameBoard.FirstOrDefault(x => x.Value == 4).Key;
+                Tuple<long, long> paddle = gameBoard.FirstOrDefault(x => x.Value == 3).Key;
 
                 if (paddle.Item1 < ball.Item1)
                     c.Input = 1;
