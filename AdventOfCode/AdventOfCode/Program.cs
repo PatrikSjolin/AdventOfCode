@@ -521,16 +521,16 @@ namespace AdventOfCode
                     { 13, new Days_2019.Day13() },
                     { 14, new Days_2019.Day14() },
                     { 15, new Days_2019.Day15() },
-                    //{ 16, new Days_2019.Day16() },
-                    //{ 17, new Days_2019.Day17() },
-                    //{ 18, new Days_2019.Day18() },
-                    //{ 19, new Days_2019.Day19() },
-                    //{ 20, new Days_2019.Day20() },
-                    //{ 21, new Days_2019.Day21() },
-                    //{ 22, new Days_2019.Day22() },
-                    //{ 23, new Days_2019.Day23() },
-                    //{ 24, new Days_2019.Day24() },
-                    //{ 25, new Days_2019.Day25() }
+                    { 16, new Days_2019.Day16() },
+                    { 17, new Days_2019.Day17() },
+                    { 18, new Days_2019.Day18() },
+                    { 19, new Days_2019.Day19() },
+                    { 20, new Days_2019.Day20() },
+                    { 21, new Days_2019.Day21() },
+                    { 22, new Days_2019.Day22() },
+                    { 23, new Days_2019.Day23() },
+                    { 24, new Days_2019.Day24() },
+                    { 25, new Days_2019.Day25() }
                 };
             }
             return null;
