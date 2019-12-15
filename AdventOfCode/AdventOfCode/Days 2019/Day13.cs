@@ -136,8 +136,8 @@ namespace AdventOfCode.Days_2019
             return points.ToString();
         }
 
-        bool visualize = false;
-        bool play = false;
+        bool visualize = true;
+        bool play = true;
 
         bool first = true;
         string[,] lastGrid;
@@ -170,25 +170,34 @@ namespace AdventOfCode.Days_2019
                             {
                                 Console.SetCursorPosition(j, i + 1);
 
+                                string letter = "";
 
                                 if (grid[j, i] == "4")
                                 {
                                     Console.ForegroundColor = ConsoleColor.Red;
+                                    letter = "o";
                                 }
                                 if (grid[j, i] == "3")
                                 {
                                     Console.ForegroundColor = ConsoleColor.Green;
+                                    letter = "¯";
                                 }
                                 if (grid[j, i] == "2")
                                 {
                                     Console.ForegroundColor = ConsoleColor.Blue;
+                                    letter = "O";
                                 }
                                 if (grid[j, i] == "1")
                                 {
                                     Console.ForegroundColor = ConsoleColor.Gray;
+                                    letter = "\u2588";
+                                }
+                                if(grid[j,i] == "0")
+                                {
+                                    letter = " ";
                                 }
 
-                                Console.Write(grid[j, i]);
+                                Console.Write(letter);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.SetCursorPosition(0, 25);
                             }
@@ -248,23 +257,36 @@ namespace AdventOfCode.Days_2019
             {
                 for (int j = 0; j < grid.GetLength(0); j++)
                 {
+
+                    string letter = "";
+
                     if (grid[j, i] == "4")
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
+                        letter = "o";
                     }
                     if (grid[j, i] == "3")
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
+                        letter = "¯";
                     }
                     if (grid[j, i] == "2")
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
+                        letter = "O";
                     }
                     if (grid[j, i] == "1")
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
+                        letter = "\u2588";
                     }
-                    Console.Write(grid[j, i]);
+                    if (grid[j, i] == "0")
+                    {
+                        letter = " ";
+                    }
+
+                    Console.Write(letter);
+                    //Console.ForegroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 Console.WriteLine();
