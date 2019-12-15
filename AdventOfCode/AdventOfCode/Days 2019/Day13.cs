@@ -10,13 +10,7 @@ namespace AdventOfCode.Days_2019
         public bool Active => true;
 
         Dictionary<Tuple<long, long>, long> gameBoard = new Dictionary<Tuple<long, long>, long>();
-
         string[,] grid;
-
-        int i = 0;
-
-        Computer c = new Computer(0);
-
         long[] inputArray;
 
         public string RunOne()
@@ -30,6 +24,9 @@ namespace AdventOfCode.Days_2019
 
             inputArray = inputs.ToArray();
 
+            gameBoard.Clear();
+
+            Computer c = new Computer(0);
             c.OutputEvent += C_OutputEvent;
             c.Compute(inputArray);
 
@@ -45,6 +42,8 @@ namespace AdventOfCode.Days_2019
 
             return sum.ToString();
         }
+
+        int i = 0;
 
         private void C_OutputEvent(object sender, EventArgs e)
         {
@@ -126,7 +125,7 @@ namespace AdventOfCode.Days_2019
             i = 0;
             inputArray[0] = 2;
 
-            c = new Computer(0);
+            Computer c = new Computer(0);
 
             c.OutputEvent += C_OutputEvent2;
             c.InputEvent += C_InputEvent;
