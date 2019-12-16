@@ -6,25 +6,25 @@ namespace AdventOfCode.Days_2019
 {
     public class Day16 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         public string RunOne()
         {
             string input = System.IO.File.ReadAllLines(@"..\..\Data\2019\input16.txt")[0];
 
-            List<int> inputs = input.Select(x => (int)char.GetNumericValue(x)).ToList();
+            int[] inputs = input.Select(x => (int)char.GetNumericValue(x)).ToArray();
             List<int> basePattern = new List<int> { 0, 1, 0, -1 };
             List<int> newList = new List<int>();
 
-            int phases = 4;
+            int phases = 100;
 
             for (int phase = 0; phase < phases; phase++)
             {
-                for (int i = 1; i <= inputs.Count; i++)
+                for (int i = 1; i <= inputs.Length; i++)
                 {
                     int sum = 0;
 
-                    for (int j = 0; j < inputs.Count; j++)
+                    for (int j = 0; j < inputs.Length; j++)
                     {
 
                         int repeating = basePattern[((j + 1) / i) % 4];
@@ -33,13 +33,13 @@ namespace AdventOfCode.Days_2019
                     }
                     newList.Add(Math.Abs(sum % 10));
                 }
-                inputs = newList.ToList();
+                inputs = newList.ToArray();
                 newList.Clear();
             }
 
             string result = "";
 
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 result += inputs[i];
             }
@@ -52,55 +52,42 @@ namespace AdventOfCode.Days_2019
             string input = System.IO.File.ReadAllLines(@"..\..\Data\2019\input16.txt")[0];
 
             List<int> inputs = input.Select(x => (int)char.GetNumericValue(x)).ToList();
-            List<int> basePattern = new List<int> { 0, 1, 0, -1 };
-            List<int> newList = new List<int>();
+            
 
             int offset = int.Parse(input.Substring(0, 7));
 
-            List<int> repeatedInput = new List<int>();
+            List<int> repeat = new List<int>();
 
-            for(int i = 0; i < 10000; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                repeatedInput.AddRange(inputs);
+                repeat.AddRange(inputs);
             }
 
-            int phases = 100;
 
-            HashSet<List<int>> cache = new HashSet<List<int>>();
+            List<int> repeatedInput = repeat.ToList();
+
+            int phases = 100;
+            repeatedInput.RemoveRange(0, offset);
+            int[] newList = new int[repeatedInput.Count];
+
+
+            repeatedInput.Reverse();
+
+            int[] workArray = repeatedInput.ToArray();
 
             for (int phase = 0; phase < phases; phase++)
             {
-                for (int i = 1; i <= repeatedInput.Count; i++)
+                int sum = 0;
+                for (int i = 0; i < workArray.Length; i++)
                 {
-                    int sum = 0;
-
-                    for (int j = 0; j < repeatedInput.Count; j++)
-                    {
-
-                        int repeating = basePattern[((j + offset) / i) % 4];
-
-                        if(j % 650 == 0)
-                        {
-
-                        }
-
-                        sum += repeatedInput[j] * repeating;
-                    }
-                    newList.Add(Math.Abs(sum % 10));
+                    sum += workArray[i];
+                    newList[i] = (sum % 10);
                 }
-
-                if (!cache.Contains(newList))
-                {
-                    cache.Add(newList.ToList());
-                }
-                else
-                {
-
-                }
-
-                repeatedInput = newList.ToList();
-                newList.Clear();
+                workArray = newList.ToArray();
             }
+
+            repeatedInput = workArray.ToList();
+            repeatedInput.Reverse();
 
             string result = "";
 
