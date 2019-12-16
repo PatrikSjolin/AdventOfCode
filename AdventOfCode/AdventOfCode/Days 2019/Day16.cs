@@ -13,8 +13,8 @@ namespace AdventOfCode.Days_2019
             string input = System.IO.File.ReadAllLines(@"..\..\Data\2019\input16.txt")[0];
 
             int[] inputs = input.Select(x => (int)char.GetNumericValue(x)).ToArray();
-            List<int> basePattern = new List<int> { 0, 1, 0, -1 };
-            List<int> newList = new List<int>();
+            int[] basePattern = new int[] { 0, 1, 0, -1 };
+            int[] newList = new int[inputs.Length];
 
             int phases = 100;
 
@@ -26,15 +26,13 @@ namespace AdventOfCode.Days_2019
 
                     for (int j = 0; j < inputs.Length; j++)
                     {
-
                         int repeating = basePattern[((j + 1) / i) % 4];
 
                         sum += inputs[j] * repeating;
                     }
-                    newList.Add(Math.Abs(sum % 10));
+                    newList[i - 1] = Math.Abs(sum % 10);
                 }
                 inputs = newList.ToArray();
-                newList.Clear();
             }
 
             string result = "";
@@ -52,7 +50,6 @@ namespace AdventOfCode.Days_2019
             string input = System.IO.File.ReadAllLines(@"..\..\Data\2019\input16.txt")[0];
 
             List<int> inputs = input.Select(x => (int)char.GetNumericValue(x)).ToList();
-            
 
             int offset = int.Parse(input.Substring(0, 7));
 
@@ -63,13 +60,10 @@ namespace AdventOfCode.Days_2019
                 repeat.AddRange(inputs);
             }
 
-
             List<int> repeatedInput = repeat.ToList();
 
             int phases = 100;
             repeatedInput.RemoveRange(0, offset);
-            int[] newList = new int[repeatedInput.Count];
-
 
             repeatedInput.Reverse();
 
@@ -81,9 +75,8 @@ namespace AdventOfCode.Days_2019
                 for (int i = 0; i < workArray.Length; i++)
                 {
                     sum += workArray[i];
-                    newList[i] = (sum % 10);
+                    workArray[i] = (sum % 10);
                 }
-                workArray = newList.ToArray();
             }
 
             repeatedInput = workArray.ToList();
