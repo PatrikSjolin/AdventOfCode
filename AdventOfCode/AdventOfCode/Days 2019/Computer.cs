@@ -92,11 +92,13 @@ namespace AdventOfCode.Days_2019
                     case 3:
                         if (par1 == 2)
                         {
+                            if (InputEvent != null)
+                                InputEvent(this, new EventArgs());
+
                             inputs[inputs[pointer + 1] + relevantBase] = Input;
                         }
                         else
                         {
-
                             if (InputEvent != null)
                                 InputEvent(this, new EventArgs());
 

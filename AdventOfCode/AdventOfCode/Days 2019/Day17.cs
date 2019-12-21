@@ -45,7 +45,7 @@ namespace AdventOfCode.Days_2019
             return sum.ToString();
         }
 
-        bool visualize = true;
+        bool visualize = false;
 
         private int IsIntersectionPoint(string[,] grid, int i, int j)
         {
@@ -122,9 +122,58 @@ namespace AdventOfCode.Days_2019
 
         public string RunTwo()
         {
+            List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input17.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
+            i = 0;
+            Computer c = new Computer(0);
+
+            for (int i = 0; i < 10000; i++)
+            {
+                inputs.Add(0);
+            }
+
+            column = 0;
+            row = 0;
+
+            c = new Computer(0);
+
+            c.InputEvent += C_InputEvent;
+
+            inputs[0] = 2;
+
+            c.Compute(inputs.ToArray());
 
 
-            return "";
+            return c.Output.ToString();
+        }
+
+        string[] instructions = new string[] { "65", "44", "66", "44", "66", "44", "67", "44", "65", "44", "66", "44", "67", "44", "65", "44", "66", "44", "67", "10",
+        //L,6, R,12 L,4 L,6
+        "76", "44", "54", "44", "82", "44", "49", "50", "44", "76", "44", "52", "44", "76", "44", "54", "10",
+
+//R,6
+//L,6
+//R,12
+
+        "82", "44", "54", "44", "76", "44", "54", "44", "82", "44", "49", "50", "10",
+
+//        L,6
+//L,10
+//L,10
+//R,6
+        "76", "44", "54", "44", "76", "44", "49", "48", "44", "76", "44", "49", "48", "44", "82", "44", "54", "10",
+            
+            "110", "10" };
+
+        //A, B, B, C, A, B, C, A, B, C
+        //y = 121
+
+        int i = 0;
+
+        private void C_InputEvent(object sender, EventArgs e)
+        {
+            Computer c = ((Computer)sender);
+            c.Input = int.Parse(instructions[i]);
+            i++;
         }
     }
 }
