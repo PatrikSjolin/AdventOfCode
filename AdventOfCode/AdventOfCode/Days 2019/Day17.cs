@@ -14,15 +14,12 @@ namespace AdventOfCode.Days_2019
         {
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input17.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
-            Computer c = new Computer(0);
-
             for (int i = 0; i < 10000; i++)
             {
                 inputs.Add(0);
             }
 
-            c = new Computer(0);
-
+            Computer c = new Computer(0);
             c.OutputEvent += C_OutputEvent;
 
             c.Compute(inputs.ToArray());
