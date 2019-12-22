@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2019
 {
@@ -13,7 +11,7 @@ namespace AdventOfCode.Days_2019
         public string RunOne()
         {
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input21.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
-            //i = 0;
+            i = 0;
             for (int i = 0; i < 10000; i++)
             {
                 inputs.Add(0);
@@ -43,7 +41,7 @@ namespace AdventOfCode.Days_2019
 
         int i = 0;
 
-        bool visualize = true;
+        bool visualize = false;
 
         private void C_InputEvent(object sender, EventArgs e)
         {
