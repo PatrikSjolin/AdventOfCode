@@ -6,9 +6,9 @@ namespace AdventOfCode.Days_2019
 {
     public class Day19 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
-        static int size = 2000;
+        static int size = 1800;
 
         public string RunOne()
         {
