@@ -8,16 +8,18 @@ namespace AdventOfCode.Days_2019
     {
         public bool Active => true;
 
-        static int size = 1800;
+        static int size = 1600;
 
         public string RunOne()
         {
             List<long> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2019\input19.txt")[0].Split(',').Select(x => long.Parse(x)).ToList();
 
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 inputs.Add(0);
             }
+
+            bool foundOne = false;
 
             for(int i = 0; i < size; i++)
             {
@@ -29,6 +31,15 @@ namespace AdventOfCode.Days_2019
                     c.OutputEvent += C_OutputEvent;
                     c.InputEvent += C_InputEvent;
                     c.Compute(inputs.ToArray());
+
+                    if (grid[i, j] == 1)
+                        foundOne = true;
+
+                    if (foundOne && grid[i, j] == 0)
+                    {
+                        foundOne = false;
+                        break;
+                    }
                 }
             }
 
@@ -47,7 +58,6 @@ namespace AdventOfCode.Days_2019
 
         int x = 0;
         int y = 0;
-        int k = 0;
 
         bool turn = false;
 
