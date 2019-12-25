@@ -25,6 +25,8 @@ namespace AdventOfCode.Days_2019
                 c.OutputEvent += C_OutputEvent;
                 c.Compute(inputs.ToArray());
             }
+
+            //Take Hypercube, Dehydrated water, Candy cane and Antenna
             return "2147502592";
         }
 

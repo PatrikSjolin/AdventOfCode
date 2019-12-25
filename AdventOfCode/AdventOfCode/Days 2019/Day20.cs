@@ -230,7 +230,6 @@ namespace AdventOfCode.Days_2019
 
         public string RunTwo()
         {
-
             Tuple<int, int> start = teleportations.First(x => x.Key == "AA").Value[0];
             Tuple<int, int> goal = teleportations.First(x => x.Key == "ZZ").Value[0];
 

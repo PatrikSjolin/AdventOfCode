@@ -42,7 +42,6 @@ namespace AdventOfCode.Days_2019
                 int par3 = 0;
 
                 switch (CountDigits(inputs[pointer]))
-                //switch ((int)Math.Log10(inputs[pointer]) + 1)
                 {
                     case 1:
                         operation = inputs[pointer];
