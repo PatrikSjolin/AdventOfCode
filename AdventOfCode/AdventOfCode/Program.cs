@@ -397,7 +397,7 @@ namespace AdventOfCode
                     { 22, ";" },
                     { 23, "17714;10982" },
                     { 24, "32509983;2012" },
-                    { 25, ";" },
+                    { 25, "2147502592;All puzzles completed!" },
                 };
             }
             return null;
