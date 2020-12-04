@@ -550,7 +550,7 @@ namespace AdventOfCode
                     { 2, new Days_2020.Day02() },
                     { 3, new Days_2020.Day03() },
                     { 4, new Days_2020.Day04() },
-                    //{ 5, new Days_2020.Day05() },
+                    { 5, new Days_2020.Day05() },
                     //{ 6, new Days_2020.Day06() },
                     //{ 7, new Days_2020.Day07() },
                     //{ 8, new Days_2020.Day08() },
