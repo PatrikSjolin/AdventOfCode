@@ -46,6 +46,7 @@ namespace AdventOfCode.Days_2020
             for (int i = 0; i < list.Count; i++)
             {
                 List<string> split = list[i].Split(' ').ToList();
+
                 int low = int.Parse(split[0].Split('-')[0]);
                 int high = int.Parse(split[0].Split('-')[1]);
 
@@ -53,7 +54,7 @@ namespace AdventOfCode.Days_2020
 
                 string password = split[2];
 
-                if (IsKey(low - 1, password, letter) ^ IsKey(high - 1, password, letter))
+                if (KeyMatch(low - 1, password, letter) ^ KeyMatch(high - 1, password, letter))
                 {
                     valid++;
                 }
@@ -62,7 +63,7 @@ namespace AdventOfCode.Days_2020
             return valid.ToString();
         }
 
-        private bool IsKey(int index, string password, string letter)
+        private bool KeyMatch(int index, string password, string letter)
         {
             return password[index].ToString() == letter;
         }
