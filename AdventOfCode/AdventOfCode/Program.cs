@@ -400,6 +400,18 @@ namespace AdventOfCode
                     { 25, "2147502592;All puzzles completed!" },
                 };
             }
+            if(year == 2020)
+            {
+                return new Dictionary<int, string>
+                {
+                    { 1, "63616;67877784" },
+                    { 2, "655;673" },
+                    { 3, "209;1574890240" },
+                    { 4, "239;188" },
+                    { 5, "866;583" },
+                    { 6, "6911;3473" },
+                };
+            }
             return null;
         }
 
@@ -552,7 +564,7 @@ namespace AdventOfCode
                     { 4, new Days_2020.Day04() },
                     { 5, new Days_2020.Day05() },
                     { 6, new Days_2020.Day06() },
-                    //{ 7, new Days_2020.Day07() },
+                    { 7, new Days_2020.Day07() },
                     //{ 8, new Days_2020.Day08() },
                     //{ 9, new Days_2020.Day09() },
                     //{ 10, new Days_2020.Day10() },
