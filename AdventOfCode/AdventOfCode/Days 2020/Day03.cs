@@ -9,14 +9,14 @@ namespace AdventOfCode.Days_2020
 
         public string RunOne()
         {
-            List<string> list = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
+            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
 
-            string[,] map = new string[list.Count, list[0].Length];
-            for(int i = 0; i < list.Count; i++)
+            string[,] map = new string[inputs.Count, inputs[0].Length];
+            for(int i = 0; i < inputs.Count; i++)
             {
-                for(int j = 0; j < list[0].Length; j++)
+                for(int j = 0; j < inputs[0].Length; j++)
                 {
-                    map[i, j] = list[i][j].ToString();
+                    map[i, j] = inputs[i][j].ToString();
                 }
             }
 
@@ -28,9 +28,9 @@ namespace AdventOfCode.Days_2020
 
             int numTrees = 0;
 
-            while(y < list.Count)
+            while(y < inputs.Count)
             {
-                if(map[y % list.Count, x % list[0].Length] == "#")
+                if(map[y % inputs.Count, x % inputs[0].Length] == "#")
                 {
                     numTrees++;
                 }
@@ -43,7 +43,7 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            List<string> list = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
+            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
 
             List<KeyValuePair<int, int>> slopes = new List<KeyValuePair<int, int>>()
             {
@@ -54,12 +54,12 @@ namespace AdventOfCode.Days_2020
                 new KeyValuePair<int, int>(1, 2)
             };
 
-            string[,] map = new string[list.Count, list[0].Length];
-            for (int i = 0; i < list.Count; i++)
+            string[,] map = new string[inputs.Count, inputs[0].Length];
+            for (int i = 0; i < inputs.Count; i++)
             {
-                for (int j = 0; j < list[0].Length; j++)
+                for (int j = 0; j < inputs[0].Length; j++)
                 {
-                    map[i, j] = list[i][j].ToString();
+                    map[i, j] = inputs[i][j].ToString();
                 }
             }
 
@@ -75,9 +75,9 @@ namespace AdventOfCode.Days_2020
 
                 int numTrees = 0;
 
-                while (y < list.Count)
+                while (y < inputs.Count)
                 {
-                    if (map[y % list.Count, x % list[0].Length] == "#")
+                    if (map[y % inputs.Count, x % inputs[0].Length] == "#")
                     {
                         numTrees++;
                     }

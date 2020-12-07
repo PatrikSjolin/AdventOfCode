@@ -9,13 +9,13 @@ namespace AdventOfCode.Days_2020
 
         public string RunOne()
         {
-            var list = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
+            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
 
             int valid = 0;
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < inputs.Count; i++)
             {
-                List<string> split = list[i].Split(' ').ToList();
+                List<string> split = inputs[i].Split(' ').ToList();
                 int low = int.Parse(split[0].Split('-')[0]);
                 int high = int.Parse(split[0].Split('-')[1]);
 
@@ -39,13 +39,13 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            var list = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
+            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
 
             int valid = 0;
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < inputs.Count; i++)
             {
-                List<string> split = list[i].Split(' ').ToList();
+                List<string> split = inputs[i].Split(' ').ToList();
 
                 int low = int.Parse(split[0].Split('-')[0]);
                 int high = int.Parse(split[0].Split('-')[1]);
