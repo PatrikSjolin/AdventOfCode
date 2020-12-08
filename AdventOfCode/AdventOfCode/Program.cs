@@ -568,7 +568,7 @@ namespace AdventOfCode
                     { 6, new Days_2020.Day06() },
                     { 7, new Days_2020.Day07() },
                     { 8, new Days_2020.Day08() },
-                    //{ 9, new Days_2020.Day09() },
+                    { 9, new Days_2020.Day09() },
                     //{ 10, new Days_2020.Day10() },
                     //{ 11, new Days_2020.Day11() },
                     //{ 12, new Days_2020.Day12() },
