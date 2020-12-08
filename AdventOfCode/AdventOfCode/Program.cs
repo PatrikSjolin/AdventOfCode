@@ -410,7 +410,8 @@ namespace AdventOfCode
                     { 4, "239;188" },
                     { 5, "866;583" },
                     { 6, "6911;3473" },
-                    { 7, "121;3805" }
+                    { 7, "121;3805" },
+                    { 8, "1394;1626" }
                 };
             }
             return null;
@@ -566,7 +567,7 @@ namespace AdventOfCode
                     { 5, new Days_2020.Day05() },
                     { 6, new Days_2020.Day06() },
                     { 7, new Days_2020.Day07() },
-                    //{ 8, new Days_2020.Day08() },
+                    { 8, new Days_2020.Day08() },
                     //{ 9, new Days_2020.Day09() },
                     //{ 10, new Days_2020.Day10() },
                     //{ 11, new Days_2020.Day11() },
