@@ -35,12 +35,13 @@ namespace AdventOfCode.Days_2020
             {
                 for (int k = j + 1; k < i; k++)
                 {
-                    if (j == k)
-                        continue;
-                    if (inputs[j] == inputs[k])
-                        continue;
                     if (inputs[j] + inputs[k] == sum)
+                    {
+                        if (inputs[j] == inputs[k])
+                            continue;
+
                         return true;
+                    }
                 }
             }
 
@@ -57,15 +58,15 @@ namespace AdventOfCode.Days_2020
 
                 for (int j = i + 1; j < inputs.Count; j++)
                 {
-                    if (inputs[j] < min)
-                        min = inputs[j];
-                    if (inputs[j] > max)
-                        max = inputs[j];
-
                     sum += inputs[j];
 
                     if (sum > invalidNumber)
                         break;
+
+                    if (inputs[j] < min)
+                        min = inputs[j];
+                    if (inputs[j] > max)
+                        max = inputs[j];
 
                     if (sum == invalidNumber)
                         return (min + max).ToString();
