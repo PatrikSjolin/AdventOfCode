@@ -34,10 +34,12 @@ namespace AdventOfCode.Days_2020
     {
         public bool Active => true;
 
+        private List<string> inputs;
+
         public string RunOne()
         {
             List<Passport> passports = new List<Passport>();
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input04.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input04.txt").ToList();
             Passport p = new Passport();
             passports.Add(p);
 
@@ -93,7 +95,6 @@ namespace AdventOfCode.Days_2020
         public string RunTwo()
         {
             List<Passport> passports = new List<Passport>();
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input04.txt").ToList();
             Passport p = new Passport();
             passports.Add(p);
 

@@ -35,8 +35,6 @@ namespace AdventOfCode.Days_2020
         {
             int repeating = 0;
 
-            int positions = 0;
-
             long result = 1;
             for (int i = 0; i < inputs.Count - 1; i++)
             {
@@ -44,17 +42,9 @@ namespace AdventOfCode.Days_2020
                     repeating++;
                 else
                 {
+                 if(repeating > 0)
+                        result *= Utilities.Tribonacci(repeating);
                     repeating = 0;
-                    if(positions > 2)
-                        result *= (int)(Math.Pow(2, positions) - 1);
-                    else if(positions > 0)
-                        result *= (int)Math.Pow(2, positions);
-                    positions = 0;
-                }
-
-                if(repeating > 1)
-                {
-                    positions++;
                 }
             }
 

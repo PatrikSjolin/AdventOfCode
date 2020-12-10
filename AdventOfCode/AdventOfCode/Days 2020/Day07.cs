@@ -7,9 +7,11 @@ namespace AdventOfCode.Days_2020
     {
         public bool Active => true;
 
+        private List<string> inputs;
+
         public string RunOne()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input07.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input07.txt").ToList();
 
             Dictionary<string, List<string>> bagColors = new Dictionary<string, List<string>>();
             
@@ -68,8 +70,6 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input07.txt").ToList();
-
             Dictionary<string, List<string>> bagColors = new Dictionary<string, List<string>>();
             foreach (var input in inputs)
             {

@@ -7,9 +7,11 @@ namespace AdventOfCode.Days_2020
     {
         public bool Active => true;
 
+        private List<string> inputs;
+
         public string RunOne()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
 
             string[,] map = new string[inputs.Count, inputs[0].Length];
             for(int i = 0; i < inputs.Count; i++)
@@ -43,8 +45,6 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input03.txt").ToList();
-
             List<KeyValuePair<int, int>> slopes = new List<KeyValuePair<int, int>>()
             {
                 new KeyValuePair<int, int>(1, 1),

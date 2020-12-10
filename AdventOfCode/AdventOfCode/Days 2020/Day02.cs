@@ -7,9 +7,11 @@ namespace AdventOfCode.Days_2020
     {
         public bool Active => true;
 
+        private List<string> inputs;
+
         public string RunOne()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
 
             int valid = 0;
 
@@ -39,8 +41,6 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input02.txt").ToList();
-
             int valid = 0;
 
             for (int i = 0; i < inputs.Count; i++)
