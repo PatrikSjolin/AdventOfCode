@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days_2020
@@ -13,9 +14,11 @@ namespace AdventOfCode.Days_2020
 
         public bool Active => true;
 
+        private List<(string, int)> inputs;
+
         public string RunOne()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input08.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input08.txt").Select(x => x.Split(' ')).Select(y => (y[0], int.Parse(y[1]))).ToList();
 
             Result result = ExecuteProgram(inputs);
             
@@ -24,26 +27,19 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            List<string> inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input08.txt").ToList();
             for (int j = 0; j < inputs.Count; j++)
             {
-                List<string> inputs2 = new List<string>(inputs);
+                List<(string, int)> inputs2 = new List<(string, int)>(inputs);
 
-                while (!inputs2[j].StartsWith("jmp") && !inputs2[j].StartsWith("nop"))
+                while (!(inputs2[j].Item1 == "jmp") && !(inputs2[j].Item1 == "nop"))
                 {
                     j++;
                 }
 
-                if (inputs2[j].StartsWith("jmp"))
-                {
-                    int argument = int.Parse(inputs2[j].Split(' ')[1]);
-                    inputs2[j] = "nop " + argument;
-                }
+                if (inputs2[j].Item1 == "jmp")
+                    inputs2[j] = ("nop", inputs2[j].Item2);
                 else
-                {
-                    int argument = int.Parse(inputs2[j].Split(' ')[1]);
-                    inputs2[j] = "jmp " + argument;
-                }
+                    inputs2[j] = ("jmp", inputs2[j].Item2);
 
                 Result result = ExecuteProgram(inputs2);
 
@@ -56,7 +52,7 @@ namespace AdventOfCode.Days_2020
             return "";
         }
 
-        private Result ExecuteProgram(List<string> program)
+        private Result ExecuteProgram(List<(string, int)> program)
         {
             int accumulator = 0;
 
@@ -64,7 +60,7 @@ namespace AdventOfCode.Days_2020
 
             for (int i = 0; i < program.Count;)
             {
-                string operation = program[i].Split(' ')[0];
+                string operation = program[i].Item1;
 
                 if (instructions.Contains(i))
                 {
@@ -81,13 +77,13 @@ namespace AdventOfCode.Days_2020
                 }
                 else if (operation == "acc")
                 {
-                    int argument = int.Parse(program[i].Split(' ')[1]);
+                    int argument = program[i].Item2;
                     accumulator += argument;
                     i++;
                 }
                 else if (operation == "jmp")
                 {
-                    int argument = int.Parse(program[i].Split(' ')[1]);
+                    int argument = program[i].Item2;
                     i += argument;
                 }
             }
