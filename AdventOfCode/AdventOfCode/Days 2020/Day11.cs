@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days_2020
@@ -15,22 +14,22 @@ namespace AdventOfCode.Days_2020
             inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input11.txt").ToList();
 
             int width = inputs[0].Length;
-            int height = inputs.Count; 
+            int height = inputs.Count;
 
             string[,] grid = new string[height, width];
 
             int lastOccupied = 0;
 
-            for(int i = 0; i < height; i++)
+            for (int i = 0; i < height; i++)
             {
-                for(int j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                 {
                     grid[i, j] = inputs[i][j].ToString();
                     if (grid[i, j] == "#")
                         lastOccupied++;
                 }
             }
-            
+
             while (true)
             {
                 string[,] newGrid = new string[height, width];
@@ -38,7 +37,7 @@ namespace AdventOfCode.Days_2020
 
                 for (int i = 0; i < height; i++)
                 {
-                    for(int j = 0; j < width; j++)
+                    for (int j = 0; j < width; j++)
                     {
                         string state = GetSeatState(grid, i, j, width, height);
                         newGrid[i, j] = state;
@@ -48,12 +47,11 @@ namespace AdventOfCode.Days_2020
                 }
 
                 grid = newGrid;
- 
+
                 if (occupied == lastOccupied)
                     return occupied.ToString();
-                
-                lastOccupied = occupied;
 
+                lastOccupied = occupied;
             }
         }
 
@@ -88,7 +86,7 @@ namespace AdventOfCode.Days_2020
                             continue;
                         string state = GetState(grid, row + i, column + j, width, height);
                         if (state == "#")
-                           occupied++;
+                            occupied++;
                     }
                 }
                 if (occupied >= 4)
@@ -111,7 +109,7 @@ namespace AdventOfCode.Days_2020
 
             return grid[i, j];
         }
-        
+
         public string RunTwo()
         {
             int width = inputs[0].Length;
@@ -151,7 +149,7 @@ namespace AdventOfCode.Days_2020
 
                 if (occupied == lastOccupied)
                     return occupied.ToString();
-                
+
                 lastOccupied = occupied;
             }
         }
@@ -161,11 +159,11 @@ namespace AdventOfCode.Days_2020
             if (grid[row, column] == ".")
                 return ".";
 
-            if(grid[row, column] == "L")
+            if (grid[row, column] == "L")
             {
                 for (int i = -1; i <= 1; i++)
                 {
-                    for(int j = -1; j <= 1; j++)
+                    for (int j = -1; j <= 1; j++)
                     {
                         if (i == 0 && j == 0)
                             continue;
