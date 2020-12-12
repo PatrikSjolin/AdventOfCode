@@ -17,6 +17,26 @@ namespace AdventOfCode
             Y = y;
         }
 
+        public void Rotate90DegreesCWAroundOrigin(int steps)
+        {
+            for (int j = 0; j < steps; j++)
+            {
+                int oldX = X;
+                X = Y;
+                Y = oldX * -1;
+            }
+        }
+
+        public void Rotate90DegreesCCWAroundOrigin(int steps)
+        {
+            for (int j = 0; j < steps; j++)
+            {
+                int oldX = X;
+                X = Y * -1;
+                Y = oldX;
+            }
+        }
+
         public override bool Equals(object obj)
         {
             Point p = (Point)obj;
@@ -53,6 +73,21 @@ namespace AdventOfCode
 
     public static class Utilities
     {
+        public static int GetManhattanDistance(int x, int y)
+        {
+            return Math.Abs(x) + Math.Abs(y);
+        }
+
+        public static int GetManhattanDistance(int x, int y, int originX, int originY)
+        {
+            return Math.Abs(x - originX) + Math.Abs(y - originY);
+        }
+
+        public static int ModuloWithNegativeNumbersForIndex(int index, int modulo)
+        {
+            return ((index % modulo) + modulo) % modulo;
+        }
+
         public static void GenerateCoordinates(int distance)
         {
             int r = distance;
@@ -286,33 +321,7 @@ namespace AdventOfCode
                 return new KeyValuePair<int, int>(cost, tool);
             }
 
-            if(v1 == "." && v2 == "=")
-            {
-                if(tool == 2)
-                {
-                    cost = 1;
-                    return new KeyValuePair<int, int>(cost, tool);
-                }
-                else
-                {
-                    cost = 8;
-                    return new KeyValuePair<int, int>(cost, 2);
-                }
-            }
-            if(v1 == "." && v2 == "|")
-            {
-                if(tool == 1)
-                {
-                    cost = 1;
-                    return new KeyValuePair<int, int>(cost, tool);
-                }
-                else
-                {
-                    cost = 8;
-                    return new KeyValuePair<int, int>(cost, 1);
-                }
-            }
-            if(v1 == "=" && v2 == ".")
+            if (v1 == "." && v2 == "=")
             {
                 if (tool == 2)
                 {
@@ -325,20 +334,7 @@ namespace AdventOfCode
                     return new KeyValuePair<int, int>(cost, 2);
                 }
             }
-            if(v1 == "=" && v2 == "|")
-            {
-                if(tool == 0)
-                {
-                    cost = 1;
-                    return new KeyValuePair<int, int>(cost, tool);
-                }
-                else
-                {
-                    cost = 8;
-                    return new KeyValuePair<int, int>(cost, 0);
-                }
-            }
-            if(v1 == "|" && v2 == ".")
+            if (v1 == "." && v2 == "|")
             {
                 if (tool == 1)
                 {
@@ -351,7 +347,46 @@ namespace AdventOfCode
                     return new KeyValuePair<int, int>(cost, 1);
                 }
             }
-            if(v1 == "|" && v2 == "=")
+            if (v1 == "=" && v2 == ".")
+            {
+                if (tool == 2)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 2);
+                }
+            }
+            if (v1 == "=" && v2 == "|")
+            {
+                if (tool == 0)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 0);
+                }
+            }
+            if (v1 == "|" && v2 == ".")
+            {
+                if (tool == 1)
+                {
+                    cost = 1;
+                    return new KeyValuePair<int, int>(cost, tool);
+                }
+                else
+                {
+                    cost = 8;
+                    return new KeyValuePair<int, int>(cost, 1);
+                }
+            }
+            if (v1 == "|" && v2 == "=")
             {
                 if (tool == 0)
                 {
@@ -372,7 +407,7 @@ namespace AdventOfCode
         {
             List<Point> neighbours = new List<Point>();
 
-            if (y + 1 < map.GetLength(1) && map[x,y + 1])
+            if (y + 1 < map.GetLength(1) && map[x, y + 1])
             {
                 neighbours.Add(new Point(x, y + 1));
             }
@@ -447,7 +482,7 @@ namespace AdventOfCode
             byte[] inputBytes = Encoding.ASCII.GetBytes(input);
 
             byte[] hash = md5.ComputeHash(inputBytes);
-            
+
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < hash.Length; i++)

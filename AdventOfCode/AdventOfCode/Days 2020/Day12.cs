@@ -8,11 +8,11 @@ namespace AdventOfCode.Days_2020
     {
         public bool Active => true;
 
-        private List<string> inputs;
+        private List<(char, int)> inputs;
 
         public string RunOne()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input12.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input12.txt").Select(x => (x[0], int.Parse(x.Substring(1)))).ToList();
 
             List<Point> directions = new List<Point> { new Point(1, 0), new Point(0, -1), new Point(-1, 0), new Point(0, 1) };
             int currentDirection = 0;
@@ -20,44 +20,44 @@ namespace AdventOfCode.Days_2020
 
             for(int i = 0; i < inputs.Count; i++)
             {
-                string action = inputs[i][0].ToString();
-                int steps = int.Parse(inputs[i].Substring(1, inputs[i].Length - 1));
+                char action = inputs[i].Item1;
+                int steps = inputs[i].Item2;
 
-                if(action == "N")
+                if(action == 'N')
                 {
                     position.Y += steps;
                 }
-                if (action == "E")
+                else if (action == 'E')
                 {
                     position.X += steps;
                 }
-                if (action == "S")
+                else if (action == 'S')
                 {
                     position.Y -= steps;
                 }
-                if (action == "W")
+                else if (action == 'W')
                 {
                     position.X -= steps;
                 }
-                if (action == "F")
+                else if (action == 'F')
                 {
                     position.X += directions[currentDirection].X * steps;
                     position.Y += directions[currentDirection].Y * steps;
                 }
-                if (action == "R")
+                else if (action == 'R')
                 {
                     int turns = steps / 90;
                     currentDirection += turns;
                     currentDirection = currentDirection % 4;
                 }
-                if (action == "L")
+                else if (action == 'L')
                 {
                     int turns = steps / 90;
                     currentDirection -= turns;
-                    currentDirection = ((currentDirection % 4) + 4) % 4;
+                    currentDirection = Utilities.ModuloWithNegativeNumbersForIndex(currentDirection, 4);
                 }
             }
-            return (Math.Abs(position.X) + Math.Abs(position.Y)).ToString();
+            return Utilities.GetManhattanDistance(position.X, position.Y).ToString();
         }
 
         public string RunTwo()
@@ -67,52 +67,42 @@ namespace AdventOfCode.Days_2020
 
             for (int i = 0; i < inputs.Count; i++)
             {
-                string action = inputs[i][0].ToString();
-                int steps = int.Parse(inputs[i].Substring(1, inputs[i].Length - 1));
+                char action = inputs[i].Item1;
+                int steps = inputs[i].Item2;
 
-                if (action == "N")
+                if (action == 'N')
                 {
                     waypointPosition.Y += steps;
                 }
-                if (action == "E")
+                else if (action == 'E')
                 {
                     waypointPosition.X += steps;
                 }
-                if (action == "S")
+                else if (action == 'S')
                 {
                     waypointPosition.Y -= steps;
                 }
-                if (action == "W")
+                else if (action == 'W')
                 {
                     waypointPosition.X -= steps;
                 }
-                if (action == "F")
+                else if (action == 'F')
                 {
                     shipPosition.X += waypointPosition.X * steps;
                     shipPosition.Y += waypointPosition.Y * steps;
                 }
-                if (action == "R")
+                else if (action == 'R')
                 {
                     int turns = steps / 90;
-                    for (int j = 0; j < turns; j++)
-                    {
-                        int oldX = waypointPosition.X;
-                        waypointPosition.X = waypointPosition.Y;
-                        waypointPosition.Y = oldX * -1;
-                    }
+                    waypointPosition.Rotate90DegreesCWAroundOrigin(turns);
                 }
-                if (action == "L")
+                else if (action == 'L')
                 {
                     int turns = steps / 90;
-                    for (int j = 0; j < turns; j++)
-                    {
-                        int oldX = waypointPosition.X;
-                        waypointPosition.X = waypointPosition.Y * -1;
-                        waypointPosition.Y = oldX;
-                    }
+                    waypointPosition.Rotate90DegreesCCWAroundOrigin(turns);
                 }
             }
-            return (Math.Abs(shipPosition.X) + Math.Abs(shipPosition.Y)).ToString();
+            return Utilities.GetManhattanDistance(shipPosition.X, shipPosition.Y).ToString();
         }
     }
 }
