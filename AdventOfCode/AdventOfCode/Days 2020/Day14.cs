@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AdventOfCode.Days_2020
 {
@@ -13,8 +14,6 @@ namespace AdventOfCode.Days_2020
         public string RunOne()
         {
             inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input14.txt").ToList();
-
-
             Dictionary<int, string> memory = new Dictionary<int, string>();
             string mask = "";
 
@@ -54,30 +53,31 @@ namespace AdventOfCode.Days_2020
 
         private string Mask(string mask, string v)
         {
-            string result = "";
             string binary = Convert.ToString(int.Parse(v), 2);
+
+            StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < mask.Length; i++)
             {
                 if (mask[mask.Length - 1 - i] != 'X')
-                    result = mask[mask.Length - 1 - i] + result;
+                    sb.Insert(0, mask[mask.Length - 1 - i]);
                 else if (i >= binary.Length)
                 {
                     if (mask[mask.Length - 1 - i] == '1')
-                        result = "1" + result;
+                        sb.Insert(0, "1");
                     else
-                        result = "0" + result;
+                        sb.Insert(0, "0");
                 }
                 else
-                    result = binary[binary.Length - 1 - i] + result;
+                    sb.Insert(0, binary[binary.Length - 1 - i]);
             }
-            return result;
+            return sb.ToString();
         }
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input14.txt").ToList();
             Dictionary<string, int> memory = new Dictionary<string, int>();
+            Dictionary<int, List<string>> fluctuationsCache = new Dictionary<int, List<string>>();
             string mask = "";
 
             for (int i = 0; i < inputs.Count; i++)
@@ -90,23 +90,21 @@ namespace AdventOfCode.Days_2020
                 }
                 else
                 {
-                    string value = split[2];
+                    int value = int.Parse(split[2]);
                     string mem = split[0].Split('[')[1];
                     mem = mem.Substring(0, mem.Length - 1);
                     int memoryIndex = int.Parse(mem);
 
                     string result = "";
                     string binary = Convert.ToString(memoryIndex, 2);
-
+                    
                     //Apply mask
                     for (int j = 0; j < mask.Length; j++)
                     {
                         if (mask[mask.Length - 1 - j] == 'X')
                             result = "X" + result;
                         else if (mask[mask.Length - 1 - j] == '1')
-                        {
                             result = "1" + result;
-                        }
                         else
                         {
                             if (j < binary.Length)
@@ -120,36 +118,47 @@ namespace AdventOfCode.Days_2020
                     int newAddresses = (int)Math.Pow(2, numberOfX);
 
                     //Generate 2^numberOfX fluctuations
-                    List<string> fluctuations = GenerateBinaryNumbers(newAddresses, numberOfX);
-
+                    List<string> fluctuations;
+                    if (fluctuationsCache.ContainsKey(numberOfX))
+                    {
+                        fluctuations = fluctuationsCache[numberOfX];
+                    }
+                    else
+                    {
+                        fluctuations = GenerateBinaryNumbers(newAddresses, numberOfX);
+                        fluctuationsCache.Add(numberOfX, fluctuations);
+                    }
+                    
+                    //Generate addresses based on fluctuations
                     List<string> addresses = new List<string>();
-
+                    StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < fluctuations.Count; j++)
                     {
-                        string final = "";
+                        sb.Clear();
                         int index = 0;
                         for (int k = 0; k < result.Length; k++)
                         {
                             if (result[k] != 'X')
-                                final = final + result[k];
+                                sb.Append(result[k]);
                             else
                             {
-                                final = final + fluctuations[j][index];
+                                sb.Append(fluctuations[j][index]);
                                 index++;
                             }
                         }
-                        addresses.Add(final);
+                        addresses.Add(sb.ToString());
                     }
 
+                    //Set values to generated addresses
                     foreach (var a in addresses)
                     {
                         if (memory.ContainsKey(a))
                         {
-                            memory[a] = int.Parse(value);
+                            memory[a] = value;
                         }
                         else
                         {
-                            memory.Add(a, int.Parse(value));
+                            memory.Add(a, value);
                         }
                     }
                 }
