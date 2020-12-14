@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2020
 {
     public class Day13 : IPuzzle
     {
-        public bool Active => true;
+        public bool Active => false;
 
         private List<string> inputs;
 
@@ -53,9 +50,7 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input13test.txt").ToList();
-
-            start = int.Parse(inputs[0]);
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input13test2.txt").ToList();
             List<string> split = inputs[1].Split(',').ToList();
 
             List<(int, int)> schedule = new List<(int, int)>();
@@ -66,10 +61,50 @@ namespace AdventOfCode.Days_2020
                     schedule.Add((i, int.Parse(split[i])));
             }
 
+            long N = 1;
+            foreach ((int, int) bus in schedule)
+                N *= bus.Item2;
+            //return BruteForce(schedule);
+            return SearchBySieving(schedule);
+        }
+
+        private string SearchBySieving(List<(int, int)> schedule)
+        {
+            //Sorting on modulo actions
+            schedule = schedule.OrderByDescending(x => x.Item1).ToList();
+
+            long m = 1;
+            long current = 0;
+            bool first = true;
+            for(int i = 0; i < schedule.Count - 1; i++)
+            {
+                //bus ids
+                m *= schedule[i].Item2;
+                //modulo (offset bus times)
+                long a = schedule[i].Item1;
+
+                long next = schedule[i + 1].Item1;
+
+                if (first)
+                {
+                    current = a + m;
+                    first = false;
+                }
+                while (((current) % a) != next)
+                {
+                    current = current + m;
+                }
+            }
+
+            return current.ToString();
+        }
+
+        private string BruteForce(List<(int, int)> schedule)
+        {
             long max = schedule.OrderByDescending(x => x.Item2).First().Item2;
             int offset = schedule.OrderByDescending(x => x.Item2).First().Item1;
 
-            for(long i = max; ; i+= max)
+            for (long i = max; ; i += max)
             {
                 bool success = true;
                 for (int j = 0; j < schedule.Count; j++)
@@ -79,56 +114,12 @@ namespace AdventOfCode.Days_2020
                         success = false;
                         break;
                     }
-                    else
-                    {
-
-                    }
                 }
                 if (success)
                 {
                     return (i - offset).ToString();
                 }
             }
-
-
-
-            //long offset = schedule[0].Item2;
-
-            int index = 0;
-
-            for (long i = offset; ; i += offset)
-            {
-                if (index + 1 < schedule.Count)
-                {
-                    if (i >= (schedule[index + 1].Item2 * schedule[index].Item2) - schedule[index].Item2)
-                    {
-                        index++;
-                        offset *= schedule[index].Item2;
-                    }
-                }
-
-                Console.WriteLine(i);
-                bool success = true;
-
-                //CHECK
-                for(int j = 0; j < schedule.Count; j++)
-                {
-                    if ((i - schedule[j].Item1) % schedule[j].Item2 != 0)
-                    {
-                        success = false;
-                        break;
-                    }
-                    else
-                    {
-
-                    }
-                }
-                if (success)
-                {
-                    return offset.ToString();
-                }
-            }
-            return "";
         }
     }
 }
