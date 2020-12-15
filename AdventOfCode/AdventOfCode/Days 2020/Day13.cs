@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode.Days_2020
@@ -50,7 +51,7 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input13test2.txt").ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input13.txt").ToList();
             List<string> split = inputs[1].Split(',').ToList();
 
             List<(int, int)> schedule = new List<(int, int)>();
@@ -65,7 +66,33 @@ namespace AdventOfCode.Days_2020
             foreach ((int, int) bus in schedule)
                 N *= bus.Item2;
             //return BruteForce(schedule);
-            return SearchBySieving(schedule);
+            return FindTime(schedule);
+        }
+
+        private string FindTime(List<(int, int)> schedule)
+        {
+            
+            long counter = schedule[schedule.Count - 1].Item2;
+
+            int offset = schedule[schedule.Count - 1].Item1;
+            long m = counter;
+            for (int i = schedule.Count - 1; i > 0; i--)
+            {
+                
+                    while (counter % schedule[i - 1].Item2 != (offset - schedule[i - 1].Item1))
+                    {
+                    if (schedule[i - 1].Item2 == (offset - schedule[i - 1].Item1) && counter % schedule[i - 1].Item2 == 0)
+                        break;
+                        //if(counter + m > 1068788)
+                        //{
+
+                        //}
+                        counter += m;
+                    }
+                m *= schedule[i-1].Item2;
+            }
+
+            return (counter - offset).ToString();
         }
 
         private string SearchBySieving(List<(int, int)> schedule)

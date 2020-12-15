@@ -1,26 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2020
 {
     public class Day15 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
-        private List<string> inputs;
+        private List<int> inputs;
 
         public string RunOne()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input15.txt").ToList();
-            return "";
+            string input = "14,3,1,0,9,5";
+            inputs = input.Split(',').Select(x => int.Parse(x)).ToList(); ;
+
+            int number = 2020;
+            int spoken = NewMethod(number);
+            return spoken.ToString();
         }
 
         public string RunTwo()
         {
-            return "";
+            int number = 30000000;
+            int spoken = NewMethod(number);
+            return spoken.ToString();
+        }
+
+        private int NewMethod(int number)
+        {
+            Dictionary<int, (int, int)> spokenNumbers = new Dictionary<int, (int, int)>();
+
+            bool newNumber = false;
+
+            int spoken = 0;
+            for (int i = 0; i < number; i++)
+            {
+                if (i < inputs.Count)
+                    spoken = inputs[i];
+                else
+                {
+                    if (newNumber)
+                    {
+                        spoken = 0;
+                    }
+                    else
+                    {
+                        spoken = spokenNumbers[spoken].Item2 - spokenNumbers[spoken].Item1;
+                    }
+                }
+                (int, int) numbers;
+                if (spokenNumbers.TryGetValue(spoken, out numbers))
+                {
+                    newNumber = false;
+                    spokenNumbers[spoken] = (numbers.Item2, i);
+                }
+                else
+                {
+                    newNumber = true;
+                    spokenNumbers.Add(spoken, (0, i));
+                }
+            }
+
+            return spoken;
         }
     }
 }
