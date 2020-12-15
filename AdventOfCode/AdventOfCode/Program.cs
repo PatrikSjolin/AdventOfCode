@@ -192,17 +192,18 @@ namespace AdventOfCode
                             Console.Write("\nEnter number of runs: ");
 
                             //int runs = int.Parse(Console.ReadLine());
-                            //Dictionary<int, Tuple<decimal, decimal>> times = new Dictionary<int, Tuple<decimal,>();
+                            //Dictionary<int, (double, double)> times = new Dictionary<int, (double, double)>();
 
                             //foreach (var p in puzzles.Where(x => x.Value.Active))
                             //{
-                            //    Point point = new Point(0, 0);
+                            //    double a = 0;
+                            //    double b = 0;
                             //    for (int i = 0; i < runs; i++)
                             //    {
-                            //        point.X = TimeTask(() => p.Value.RunOne(), true);
-                            //        point.Y = TimeTask(() => p.Value.RunTwo(), true);
+                            //        a = TimeTask(() => p.Value.RunOne(), true);
+                            //        b = TimeTask(() => p.Value.RunTwo(), true);
+                            //        times.Add(p.Key, (a, b));
                             //    }
-                            //    times.Add(p.Key, point);
                             //}
                             //Console.ForegroundColor = ConsoleColor.Green;
                             //Console.WriteLine("\nAverage times after {0} runs:", runs);
@@ -222,29 +223,28 @@ namespace AdventOfCode
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
                         {
-                            //Console.Write("\nEnter puzzle number: ");
-                            //int puzzleNumber = int.Parse(Console.ReadLine());
+                            Console.Write("\nEnter puzzle number: ");
+                            int puzzleNumber = int.Parse(Console.ReadLine());
 
 
-                            //Console.Write("\nEnter number of runs: ");
-                            //int runs = int.Parse(Console.ReadLine());
-                            //List<Point> times = new List<Point>();
+                            Console.Write("Enter number of runs: ");
+                            int runs = int.Parse(Console.ReadLine());
+                            List<(double, double)> times = new List<(double, double)>();
 
-                            //for (int i = 0; i < runs; i++)
-                            //{
-                            //    Point p = new Point(0, 0);
-                            //    p.X = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
-                            //    p.Y = TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
-                            //    times.Add(p);
-                            //}
+                            for (int i = 0; i < runs; i++)
+                            {
+                                double a = TimeTask(() => puzzles[puzzleNumber].RunOne(), true);
+                                double b = TimeTask(() => puzzles[puzzleNumber].RunTwo(), true);
+                                times.Add((a, b));
+                            }
 
-                            //int sumX = times.Sum(x => x.X);
-                            //int sumY = times.Sum(x => x.Y);
+                            double sumX = times.Sum(x => x.Item1);
+                            double sumY = times.Sum(x => x.Item2);
 
-                            //Console.WriteLine("\nAverage times after {0} runs:", runs);
-                            //Console.WriteLine("A: {0} ms", sumX / runs);
-                            //Console.WriteLine("B: {0} ms", sumY / runs);
-                            //Console.WriteLine();
+                            Console.WriteLine("\nAverage times after {0} runs:", runs);
+                            Console.WriteLine("A: {0} ms", sumX / runs);
+                            Console.WriteLine("B: {0} ms", sumY / runs);
+                            Console.WriteLine();
                             break;
                         }
 

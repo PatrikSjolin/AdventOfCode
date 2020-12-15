@@ -12,21 +12,21 @@ namespace AdventOfCode.Days_2020
         public string RunOne()
         {
             string input = "14,3,1,0,9,5";
-            inputs = input.Split(',').Select(x => int.Parse(x)).ToList(); ;
+            inputs = input.Split(',').Select(x => int.Parse(x)).ToList();
 
             int number = 2020;
-            int spoken = NewMethod(number);
+            int spoken = FindNthSpokenNumber(number);
             return spoken.ToString();
         }
 
         public string RunTwo()
         {
             int number = 30000000;
-            int spoken = NewMethod(number);
+            int spoken = FindNthSpokenNumber(number);
             return spoken.ToString();
         }
 
-        private int NewMethod(int number)
+        private int FindNthSpokenNumber(int number)
         {
             Dictionary<int, (int, int)> spokenNumbers = new Dictionary<int, (int, int)>();
 

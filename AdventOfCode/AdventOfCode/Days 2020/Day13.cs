@@ -6,7 +6,7 @@ namespace AdventOfCode.Days_2020
 {
     public class Day13 : IPuzzle
     {
-        public bool Active => false;
+        public bool Active => true;
 
         private List<string> inputs;
 
@@ -22,22 +22,20 @@ namespace AdventOfCode.Days_2020
 
             busses = new List<int>();
 
-            for(int i = 0; i < split.Count; i++)
+            for (int i = 0; i < split.Count; i++)
             {
                 if (split[i] != "x")
                     busses.Add(int.Parse(split[i]));
             }
 
-            List<(int,int)> departrues = new List<(int, int)>();
+            List<(int, int)> departrues = new List<(int, int)>();
 
-            //int minimum = 99999999999999999;
-
-            for(int i = 0; i < busses.Count; i++)
+            for (int i = 0; i < busses.Count; i++)
             {
                 int bus = busses[i];
                 int busCount = bus;
 
-                while(busCount < start)
+                while (busCount < start)
                 {
                     busCount += bus;
                 }
@@ -51,7 +49,6 @@ namespace AdventOfCode.Days_2020
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2020\input13.txt").ToList();
             List<string> split = inputs[1].Split(',').ToList();
 
             List<(int, int)> schedule = new List<(int, int)>();
@@ -62,91 +59,26 @@ namespace AdventOfCode.Days_2020
                     schedule.Add((i, int.Parse(split[i])));
             }
 
-            long N = 1;
-            foreach ((int, int) bus in schedule)
-                N *= bus.Item2;
-            //return BruteForce(schedule);
             return FindTime(schedule);
         }
 
         private string FindTime(List<(int, int)> schedule)
         {
-            
             long counter = schedule[schedule.Count - 1].Item2;
 
             int offset = schedule[schedule.Count - 1].Item1;
             long m = counter;
             for (int i = schedule.Count - 1; i > 0; i--)
             {
-                
-                    while (counter % schedule[i - 1].Item2 != (offset - schedule[i - 1].Item1))
-                    {
-                    if (schedule[i - 1].Item2 == (offset - schedule[i - 1].Item1) && counter % schedule[i - 1].Item2 == 0)
-                        break;
-                        //if(counter + m > 1068788)
-                        //{
-
-                        //}
-                        counter += m;
-                    }
-                m *= schedule[i-1].Item2;
+                //while (counter % schedule[i - 1].Item2 != (offset - schedule[i - 1].Item1))
+                while ((counter - (offset - schedule[i - 1].Item1)) % schedule[i - 1].Item2 != 0)
+                {
+                    counter += m;
+                }
+                m *= schedule[i - 1].Item2;
             }
 
             return (counter - offset).ToString();
-        }
-
-        private string SearchBySieving(List<(int, int)> schedule)
-        {
-            //Sorting on modulo actions
-            schedule = schedule.OrderByDescending(x => x.Item1).ToList();
-
-            long m = 1;
-            long current = 0;
-            bool first = true;
-            for(int i = 0; i < schedule.Count - 1; i++)
-            {
-                //bus ids
-                m *= schedule[i].Item2;
-                //modulo (offset bus times)
-                long a = schedule[i].Item1;
-
-                long next = schedule[i + 1].Item1;
-
-                if (first)
-                {
-                    current = a + m;
-                    first = false;
-                }
-                while (((current) % a) != next)
-                {
-                    current = current + m;
-                }
-            }
-
-            return current.ToString();
-        }
-
-        private string BruteForce(List<(int, int)> schedule)
-        {
-            long max = schedule.OrderByDescending(x => x.Item2).First().Item2;
-            int offset = schedule.OrderByDescending(x => x.Item2).First().Item1;
-
-            for (long i = max; ; i += max)
-            {
-                bool success = true;
-                for (int j = 0; j < schedule.Count; j++)
-                {
-                    if ((i - offset + schedule[j].Item1) % schedule[j].Item2 != 0)
-                    {
-                        success = false;
-                        break;
-                    }
-                }
-                if (success)
-                {
-                    return (i - offset).ToString();
-                }
-            }
         }
     }
 }
