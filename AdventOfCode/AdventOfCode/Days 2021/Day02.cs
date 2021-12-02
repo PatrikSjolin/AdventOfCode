@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2021
 {
@@ -13,22 +10,18 @@ namespace AdventOfCode.Days_2021
 
         public string RunOne()
         {
-
             inputs = System.IO.File.ReadAllLines(@"..\..\Data\2021\input02.txt").ToList();
-
-
 
             int depth = 0;
             int horizontal = 0;
 
-
-            for(int i = 0; i < inputs.Count; i++)
+            for (int i = 0; i < inputs.Count; i++)
             {
                 if (inputs[i].StartsWith("forward"))
                     horizontal += int.Parse(inputs[i].Split(' ')[1]);
-                if(inputs[i].StartsWith("down"))
+                if (inputs[i].StartsWith("down"))
                     depth += int.Parse(inputs[i].Split(' ')[1]);
-                if(inputs[i].StartsWith("up"))
+                if (inputs[i].StartsWith("up"))
                     depth -= int.Parse(inputs[i].Split(' ')[1]);
             }
 
@@ -39,8 +32,7 @@ namespace AdventOfCode.Days_2021
         {
             int depth = 0;
             int horizontal = 0;
-            int aim = 0; 
-
+            int aim = 0;
 
             for (int i = 0; i < inputs.Count; i++)
             {
