@@ -180,6 +180,8 @@
     <Compile Include="Days 2021\Day01.cs" />
     <Compile Include="Days 2021\Day02.cs" />
     <Compile Include="Days 2021\Day03.cs" />
+    <Compile Include="Days 2021\Day04.cs" />
+    <Compile Include="Days 2021\Day05.cs" />
     <Compile Include="IPuzzle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
