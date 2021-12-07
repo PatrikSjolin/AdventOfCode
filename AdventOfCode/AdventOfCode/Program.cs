@@ -613,7 +613,7 @@ namespace AdventOfCode
                     { 4, new Days_2021.Day04() },
                     { 5, new Days_2021.Day05() },
                     { 6, new Days_2021.Day06() },
-                    //{ 7, new Days_2020.Day07() },
+                    { 7, new Days_2021.Day07() },
                     //{ 8, new Days_2020.Day08() },
                     //{ 9, new Days_2020.Day09() },
                     //{ 10, new Days_2020.Day10() },
