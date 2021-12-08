@@ -64,7 +64,7 @@ namespace AdventOfCode.Days_2021
 
         public string RunTwo()
         {
-            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2021\input07test.txt")[0].Split(',').Select(x => int.Parse(x)).ToList();
+            inputs = System.IO.File.ReadAllLines(@"..\..\Data\2021\input07.txt")[0].Split(',').Select(x => int.Parse(x)).ToList();
 
             inputs.Sort();
 
@@ -99,12 +99,28 @@ namespace AdventOfCode.Days_2021
                 if (start == end && start == inputs.Count)
                     return fuelUsed.ToString();
 
-                if (start < end)
+                int startCost = 0;
+                int endCost = 0;
+
+
+                for(int i = 0; i < start; i++)
+                {
+                    startCost += costs[i];
+                }
+
+                for (int i = inputs.Count - 1; i > inputs.Count - 1 - end; i--)
+                {
+                    endCost += costs[i];
+                }
+
+
+                if (startCost < endCost)
                 {
                     for (int i = 0; i < start; i++)
                     {
                         inputs[i]++;
-                        fuelUsed++;
+                        fuelUsed += costs[i];
+                        costs[i]++;                        
                     }
                 }
                 else
@@ -112,7 +128,8 @@ namespace AdventOfCode.Days_2021
                     for (int i = inputs.Count - 1; i > inputs.Count - 1 - end; i--)
                     {
                         inputs[i]--;
-                        fuelUsed++;
+                        fuelUsed += costs[i];
+                        costs[i]++;
                     }
                 }
             }
