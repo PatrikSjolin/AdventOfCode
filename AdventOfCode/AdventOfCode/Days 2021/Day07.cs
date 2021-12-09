@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Days_2021
 {
@@ -27,12 +24,12 @@ namespace AdventOfCode.Days_2021
                 int first = inputs[0];
                 int last = inputs.Last();
 
-                for(int i = 0; i < inputs.Count; i++)
+                for (int i = 0; i < inputs.Count; i++)
                 {
                     if (inputs[i] == first)
                         start++;
                 }
-                for (int i = inputs.Count - 1 ; i >= 0; i--)
+                for (int i = inputs.Count - 1; i >= 0; i--)
                 {
                     if (inputs[i] == last)
                         end++;
@@ -41,9 +38,9 @@ namespace AdventOfCode.Days_2021
                 if (start == end && start == inputs.Count)
                     return fuelUsed.ToString();
 
-                if(start < end)
+                if (start < end)
                 {
-                    for(int i = 0; i < start; i++)
+                    for (int i = 0; i < start; i++)
                     {
                         inputs[i]++;
                         fuelUsed++;
@@ -51,7 +48,7 @@ namespace AdventOfCode.Days_2021
                 }
                 else
                 {
-                    for(int i = inputs.Count - 1; i > inputs.Count - 1 - end; i--)
+                    for (int i = inputs.Count - 1; i > inputs.Count - 1 - end; i--)
                     {
                         inputs[i]--;
                         fuelUsed++;
@@ -70,7 +67,7 @@ namespace AdventOfCode.Days_2021
 
             Dictionary<int, int> costs = new Dictionary<int, int>();
 
-            for(int i = 0; i < inputs.Count; i++)
+            for (int i = 0; i < inputs.Count; i++)
             {
                 costs.Add(i, 1);
             }
@@ -103,7 +100,7 @@ namespace AdventOfCode.Days_2021
                 int endCost = 0;
 
 
-                for(int i = 0; i < start; i++)
+                for (int i = 0; i < start; i++)
                 {
                     startCost += costs[i];
                 }
@@ -120,7 +117,7 @@ namespace AdventOfCode.Days_2021
                     {
                         inputs[i]++;
                         fuelUsed += costs[i];
-                        costs[i]++;                        
+                        costs[i]++;
                     }
                 }
                 else
