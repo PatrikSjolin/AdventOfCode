@@ -604,17 +604,18 @@ namespace AdventOfCode
                     { 25, new Days_2020.Day25() }
                 };
             }
-                if (year == 2021)
+            if (year == 2021)
+            {
+                return new Dictionary<int, IPuzzle>
                 {
-                    return new Dictionary<int, IPuzzle>
-                {   { 1, new Days_2021.Day01() },
+                    { 1, new Days_2021.Day01() },
                     { 2, new Days_2021.Day02() },
                     { 3, new Days_2021.Day03() },
                     { 4, new Days_2021.Day04() },
                     { 5, new Days_2021.Day05() },
                     { 6, new Days_2021.Day06() },
                     { 7, new Days_2021.Day07() },
-                    { 8, new Days_2021.Day08() },
+                    //{ 8, new Days_2021.Day08() },
                     //{ 9, new Days_2020.Day09() },
                     //{ 10, new Days_2020.Day10() },
                     //{ 11, new Days_2020.Day11() },
@@ -632,8 +633,39 @@ namespace AdventOfCode
                     //{ 23, new Days_2020.Day23() },
                     //{ 24, new Days_2020.Day24() },
                     //{ 25, new Days_2020.Day25() }
-                };
-                }
+              };
+            }
+            if(year == 2022)
+            {
+                return new Dictionary<int, IPuzzle>
+                {
+                    { 1, new Days_2022.Day01() },
+                    { 2, new Days_2022.Day02() },
+                    { 3, new Days_2022.Day03() },
+                    { 4, new Days_2022.Day04() },
+                    { 5, new Days_2022.Day05() },
+                    { 6, new Days_2022.Day06() },
+                    { 7, new Days_2022.Day07() },
+                    //{ 8, new Days_2021.Day08() },
+                    //{ 9, new Days_2020.Day09() },
+                    //{ 10, new Days_2020.Day10() },
+                    //{ 11, new Days_2020.Day11() },
+                    //{ 12, new Days_2020.Day12() },
+                    //{ 13, new Days_2020.Day13() },
+                    //{ 14, new Days_2020.Day14() },
+                    //{ 15, new Days_2020.Day15() },
+                    //{ 16, new Days_2020.Day16() },
+                    //{ 17, new Days_2020.Day17() },
+                    //{ 18, new Days_2020.Day18() },
+                    //{ 19, new Days_2020.Day19() },
+                    //{ 20, new Days_2020.Day20() },
+                    //{ 21, new Days_2020.Day21() },
+                    //{ 22, new Days_2020.Day22() },
+                    //{ 23, new Days_2020.Day23() },
+                    //{ 24, new Days_2020.Day24() },
+                    //{ 25, new Days_2020.Day25() }
+              };
+            }
             return null;
         }
 
